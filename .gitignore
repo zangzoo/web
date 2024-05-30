@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media
+staticfiles
+
+# Environments
+.env
+venv/
+ENV/
+.envrc
+venv.bak/
+
+# PyCharm
+.idea/
+*.sublime-workspace
+*.sublime-project
+.vscode/
+
+# Node.js
+node_modules/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
