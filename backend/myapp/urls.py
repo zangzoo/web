@@ -1,7 +1,8 @@
 # backend/myapp/urls.py
 
 from django.urls import path
-from . import views
+from .views import PredictView
 
 urlpatterns = [
+    path('predict/', PredictView.as_view(), name='predict'),
 ]
