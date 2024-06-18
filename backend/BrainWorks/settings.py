@@ -28,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# 파일이 업로드될 미디어 폴더 설정
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 파일 업로드 용량 제한 설정 (100MB)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600
 
 # Application definition
 
@@ -56,7 +62,8 @@ ROOT_URLCONF = 'BrainWorks.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / './frontend/templates'],
+        'DIRS': [#BASE_DIR / './frontend/templates', 
+                 BASE_DIR / 'myapp/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,7 +134,3 @@ STATIC_ROOT = BASE_DIR / './frontend/staticfiles'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# 파일 저장 설정
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
