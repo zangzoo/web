@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis Result</title>
+</head>
+<body>
+    <h1>Image Analysis Result</h1>
+    <div>
+        <p>Image ID: {{ result.image_id }}</p>
+        <p>Analysis: {{ result.analysis }}</p>
+        <p>Confidence: {{ result.confidence }}</p>
+    </div>
+    <a href="{% url 'upload_image' %}">Upload another image</a>
+</body>
+</html>

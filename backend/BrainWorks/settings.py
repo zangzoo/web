@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# 파일이 업로드될 미디어 폴더 설정
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 파일 업로드 용량 제한 설정 (100MB)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600
 
 # Application definition
 
@@ -55,7 +62,8 @@ ROOT_URLCONF = 'BrainWorks.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / './frontend/templates'],
+        'DIRS': [#BASE_DIR / './frontend/templates', 
+                 BASE_DIR / 'myapp/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
