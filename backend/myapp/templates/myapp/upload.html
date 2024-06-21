@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload and Analyze Image</title>
+</head>
+<body>
+    <h1>Image Upload</h1>ç
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            <label for="patient_id">Patient ID:</label>
+            <input type="text" name="patient_id" id="patient_id" required>
+        </p>
+        <p>
+            <label for="image">Image:</label>
+            <input type="file" name="image" id="image" required>
+        </p>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if result %}
+    <h2>Analysis Result</h2>
+    <div>
+        <p><strong>Description:</strong> {{ result.description }}</p>
+        <p><strong>Confidence:</strong> {{ result.confidence }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>
