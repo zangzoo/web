@@ -3,7 +3,7 @@
 import json
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.models import model_from_json, Sequential, load_model
+from tensorflow.keras.models import model_from_json, Sequential
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.utils import get_custom_objects
 from tensorflow.keras.saving import register_keras_serializable
