@@ -1,6 +1,9 @@
 from django.db import models
 
-#업로드할 이미지 저장할 모델 = ImageField
+# Create your model here.
+from django.db import models
+
+# 업로드할 이미지 저장할 모델 = ImageField
 class PatientImage(models.Model):
     patient_id = models.CharField(max_length=100)
     image = models.ImageField(upload_to='patient_images/')

@@ -6,6 +6,6 @@ class MyappConfig(AppConfig):
     name = 'myapp'
 
     def ready(self):
-        # from myapp.models import load_model
+        # from myapp.model import load_model
         # load_model()
         pass

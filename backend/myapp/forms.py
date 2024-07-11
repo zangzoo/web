@@ -3,7 +3,5 @@ from .models import PatientImage
 
 class ImageUploadForm(forms.ModelForm):
     class Meta:
-        model = PatientImage
-        fields = ['patient_id', 'image'] # 사용자로부터 입력받을 필드 지정
-
-
+        model = PatientImage  # PatientImage 모델을 사용합니다.
+        fields = ['patient_id', 'image']  # 필요한 필드를 지정합니다.

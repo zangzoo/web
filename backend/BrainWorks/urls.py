@@ -22,10 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('myapp.urls')) # 'myapp'의 모든 URL을 프로젝트 루트 URL에 직접 포함
-    #path('', upload_image, name='upload_image'),  # 루트 URL
-    #path('analyze/<int:image_id>/', analyze_image, name='analyze_image'),
-
+    path('predict/', include('myapp.urls')),
 ]
 
 # if settings.DEBUG:
