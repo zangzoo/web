@@ -21,6 +21,7 @@ venv/
 ENV/
 .envrc
 venv.bak/
+.venv
 
 # PyCharm
 .idea/
