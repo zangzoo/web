@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    table {
+        width: 280px;
+        font-size: 25px;
+        text-align: center; /* 테이블 내 텍스트를 가운데 정렬 */
+    }
+    input[type="text"], input[type="password"] {
+        width: 250px;
+        height: 32px;
+        font-size: 15px;
+        border: 0;
+        border-radius: 15px;
+        outline: none;
+        padding-left: 10px;
+        background-color: rgb(233,233,233);
+    }
+    input[type="submit"] {
+        width: 263px;
+        height: 32px;
+        font-size: 15px;
+        border: 0;
+        border-radius: 15px;
+        outline: none;
+        padding-left: 10px;
+        background-color: rgb(164, 199, 255);
+    }
+    input[type="submit"]:active {
+        background-color: rgb(61, 135, 255);
+    }
+    a {
+        font-size: 12px;
+        color: darkgray;
+        text-decoration-line: none;
+    }
+    .join {
+        text-align: center;
+    }
+    .header-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .header-cell img {
+        margin-right: 10px;
+    }
+    .small-text {
+        font-size: 15px; /* 로그인 정보 저장 부분의 글씨 크기 설정 */
+    }
+</style>
+</head>
+<body>
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+    <tr>
+        <td colspan="2" class="header-cell">
+            <!-- {% load static %} -->
+            <img src="{% static 'brain.png' %}" alt="Brain Image" style="width: 100px; height: 100px;">
+            <h2>BrainWorks</h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="text" name="username" placeholder="ID"></td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="password" name="password" placeholder="Password"></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="small-text"><input type="checkbox" name="remember"> 로그인 정보 저장</td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="submit" value="Sign in" class="btn"></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="join"><a href="join.html">회원가입</a></td>
+    </tr>
+<!-- 데이터베이스 있으면 => 로그인 성공하면 실행되도록
+    {% if form.non_field_errors %}
+    <tr>
+        <td colspan="2" style="color: red;">{{ form.non_field_errors }}</td>
+    </tr>
+    {% endif %} -->
+    </table>
+</form>
+</body>
+</html>

@@ -13,9 +13,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'upload_image'  # 로그인 성공 후 리다이렉션할 URL 패턴 이름
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -59,11 +63,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'BrainWorks.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [#BASE_DIR / './frontend/templates', 
-                 BASE_DIR / 'myapp/templates'],
+        'DIRS': [os.path.join(BASE_DIR.parent, 'frontend','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,6 +79,13 @@ TEMPLATES = [
         },
     },
 ]
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+logger.debug(f"TEMPLATES DIRS: {[os.path.join(BASE_DIR, 'frontend', 'templates')]}")
+
 
 WSGI_APPLICATION = 'BrainWorks.wsgi.application'
 
@@ -85,7 +96,7 @@ WSGI_APPLICATION = 'BrainWorks.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -125,10 +136,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / './frontend/static'
-]
-STATIC_ROOT = BASE_DIR / './frontend/staticfiles'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'static')]
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
