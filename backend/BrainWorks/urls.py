@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('myapp.urls')),  # 'myapp'의 URL을 포함
+
 ]
 
 if settings.DEBUG:

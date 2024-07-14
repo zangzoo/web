@@ -19,3 +19,4 @@ class LoginForm(AuthenticationForm):
         strip=False,
         widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'form-control'}),
     )
+

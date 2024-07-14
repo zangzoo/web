@@ -12,6 +12,7 @@ urlpatterns = [
     #path('login/', login_view, name='login'),  # 로그인 URL 패턴 추가 
     path('',login_view, name='login'),
     path('predict/',PredictView.as_view(), name='predict')
+
 ]
 
 if settings.DEBUG:

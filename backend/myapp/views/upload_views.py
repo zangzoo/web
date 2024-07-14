@@ -8,6 +8,7 @@ from myapp.utils import load_custom_model, load_label_map, predict_image
 from pathlib import Path
 import numpy as np
 
+
 @csrf_exempt
 def upload_image(request):
     if request.method == 'POST':
