@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from myapp.forms import ImageUploadForm
-from myapp.model import PatientImage
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from myapp.utils import load_custom_model, load_label_map, predict_image
@@ -31,12 +30,13 @@ def upload_image(request):
                 predicted_class_name = label_map[str(predicted_class_index)]
                 confidence = float(np.max(predictions[0]))
 
-                return JsonResponse({
+                JsonResponse({
                     'status': 'success',
                     'image_url': image_instance.image.url,
                     'description': predicted_class_name,
                     'confidence': confidence
                 })
+
 
         return JsonResponse({
             'status': 'error',

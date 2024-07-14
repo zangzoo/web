@@ -5,14 +5,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from myapp.views.login_views import login_view
 from myapp.views.upload_views import upload_image
-from myapp.views.predict_views import PredictView
+from myapp.views.register_views import register_view
+from myapp.views.home_views import home_view
+from myapp.views.analysis_result_views import PredictView
 
 urlpatterns = [
     path('upload_image/', upload_image, name='upload_image'),
-    #path('login/', login_view, name='login'),  # 로그인 URL 패턴 추가 
     path('',login_view, name='login'),
-    path('predict/',PredictView.as_view(), name='predict')
-
+    path('register/', register_view, name='register'),
+    path('home/', home_view, name='home'),
+    path('analysis_result', PredictView.as_view(), name='analysis_result'),
 ]
 
 if settings.DEBUG:
