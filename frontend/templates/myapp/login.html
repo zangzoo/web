@@ -85,7 +85,7 @@
         <td colspan="2"><input type="submit" value="Sign in" class="btn"></td>
     </tr>
     <tr>
-        <td colspan="2" class="join"><a href="join.html">회원가입</a></td>
+        <td colspan="2" class="join"><a href=" {% url 'register' %} ">회원가입</a></td>
     </tr>
 <!-- 데이터베이스 있으면 => 로그인 성공하면 실행되도록
     {% if form.non_field_errors %}

@@ -1,15 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.views import View
-from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import numpy as np
 from django.conf import settings
 from pathlib import Path
-from ..model import PatientImage
+from myapp.model import PatientImage
 from ..utils import load_custom_model, load_label_map, predict_image
-
 
 class PredictView(View):
     def __init__(self, **kwargs):
@@ -24,6 +22,17 @@ class PredictView(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
+    def get(self, request):
+        # Example context data to render the template
+        context = {
+            'status': '',
+            'predictions': [],
+            'predicted_class_index': None,
+            'predicted_class_name': '',
+            'image_id': None
+        }
+        return render(request, 'myapp/analysis_result.html', context)
 
     def post(self, request):
         image_id = request.POST.get('image_id')
@@ -41,10 +50,12 @@ class PredictView(View):
         predicted_class_index = int(np.argmax(predictions[0]))
         predicted_class_name = self.label_map[str(predicted_class_index)]
 
-        return JsonResponse({
+        context = {
             'status': 'success',
             'predictions': predictions.tolist(),
             'predicted_class_index': predicted_class_index,
-            'predicted_class_name': predicted_class_name
-        })
+            'predicted_class_name': predicted_class_name,
+            'image_id': image_id
+        }
 
+        return render(request, 'myapp/analysis_result.html', context)
