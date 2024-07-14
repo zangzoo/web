@@ -19,6 +19,7 @@ get_custom_objects().update({
 })
 
 def load_custom_model(model_structure_path, model_weights_path):
+
     with open(model_structure_path, 'r') as f:
         model_json = f.read()
     model = model_from_json(model_json, custom_objects={"CustomSequential": CustomSequential})

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Analysis Result</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1e2124;
+            color: white;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo h1 {
+            margin: 0;
+            font-size: 1.5em;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            margin-right: 10px;
+            height: 40px;
+        }
+        .content {
+            display: flex;
+            flex-direction: row;
+            height: calc(100vh - 50px);
+        }
+        .column {
+            padding: 20px;
+            box-sizing: border-box;
+            border: 1px solid #1e2124;
+        }
+        .column1 {
+            background-color: #2e2e2e;
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+        }
+        .column2 {
+            background-color: #3e3e3e;
+            flex: 6;
+            display: flex;
+            flex-direction: column;
+        }
+        .column2 .box1 {
+            flex: 8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .column2 .box1 img {
+            width: 70%;
+            height: 70%;
+            object-fit: cover;
+        }
+        .column2 .box2 {
+            flex: 0.5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .column2 .box3 {
+            flex: 1.5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: gray;
+        }
+        .column3 {
+            background-color: #2e2e2e;
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="{% static 'images/logo.jpg' %}" alt="Logo">
+            <h1>BrainWorks</h1>
+        </div>
+    </div>
+    <div class="content">
+        <div class="column column2">
+            <div class="box box1">
+                <img id="uploaded-image" src="{{ image_url }}" alt="MRI Image">
+            </div>
+            <div class="box box2">
+                <p id="analysis-result">{{ predicted_class_name }}</p>
+            </div>
+            <div class="box box3">
+                <p id="analysis-confidence">{{ confidence }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

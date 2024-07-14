@@ -7,8 +7,10 @@ from django.utils.decorators import method_decorator
 import numpy as np
 from django.conf import settings
 from pathlib import Path
-from ..models import PatientImage
+from ..model import PatientImage
 from ..utils import load_custom_model, load_label_map, predict_image
+
+
 class PredictView(View):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -45,3 +47,4 @@ class PredictView(View):
             'predicted_class_index': predicted_class_index,
             'predicted_class_name': predicted_class_name
         })
+

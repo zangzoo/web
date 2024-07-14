@@ -27,7 +27,7 @@
         padding-left: 10px;
         background-color: rgb(233,233,233);
     }
-    .btn {
+    input[type="submit"] {
         width: 263px;
         height: 32px;
         font-size: 15px;
@@ -37,7 +37,7 @@
         padding-left: 10px;
         background-color: rgb(164, 199, 255);
     }
-    .btn:active {
+    input[type="submit"]:active {
         background-color: rgb(61, 135, 255);
     }
     a {
@@ -62,29 +62,37 @@
 </style>
 </head>
 <body>
-<form>
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
     <table>
     <tr>
         <td colspan="2" class="header-cell">
-            <img src="brain.png" alt="Brain Image" style="width: 100px; height: 100px;">
+            <!-- {% load static %} -->
+            <img src="{% static 'images/brain.png' %}" alt="Brain Image" style="width: 100px; height: 100px;">
             <h2>BrainWorks</h2>
         </td>
     </tr>
     <tr>
-        <td colspan="2"><input type="text" placeholder="ID"></td>
+        <td colspan="2"><input type="text" name="username" placeholder="ID"></td>
     </tr>
     <tr>
-        <td colspan="2"><input type="password" placeholder="Password"></td>
+        <td colspan="2"><input type="password" name="password" placeholder="Password"></td>
     </tr>
     <tr>
-        <td colspan="2" class="small-text"><input type="checkbox"> 로그인 정보 저장</td>
+        <td colspan="2" class="small-text"><input type="checkbox" name="remember"> 로그인 정보 저장</td>
     </tr>
     <tr>
-        <td colspan="2"><input type="submit" value="Sign in" class="btn" onclick="alert('로그인 성공!')"></td>
+        <td colspan="2"><input type="submit" value="Sign in" class="btn"></td>
     </tr>
     <tr>
         <td colspan="2" class="join"><a href="join.html">회원가입</a></td>
     </tr>
+<!-- 데이터베이스 있으면 => 로그인 성공하면 실행되도록
+    {% if form.non_field_errors %}
+    <tr>
+        <td colspan="2" style="color: red;">{{ form.non_field_errors }}</td>
+    </tr>
+    {% endif %} -->
     </table>
 </form>
 </body>
