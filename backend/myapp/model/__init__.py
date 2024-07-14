@@ -1,0 +1,1 @@
+from .patient_image import PatientImage
