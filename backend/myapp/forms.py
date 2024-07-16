@@ -1,13 +1,12 @@
 from django import forms
-from myapp.model import PatientImage
+from myapp.models import MRIImage
 from django.contrib.auth.forms import AuthenticationForm
 
 
 class ImageUploadForm(forms.ModelForm):
     class Meta:
-        model = PatientImage
-        fields = ['patient_id', 'image'] # 사용자로부터 입력받을 필드 지정
-
+        model = MRIImage
+        fields = ['image']
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(

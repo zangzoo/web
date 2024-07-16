@@ -151,36 +151,25 @@
         .inspection .date, .inspection .name {
             flex: 1;
         }
-        .search-box {
-            display: flex;
-            width: 100%;
-        }
         .search-input {
-            flex: 1;
+            width: 100%;
             padding: 5px;
             font-size: 1em;
+            border-radius: 5px;
             border: 1px solid #ccc;
-            border-radius: 5px 0 0 5px;
         }
         .search-button {
             padding: 5px 10px;
             font-size: 1em;
             border: 1px solid #ccc;
-            border-left: none;
             background-color: #424549;
             color: white;
             cursor: pointer;
-            border-radius: 0 5px 5px 0;
+            border-radius: 5px;
+            margin-left: 10px;
         }
         .search-button:hover {
             background-color: #383b3e;
-        }
-        .upload-form {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #424549;
-            border-radius: 5px;
         }
     </style>
 </head>
@@ -200,17 +189,16 @@
         <div class="column column1">
             <div class="box box1">
                 <p>환자 정보</p>
-                <p>환자 ID: 12345</p>
-                <p>환자 이름: 홍길동(남/30)</p>
-                <p>진료과: 내과</p>
-                <p>진료일: 2023-07-12</p>
-                <p>진단명: 고혈압</p>
             </div>
             <div class="box box2">
-                <div class="search-box">
-                    <input type="text" class="search-input" placeholder="환자명 검색">
-                    <button class="search-button">검색</button>
-                </div>
+                <!-- 검색 박스 대신 환자 선택 드롭다운 추가 -->
+                <select id="patientSelect" class="search-input">
+                    <option value="" disabled selected>환자를 선택하세요</option>
+                    {% for patient in patients %}
+                        <option value="{{ patient.id }}">{{ patient.patient_name }} ({{ patient.gender }}/{{ patient.age }})</option>
+                    {% endfor %}
+                </select>
+                <button class="search-button" onclick="selectPatient()">선택</button>
             </div>
             <div class="box box3">Box 3</div>
         </div>
@@ -245,5 +233,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function selectPatient() {
+            const patientId = document.getElementById('patientSelect').value;
+            localStorage.setItem('selectedPatientId', patientId);
+            window.location.href = '{% url "upload_image" %}';
+        }
+    </script>
 </body>
 </html>
