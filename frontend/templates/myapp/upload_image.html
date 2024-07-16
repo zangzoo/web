@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 Column Layout with Header</title>
+    <title>Image Upload</title>
     <style>
         body {
             margin: 0;
@@ -59,128 +59,50 @@
         }
         .content {
             display: flex;
-            flex-direction: row;
+            justify-content: center;
+            align-items: center;
             height: calc(100vh - 50px);
-        }
-        .column {
             padding: 20px;
             box-sizing: border-box;
-            border: 1px solid #1e2124;
         }
-        .column1 {
+        .upload-box {
             background-color: #2e2e2e;
-            flex: 2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .upload-box h1 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        .upload-box form {
             display: flex;
             flex-direction: column;
-        }
-        .box {
-            background-color: white;
-            color: black;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 1em;
+        }
+        .upload-box input[type="file"] {
+            margin-bottom: 20px;
             padding: 10px;
-            box-sizing: border-box;
-        }
-        .box1 {
-            flex: 2.5;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .box2 {
-            flex: 0.5;
-            justify-content: space-between;
-        }
-        .box3 {
-            flex: 7;
-        }
-        .column2 {
-            background-color: #3e3e3e;
-            flex: 6;
-            display: flex;
-            flex-direction: column;
-        }
-        .column2 .box1 {
-            flex: 8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .column2 .box1 img {
-            width: 70%;
-            height: 70%;
-            object-fit: cover;
-        }
-        .column2 .box2 {
-            flex: 0.5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .column2 .box3 {
-            flex: 1.5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: gray;
-        }
-        .column3 {
-            background-color: #2e2e2e;
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-        }
-        .column3 .box1 {
-            flex: 1;
-        }
-        .column3 .box2 {
-            flex: 4.5;
-            flex-direction: column;
-        }
-        .column3 .box3 {
-            flex: 4.5;
-        }
-        .inspection {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding: 5px 0;
-        }
-        .inspection .date, .inspection .name {
-            flex: 1;
-        }
-        .search-box {
-            display: flex;
-            width: 100%;
-        }
-        .search-input {
-            flex: 1;
-            padding: 5px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 5px 0 0 5px;
-        }
-        .search-button {
-            padding: 5px 10px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-left: none;
             background-color: #424549;
             color: white;
-            cursor: pointer;
-            border-radius: 0 5px 5px 0;
+            border: none;
+            border-radius: 5px;
         }
-        .search-button:hover {
+        .upload-box button {
+            background-color: #424549;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .upload-box button:hover {
             background-color: #383b3e;
         }
-        .upload-form {
-            display: none;
+        .result {
             margin-top: 20px;
-            padding: 20px;
-            background-color: #424549;
-            border-radius: 5px;
+            text-align: center;
         }
     </style>
 </head>
@@ -192,92 +114,73 @@
             <h1>BrainWorks</h1>
         </div>
         <div class="right-container">
-            <div class="file-upload">파일 업로드</div>
+            <div class="file-upload">HOME</div>
             <button class="login-button">Login</button>
         </div>
     </div>
     <div class="content">
-        <div class="column column1">
-            <div class="box box1">
-                <p>환자 정보</p>
-                <p>환자 ID: 12345</p>
-                <p>환자 이름: 홍길동(남/30)</p>
-                <p>진료과: 내과</p>
-                <p>진료일: 2023-07-12</p>
-                <p>진단명: 고혈압</p>
-            </div>
-            <div class="box box2">
-                <div class="search-box">
-                    <input type="text" class="search-input" placeholder="환자명 검색">
-                    <button class="search-button">검색</button>
-                </div>
-            </div>
-            <div class="box box3">Box 3</div>
-        </div>
-        <div class="column column2">
-            <div class="box box1">
-                <img id="uploaded-image" src="{% static 'images/MRI.jpg' %}" alt="MRI Image">
-            </div>
-            <div class="box box2">
-                <p id="analysis-result">영상 분석 결과</p>
-            </div>
-            <div class="box box3">
-                <p id="analysis-confidence">(영상 분석 결과를 남겨주세요.)</p>
-            </div>
-        </div>
-        <div class="column column3">
-            <div class="box box1">
-                <p>영상검사내역</p>
-            </div>
-            <div class="box box2">
-                <div class="inspection">
-                    <div class="date">검사일</div>
-                    <div class="name">영상종류 (MRI/PET)</div>
-                </div>
-                <div class="inspection">
-                    <div class="date">2023-07-11</div>
-                    <div class="name">PET</div>
-                </div>
-                <!-- Add more inspections as needed -->
-            </div>
-            <div class="box box3">
-                Box 3
-            </div>
+        <div class="upload-box">
+            <h1>Upload an Image for Alzheimer's Prediction</h1>
+            <form id="uploadForm" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <input type="file" id="imageFile" name="image" accept="image/*" required>
+                <input type="hidden" id="patientId" name="patient_id">
+                <button type="submit" class="file-upload">Upload</button>
+            </form>
+            <div id="result" class="result"></div>
         </div>
     </div>
 
-    <form id="upload-form" method="post" enctype="multipart/form-data" style="display:none;">
-        {% csrf_token %}
-        <input type="file" name="image" id="image-upload-input" style="display:none;">
-        <input type="hidden" name="patient_id" value="12345">
-    </form>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('.file-upload').addEventListener('click', function() {
-                document.querySelector('#image-upload-input').click();
-            });
-            document.querySelector('#image-upload-input').addEventListener('change', function() {
-                var formData = new FormData(document.querySelector('#upload-form'));
-                fetch("{% url 'upload_image' %}", {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        document.getElementById('uploaded-image').src = data.image_url;
-                        document.getElementById('analysis-result').textContent = "Description: " + data.description;
-                        document.getElementById('analysis-confidence').textContent = "Confidence: " + data.confidence;
-                    } else {
-                        alert('Image upload failed: ' + data.message);
+            const patientId = localStorage.getItem('selectedPatientId');
+            document.getElementById('patientId').value = patientId;
+
+            document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData();
+                formData.append('image', document.getElementById('imageFile').files[0]);
+                formData.append('patient_id', document.getElementById('patientId').value);
+
+                try {
+                    const response = await fetch('{% url "upload_image" %}', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while uploading the image.');
-                });
+
+                    const result = await response.json();
+                    if (result.status === 'success') {
+                        document.getElementById('result').innerText = 'Image uploaded successfully. Redirecting to analysis page...';
+                        showNotification('Image Upload', 'Image uploaded successfully.');
+
+                        // 분석 결과 페이지로 리디렉션하며 이미지 데이터 전달
+                        setTimeout(() => {
+                            window.location.href = `{% url 'analysis_result' %}?image_url=${encodeURIComponent(result.image_url)}&description=${encodeURIComponent(result.description)}&confidence=${encodeURIComponent(result.confidence)}`;
+                        }, 2000);
+                    } else {
+                        throw new Error(result.message);
+                    }
+                } catch (error) {
+                    document.getElementById('result').innerText = `Error: ${error.message}`;
+                    showNotification('Image Upload Error', `Error: ${error.message}`);
+                }
             });
+
+            function showNotification(title, message) {
+                if (Notification.permission === 'granted') {
+                    new Notification(title, { body: message });
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            new Notification(title, { body: message });
+                        }
+                    });
+                }
+            }
         });
     </script>
 </body>

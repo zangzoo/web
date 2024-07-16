@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from myapp.forms import ImageUploadForm
-from myapp.model import PatientImage
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from myapp.utils import load_custom_model, load_label_map, predict_image
 from pathlib import Path
 import numpy as np
+from myapp.models import MRIImage, Patient
 
 
 @csrf_exempt
@@ -14,7 +14,23 @@ def upload_image(request):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            image_instance = form.save()
+            patient_id = request.POST.get('patient_id')
+            print(f"Received patient_id: {patient_id}")  # 로그 추가
+
+            try:
+                patient = Patient.objects.get(id=patient_id)
+            except Patient.DoesNotExist:
+                return JsonResponse({'status': 'error', 'message': 'Patient does not exist'})
+
+            # 이미지 인스턴스 생성 및 저장
+            image_instance = MRIImage(
+                image=request.FILES['image'],
+                patient=patient
+            )
+            image_instance.save()
+
+            # 저장된 이미지의 URL
+            image_url = image_instance.image.url
             image_path = image_instance.image.path
 
             # 모델과 라벨맵 로드
@@ -33,7 +49,7 @@ def upload_image(request):
 
                 return JsonResponse({
                     'status': 'success',
-                    'image_url': image_instance.image.url,
+                    'image_url': image_url,
                     'description': predicted_class_name,
                     'confidence': confidence
                 })

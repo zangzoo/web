@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 def login_view(request):
     if request.method == 'POST':
         # 아이디와 비밀번호를 입력했을 때, 바로 업로드 페이지로 이동
-        return redirect('upload_image')
+        return redirect('home')
     return render(request, 'myapp/login.html')
     """
     로그인 확인 후 로그인 되는 코드 - 현재는 바로 upload_image로 리디렉트하게끔 구현함
