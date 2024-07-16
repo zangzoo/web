@@ -47,12 +47,13 @@ def upload_image(request):
                 predicted_class_name = label_map[str(predicted_class_index)]
                 confidence = float(np.max(predictions[0]))
 
-                return JsonResponse({
+                JsonResponse({
                     'status': 'success',
                     'image_url': image_url,
                     'description': predicted_class_name,
                     'confidence': confidence
                 })
+
 
         return JsonResponse({
             'status': 'error',
