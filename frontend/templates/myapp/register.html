@@ -9,7 +9,6 @@
         width: 280px;
         height: 550px;
         margin: auto;
-
     }
     .email {
         width: 127px;
@@ -36,8 +35,7 @@
         width: 100px;
         height: 32px;
         font-size: 15px;
-        border: 1;
-        border-color: lightgray;
+        border: 1px solid lightgray;
         border-radius: 15px;
         outline: none;
         padding-left: 10px;
@@ -65,33 +63,57 @@
 </style>
 </head>
 <body>
-<form action="login.html">
+<form method="post" action="{% url 'register' %}">
+    {% csrf_token %}
     <table>
     <tr>
         <td><h2>회원가입</h2></td>
     </tr>
+    {% if form.errors %}
+    <tr>
+        <td colspan="2" style="color: red;">
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </td>
+    </tr>
+    {% endif %}
     <tr><td>아이디</td></tr>
-    <tr><td><input type="text" class="text"></td></tr>
+    <tr><td><input type="text" name="userID" class="text" value="{{ form.userID.value|default_if_none:'' }}"></td></tr>
     <tr><td>비밀번호</td></tr>
-    <tr><td><input type="password" class="text"></td></tr>
+    <tr><td><input type="password" name="password" class="text" value="{{ form.password.value|default_if_none:'' }}"></td></tr>
     <tr><td>비밀번호 확인</td></tr>
-    <tr><td><input type="password" class="text"></td></tr>
+    <tr><td><input type="password" name="password_confirm" class="text" value="{{ form.password_confirm.value|default_if_none:'' }}"></td></tr>
     <tr><td>이름</td></tr>
-    <tr><td><input type="text" class="text"></td></tr>
+    <tr><td><input type="text" name="name" class="text" value="{{ form.name.value|default_if_none:'' }}"></td></tr>
     <tr><td>소속병원</td></tr>
-    <tr><td><input type="text" class="text"></td></tr>
+    <tr><td><select name="hospital">
+        {% for hospital in hospitals %}
+            <option value="{{ hospital.id }}" {% if form.hospital.value == hospital.id %}selected{% endif %}>{{ hospital.hospital_name }}</option>
+        {% endfor %}
+    </select></td></tr>
     <tr><td>이메일</td></tr>
     <tr>
-        <td><input type="text" class="email"> @
-            <select>
-                <option>naver.com</option>
-                <option>gmail.com</option>
-                <option>daum.net</option>
-                <option>nate.com</option>
+        <td>
+            <input type="text" name="email" class="email" value="{{ form.email.value|default_if_none:'' }}"> @
+            <select name="email_domain">
+                <option value="naver.com" {% if form.email_domain.value == "naver.com" %}selected{% endif %}>naver.com</option>
+                <option value="gmail.com" {% if form.email_domain.value == "gmail.com" %}selected{% endif %}>gmail.com</option>
+                <option value="daum.net" {% if form.email_domain.value == "daum.net" %}selected{% endif %}>daum.net</option>
+                <option value="nate.com" {% if form.email_domain.value == "nate.com" %}selected{% endif %}>nate.com</option>
             </select>
         </td>
     </tr>
-    <tr><td><input type="submit" value="가입하기" class="btn" onclick="alert('가입 성공!')"></td></tr>
+    <tr><td>전화번호</td></tr>
+    <tr><td><input type="text" name="tel" class="text" value="{{ form.tel.value|default_if_none:'' }}"></td></tr>
+    <tr><td><input type="submit" value="가입하기" class="btn"></td></tr>
     </table>
 </form>
 </body>

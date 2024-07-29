@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 class Hospital(models.Model):
     hospital_name = models.CharField(max_length=255)
@@ -7,12 +8,16 @@ class Hospital(models.Model):
         return self.hospital_name
 
 class User(models.Model):
-    username = models.CharField(max_length=50)
+    userID = models.CharField(max_length=50, unique=True)  # 회원 아이디
+    name = models.CharField(max_length=255)  # 사용자 이름
     password = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     tel = models.CharField(max_length=20)
     date_joined = models.DateTimeField(auto_now_add=True)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
 
     def __str__(self):
         return self.username
