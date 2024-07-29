@@ -20,7 +20,7 @@ class User(models.Model):
         self.password = make_password(raw_password)
 
     def __str__(self):
-        return self.username
+        return self.userID
 
 class Patient(models.Model):
     patient_name = models.CharField(max_length=255)
