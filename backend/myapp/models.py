@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class Hospital(models.Model):
     hospital_name = models.CharField(max_length=255)
@@ -7,7 +8,22 @@ class Hospital(models.Model):
     def __str__(self):
         return self.hospital_name
 
-class User(models.Model):
+class MyUserManager(BaseUserManager):
+    def create_user(self, userID, password=None, **extra_fields):
+        if not userID:
+            raise ValueError('The UserID field must be set')
+        user = self.model(userID=userID, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, userID, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(userID, password, **extra_fields)
+
+class User(AbstractBaseUser, PermissionsMixin):
     userID = models.CharField(max_length=50, unique=True)  # 회원 아이디
     name = models.CharField(max_length=255)  # 사용자 이름
     password = models.CharField(max_length=255)
@@ -15,6 +31,14 @@ class User(models.Model):
     tel = models.CharField(max_length=20)
     date_joined = models.DateTimeField(auto_now_add=True)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = MyUserManager()
+
+    USERNAME_FIELD = 'userID'
+    REQUIRED_FIELDS = ['email', 'name', 'tel', 'hospital']
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)

@@ -59,3 +59,4 @@ class RegisterForm(forms.ModelForm):
 class LoginForm(forms.Form):
     userID = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput)
+    remember = forms.BooleanField(required=False)

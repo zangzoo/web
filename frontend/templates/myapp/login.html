@@ -59,6 +59,13 @@
     .small-text {
         font-size: 15px; /* 로그인 정보 저장 부분의 글씨 크기 설정 */
     }
+    .errorlist {
+        color: red;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        font-size: 15px; /* 오류 메시지의 글씨 크기 조정 */
+    }
 </style>
 </head>
 <body>
@@ -73,26 +80,31 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2"><input type="text" name="username" placeholder="ID"></td>
+        <td colspan="2"><input type="text" name="userID" placeholder="ID"></td>
     </tr>
     <tr>
         <td colspan="2"><input type="password" name="password" placeholder="Password"></td>
     </tr>
     <tr>
-        <td colspan="2" class="small-text"><input type="checkbox" name="remember"> 로그인 정보 저장</td>
+        <td colspan="2" class="small-text"><input type="checkbox" name="remember" {% if form.remember.value %}checked{% endif %}> 로그인 정보 저장</td>
     </tr>
+    {% if form.non_field_errors %}
+    <tr>
+        <td colspan="2" style="color: red;">
+            <ul class="errorlist">
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+    {% endif %}
     <tr>
         <td colspan="2"><input type="submit" value="Sign in" class="btn"></td>
     </tr>
     <tr>
         <td colspan="2" class="join"><a href=" {% url 'register' %} ">회원가입</a></td>
     </tr>
-<!-- 데이터베이스 있으면 => 로그인 성공하면 실행되도록
-    {% if form.non_field_errors %}
-    <tr>
-        <td colspan="2" style="color: red;">{{ form.non_field_errors }}</td>
-    </tr>
-    {% endif %} -->
     </table>
 </form>
 </body>
