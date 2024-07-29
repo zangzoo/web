@@ -5,17 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
 <style>
-    body {
+   body {
+        background-color: #2B2D31;
+        color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
         margin: 0;
+        font-family: Arial, sans-serif;
     }
-    table {
-        width: 280px;
-        font-size: 25px;
-        text-align: center; /* 테이블 내 텍스트를 가운데 정렬 */
+    .container {
+        text-align: center;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .logo img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+    .logo h1 {
+        font-size: 36px;
+        margin: 0;
     }
     input[type="text"], input[type="password"] {
         width: 250px;
@@ -25,7 +41,8 @@
         border-radius: 15px;
         outline: none;
         padding-left: 10px;
-        background-color: rgb(233,233,233);
+        background-color: #E9E9E9;
+        margin-bottom: 10px;
     }
     .btn {
         width: 263px;
@@ -34,58 +51,52 @@
         border: 0;
         border-radius: 15px;
         outline: none;
-        padding-left: 10px;
-        background-color: rgb(164, 199, 255);
+        background-color: #A4C7FF;
+        color: black;
+        cursor: pointer;
+        margin-bottom: 10px;
     }
     .btn:active {
-        background-color: rgb(61, 135, 255);
+        background-color: #3D87FF;
     }
     a {
         font-size: 12px;
         color: darkgray;
-        text-decoration-line: none;
+        text-decoration: none;
     }
-    .join {
-        text-align: center;
-    }
-    .header-cell {
+    .options {
         display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .header-cell img {
-        margin-right: 10px;
+        justify-content: space-between;
+        width: 250px;
+        margin: 10px auto;
     }
     .small-text {
-        font-size: 15px; /* 로그인 정보 저장 부분의 글씨 크기 설정 */
+        font-size: 12px;
     }
 </style>
 </head>
 <body>
-<form>
-    <table>
-    <tr>
-        <td colspan="2" class="header-cell">
-            <img src="brain.png" alt="Brain Image" style="width: 100px; height: 100px;">
-            <h2>BrainWorks</h2>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="text" placeholder="ID"></td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="password" placeholder="Password"></td>
-    </tr>
-    <tr>
-        <td colspan="2" class="small-text"><input type="checkbox"> 로그인 정보 저장</td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="submit" value="Sign in" class="btn" onclick="alert('로그인 성공!')"></td>
-    </tr>
-    <tr>
-        <td colspan="2" class="join"><a href="join.html">회원가입</a></td>
-    </tr>
-    </table>
-</form>
+<div class="container">
+    <div class="logo">
+        <img src="brain.png" alt="Brain Image">
+        <h1>Brain Works</h1>
+    </div>
+    <form>
+        <input type="text" placeholder="아이디">
+        <br>
+        <input type="password" placeholder="비밀번호">
+        <br>
+        <div class="options">
+            <div class="small-text">
+                <input type="checkbox"> 아이디 저장하기
+            </div>
+        </div>
+        <input type="submit" value="login" class="btn" onclick="alert('로그인 성공!')">
+    </form>
+    <div class="options">
+        <a href="#">아이디 찾기</a>
+        <a href="#">회원가입</a>
+    </div>
+</div>
 </body>
 </html>
