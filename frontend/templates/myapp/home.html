@@ -39,6 +39,7 @@
         }
         .file-upload {
             margin-left: 20px;
+            margin-right: 10px;
             font-size: 0.8em;
             color: white;
             padding: 5px;
@@ -182,7 +183,12 @@
         </div>
         <div class="right-container">
             <div class="file-upload" onclick="location.href='{% url 'upload_image' %}'">파일 업로드</div>
-            <button class="login-button">Login</button>
+            {% if user.is_authenticated %}
+                <div class="user-id">{{ user.userID }}</div>
+                <button class="login-button" onclick="location.href='{% url 'logout' %}'">Logout</button>
+            {% else %}
+                <button class="login-button" onclick="location.href='{% url 'login' %}'">Login</button>
+            {% endif %}
         </div>
     </div>
     <div class="content">

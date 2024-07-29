@@ -8,6 +8,7 @@ from myapp.views.upload_views import upload_image
 from myapp.views.register_views import register_view
 from myapp.views.home_views import home_view
 from myapp.views.analysis_result_views import PredictView
+from myapp.views.logout_views import logout_view
 
 urlpatterns = [
     path('upload_image/', upload_image, name='upload_image'),
@@ -15,6 +16,7 @@ urlpatterns = [
     path('register/', register_view, name='register'),
     path('home/', home_view, name='home'),
     path('analysis_result', PredictView.as_view(), name='analysis_result'),
+    path('logout/', logout_view, name='logout'),
 ]
 
 if settings.DEBUG:
