@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+   body {
+        background-color: #2B2D31;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        text-align: center;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .logo img {
+        width: 145px;
+        height: 145px;
+        margin-right: 10px;
+    }
+    .logo h1 {
+        font-size: 120px;
+        margin: 0;
+    }
+    .form-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        margin-right: 15px;
+        position: relative;
+    }
+    input[type="text"], input[type="password"] {
+        width: 400px;
+        height: 50px;
+        font-size: 20px;
+        border: 0;
+        border-radius: 15px;
+        outline: none;
+        padding-left: 10px;
+        background-color: #E9E9E9;
+        margin-bottom: 15px;
+    }
+    .small-text {
+        margin-bottom: 10px;
+        font-size: 12px;
+        text-align: right;
+    }
+    .btn {
+        width: 94px;
+        height: 114px;
+        font-size: 23px;
+        font-weight: bold;
+        border: 0;
+        border-radius: 15px;
+        outline: none;
+        background-color: #909090;
+        color: white;
+        cursor: pointer;
+    }
+    .btn:active {
+        background-color: #909090;
+    }
+    .link-btn {
+        width: 190px;
+        height: 40px;
+        font-size: 15px;
+        border: 0;
+        border-radius: 15px;
+        outline: none;
+        background-color: #909090;
+        color: white;
+        cursor: pointer;
+        margin: 5px;
+    }
+    .link-btn:active {
+        background-color: white;
+        color: black;
+    }
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3px;
+        margin-right: 10px;
+        width: 400px;
+    }
+    .link-btn + .link-btn {
+        margin-left: 15px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="logo">
+        <img src="brain.png" alt="Brain Image">
+        <h1>Brain Works</h1>
+    </div>
+    <form class="form-container">
+        <div class="input-container">
+            <input type="text" placeholder="아이디">
+            <input type="password" placeholder="비밀번호">
+            <div class="small-text">
+                <input type="checkbox"> 아이디 저장하기
+            </div>
+            <div class="button-container">
+                <button class="link-btn" type="button" onclick="alert('아이디 찾기')">아이디 찾기</button>
+                <button class="link-btn" type="button" onclick="alert('회원가입')">회원가입</button>
+            </div>
+        </div>
+        <input type="submit" value="login" class="btn" onclick="alert('로그인 성공!')">
+    </form>
+</div>
+</body>
+</html>

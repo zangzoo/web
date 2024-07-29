@@ -1,8 +1,24 @@
 # myapp/urls.py
+from django.contrib import admin
 from django.urls import path
-from .views import PredictView
-from .views import upload_image
+from django.conf import settings
+from django.conf.urls.static import static
+from myapp.views.login_views import login_view
+from myapp.views.upload_views import upload_image
+from myapp.views.register_views import register_view
+from myapp.views.home_views import home_view
+from myapp.views.analysis_result_views import PredictView
+from myapp.views.logout_views import logout_view
+
 urlpatterns = [
-    path('predict/', PredictView.as_view(), name='predict'),
-    path('', upload_image, name='upload_image'),  # 루트 URL
+    path('upload_image/', upload_image, name='upload_image'),
+    path('',login_view, name='login'),
+    path('register/', register_view, name='register'),
+    path('home/', home_view, name='home'),
+    path('analysis_result', PredictView.as_view(), name='analysis_result'),
+    path('logout/', logout_view, name='logout'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

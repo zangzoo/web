@@ -22,11 +22,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('myapp.urls')) # 'myapp'의 모든 URL을 프로젝트 루트 URL에 직접 포함
-    #path('', upload_image, name='upload_image'),  # 루트 URL
-    #path('analyze/<int:image_id>/', analyze_image, name='analyze_image'),
+    path('', include('myapp.urls')),  # 'myapp'의 URL을 포함
 
 ]
 
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
