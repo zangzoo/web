@@ -25,53 +25,81 @@
         margin-bottom: 20px;
     }
     .logo img {
-        width: 50px;
-        height: 50px;
+        width: 145px;
+        height: 145px;
         margin-right: 10px;
     }
     .logo h1 {
-        font-size: 36px;
+        font-size: 120px;
         margin: 0;
     }
+    .form-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        margin-right: 15px;
+        position: relative;
+    }
     input[type="text"], input[type="password"] {
-        width: 250px;
-        height: 32px;
-        font-size: 15px;
+        width: 400px;
+        height: 50px;
+        font-size: 20px;
         border: 0;
         border-radius: 15px;
         outline: none;
         padding-left: 10px;
         background-color: #E9E9E9;
+        margin-bottom: 15px;
+    }
+    .small-text {
         margin-bottom: 10px;
+        font-size: 12px;
+        text-align: right;
     }
     .btn {
-        width: 263px;
-        height: 32px;
+        width: 94px;
+        height: 114px;
+        font-size: 23px;
+        font-weight: bold;
+        border: 0;
+        border-radius: 15px;
+        outline: none;
+        background-color: #909090;
+        color: white;
+        cursor: pointer;
+    }
+    .btn:active {
+        background-color: #909090;
+    }
+    .link-btn {
+        width: 190px;
+        height: 40px;
         font-size: 15px;
         border: 0;
         border-radius: 15px;
         outline: none;
-        background-color: #A4C7FF;
-        color: black;
+        background-color: #909090;
+        color: white;
         cursor: pointer;
-        margin-bottom: 10px;
+        margin: 5px;
     }
-    .btn:active {
-        background-color: #3D87FF;
+    .link-btn:active {
+        background-color: white;
+        color: black;
     }
-    a {
-        font-size: 12px;
-        color: darkgray;
-        text-decoration: none;
-    }
-    .options {
+    .button-container {
         display: flex;
         justify-content: space-between;
-        width: 250px;
-        margin: 10px auto;
+        margin-top: 3px;
+        margin-right: 10px;
+        width: 400px;
     }
-    .small-text {
-        font-size: 12px;
+    .link-btn + .link-btn {
+        margin-left: 15px;
     }
 </style>
 </head>
@@ -81,22 +109,20 @@
         <img src="brain.png" alt="Brain Image">
         <h1>Brain Works</h1>
     </div>
-    <form>
-        <input type="text" placeholder="아이디">
-        <br>
-        <input type="password" placeholder="비밀번호">
-        <br>
-        <div class="options">
+    <form class="form-container">
+        <div class="input-container">
+            <input type="text" placeholder="아이디">
+            <input type="password" placeholder="비밀번호">
             <div class="small-text">
                 <input type="checkbox"> 아이디 저장하기
+            </div>
+            <div class="button-container">
+                <button class="link-btn" type="button" onclick="alert('아이디 찾기')">아이디 찾기</button>
+                <button class="link-btn" type="button" onclick="alert('회원가입')">회원가입</button>
             </div>
         </div>
         <input type="submit" value="login" class="btn" onclick="alert('로그인 성공!')">
     </form>
-    <div class="options">
-        <a href="#">아이디 찾기</a>
-        <a href="#">회원가입</a>
-    </div>
 </div>
 </body>
 </html>
