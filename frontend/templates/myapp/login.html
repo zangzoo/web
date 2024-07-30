@@ -6,106 +6,141 @@
 <title>Login</title>
 <style>
     body {
+        background-color: #2B2D31;
+        color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
         margin: 0;
+        font-family: Arial, sans-serif;
     }
-    table {
-        width: 280px;
-        font-size: 25px;
-        text-align: center; /* 테이블 내 텍스트를 가운데 정렬 */
-    }
-    input[type="text"], input[type="password"] {
-        width: 250px;
-        height: 32px;
-        font-size: 15px;
-        border: 0;
-        border-radius: 15px;
-        outline: none;
-        padding-left: 10px;
-        background-color: rgb(233,233,233);
-    }
-    input[type="submit"] {
-        width: 263px;
-        height: 32px;
-        font-size: 15px;
-        border: 0;
-        border-radius: 15px;
-        outline: none;
-        padding-left: 10px;
-        background-color: rgb(164, 199, 255);
-    }
-    input[type="submit"]:active {
-        background-color: rgb(61, 135, 255);
-    }
-    a {
-        font-size: 12px;
-        color: darkgray;
-        text-decoration-line: none;
-    }
-    .join {
+    .container {
         text-align: center;
     }
-    .header-cell {
+    .logo {
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-bottom: 20px;
     }
-    .header-cell img {
+    .logo img {
+        width: 72px;
+        height: 72px;
         margin-right: 10px;
     }
+    .logo h1 {
+        font-size: 60px;
+        margin: 0;
+    }
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    input[type="text"], input[type="password"] {
+        width: 300px;
+        height: 35px;
+        font-size: 16px;
+        border: 0;
+        border-radius: 10px;
+        outline: none;
+        padding-left: 10px;
+        background-color: #E9E9E9;
+        margin-bottom: 10px;
+    }
     .small-text {
-        font-size: 15px; /* 로그인 정보 저장 부분의 글씨 크기 설정 */
+        margin-bottom: 10px;
+        font-size: 12px;
+        text-align: right;
+    }
+    .btn {
+        width: 80px;
+        height: 40px;
+        font-size: 16px;
+        font-weight: bold;
+        border: 0;
+        border-radius: 10px;
+        outline: none;
+        background-color: #909090;
+        color: white;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .btn:active {
+        background-color: #707070;
+    }
+    .link-btn {
+        width: 140px;
+        height: 30px;
+        font-size: 12px;
+        border: 0;
+        border-radius: 10px;
+        outline: none;
+        background-color: #909090;
+        color: white;
+        cursor: pointer;
+        margin: 5px;
+    }
+    .link-btn:active {
+        background-color: white;
+        color: black;
+    }
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3px;
+        width: 300px;
+    }
+    .link-btn + .link-btn {
+        margin-left: 10px;
     }
     .errorlist {
         color: red;
         margin: 0;
         padding: 0;
         list-style-type: none;
-        font-size: 15px; /* 오류 메시지의 글씨 크기 조정 */
+        font-size: 14px;
     }
 </style>
 </head>
 <body>
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-    <tr>
-        <td colspan="2" class="header-cell">
-            <!-- {% load static %} -->
-            <img src="{% static 'images/brain.png' %}" alt="Brain Image" style="width: 100px; height: 100px;">
-            <h2>BrainWorks</h2>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="text" name="userID" placeholder="ID"></td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="password" name="password" placeholder="Password"></td>
-    </tr>
-    <tr>
-        <td colspan="2" class="small-text"><input type="checkbox" name="remember" {% if form.remember.value %}checked{% endif %}> 로그인 정보 저장</td>
-    </tr>
-    {% if form.non_field_errors %}
-    <tr>
-        <td colspan="2" style="color: red;">
-            <ul class="errorlist">
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </td>
-    </tr>
-    {% endif %}
-    <tr>
-        <td colspan="2"><input type="submit" value="Sign in" class="btn"></td>
-    </tr>
-    <tr>
-        <td colspan="2" class="join"><a href=" {% url 'register' %} ">회원가입</a></td>
-    </tr>
-    </table>
-</form>
+<div class="container">
+    {% load static %}
+    <div class="logo">
+        <img src="{% static 'images/brain.png' %}" alt="Brain Image">
+        <h1>Brain Works</h1>
+    </div>
+    <form method="post" action="{% url 'login' %}" class="form-container">
+        {% csrf_token %}
+        <div class="input-container">
+            <input type="text" name="userID" placeholder="ID">
+            <input type="password" name="password" placeholder="Password">
+            <div class="small-text">
+                <input type="checkbox" name="remember" {% if form.remember.value %}checked{% endif %}> 로그인 정보 저장
+            </div>
+            {% if form.non_field_errors %}
+            <div class="errorlist">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <div class="button-container">
+{#                <button class="link-btn" type="button" onclick="window.location.href='{% url 'password_reset' %}'">아이디 찾기</button>#}
+                <button class="link-btn" type="button">아이디 찾기</button>
+                <button class="link-btn" type="button" onclick="window.location.href='{% url 'register' %}'">회원가입</button>
+            </div>
+        </div>
+        <input type="submit" value="login" class="btn">
+    </form>
+</div>
 </body>
 </html>
