@@ -5,62 +5,77 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Join</title>
 <style>
+    body {
+        background-color: #D9D9D9;
+    }
     table {
         width: 280px;
-        height: 550px;
         margin: auto;
     }
-    .email {
-        width: 127px;
-        height: 32px;
-        font-size: 15px;
-        border: 0;
-        border-color: lightgray;
-        border-radius: 15px;
-        outline: none;
-        padding-left: 10px;
-        background-color: rgb(233,233,233);
+    h2 {
+        font-size: 24px;
     }
-    .text {
+    .text, .email, select {
         width: 250px;
         height: 32px;
-        font-size: 15px;
+        font-size: 18px;
         border: 0;
         border-radius: 15px;
         outline: none;
         padding-left: 10px;
         background-color: rgb(233,233,233);
     }
-    select {
-        width: 100px;
-        height: 32px;
-        font-size: 15px;
-        border: 1px solid lightgray;
+    .email-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(233,233,233);
         border-radius: 15px;
-        outline: none;
-        padding-left: 10px;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+    .email {
+        border: none;
+        background: none;
+        padding: 0;
+        width: 140px;
+    }
+    select.email-domain {
+        border: none;
+        background: none;
+        padding: 0;
+        width: 50px;
     }
     .btn {
         width: 262px;
-        height: 32px;
-        font-size: 15px;
+        height: 40px;
+        font-size: 18px;
         border: 0;
         border-radius: 15px;
         outline: none;
-        padding-left: 10px;
         background-color: rgb(164, 199, 255);
+        transition: background-color 0.3s;
+        margin-top: 20px;
     }
-    .btn:active {
-        width: 262px;
-        height: 32px;
-        font-size: 15px;
-        border: 0;
-        border-radius: 15px;
-        outline: none;
-        padding-left: 10px;
+    .btn:disabled {
+        background-color: rgb(200, 200, 200);
+    }
+    .btn:enabled:active {
         background-color: rgb(61, 135, 255);
     }
 </style>
+<script>
+    function validateForm() {
+        const inputs = document.querySelectorAll('.text');
+        const email = document.querySelector('.email');
+        const emailDomain = document.querySelector('select[name="email_domain"]');
+        const allFilled = Array.from(inputs).every(input => input.value.trim() !== '') &&
+                          email.value.trim() !== '' &&
+                          emailDomain.value.trim() !== '';
+        const btn = document.querySelector('.btn');
+        btn.disabled = !allFilled;
+    }
+</script>
 </head>
 <body>
 <form method="post" action="{% url 'register' %}">
@@ -86,24 +101,24 @@
     </tr>
     {% endif %}
     <tr><td>아이디</td></tr>
-    <tr><td><input type="text" name="userID" class="text" value="{{ form.userID.value|default_if_none:'' }}"></td></tr>
+    <tr><td><input type="text" name="userID" class="text" value="{{ form.userID.value|default_if_none:'' }}" oninput="validateForm()"></td></tr>
     <tr><td>비밀번호</td></tr>
-    <tr><td><input type="password" name="password" class="text" value="{{ form.password.value|default_if_none:'' }}"></td></tr>
+    <tr><td><input type="password" name="password" class="text" value="{{ form.password.value|default_if_none:'' }}" oninput="validateForm()"></td></tr>
     <tr><td>비밀번호 확인</td></tr>
-    <tr><td><input type="password" name="password_confirm" class="text" value="{{ form.password_confirm.value|default_if_none:'' }}"></td></tr>
+    <tr><td><input type="password" name="password_confirm" class="text" value="{{ form.password_confirm.value|default_if_none:'' }}" oninput="validateForm()"></td></tr>
     <tr><td>이름</td></tr>
-    <tr><td><input type="text" name="name" class="text" value="{{ form.name.value|default_if_none:'' }}"></td></tr>
+    <tr><td><input type="text" name="name" class="text" value="{{ form.name.value|default_if_none:'' }}" oninput="validateForm()"></td></tr>
     <tr><td>소속병원</td></tr>
-    <tr><td><select name="hospital">
+    <tr><td><select name="hospital" class="text" oninput="validateForm()">
         {% for hospital in hospitals %}
             <option value="{{ hospital.id }}" {% if form.hospital.value == hospital.id %}selected{% endif %}>{{ hospital.hospital_name }}</option>
         {% endfor %}
     </select></td></tr>
     <tr><td>이메일</td></tr>
     <tr>
-        <td>
-            <input type="text" name="email" class="email" value="{{ form.email.value|default_if_none:'' }}"> @
-            <select name="email_domain">
+        <td class="email-container">
+            <input type="text" name="email" class="email" value="{{ form.email.value|default_if_none:'' }}" oninput="validateForm()"> @
+            <select name="email_domain" oninput="validateForm()">
                 <option value="naver.com" {% if form.email_domain.value == "naver.com" %}selected{% endif %}>naver.com</option>
                 <option value="gmail.com" {% if form.email_domain.value == "gmail.com" %}selected{% endif %}>gmail.com</option>
                 <option value="daum.net" {% if form.email_domain.value == "daum.net" %}selected{% endif %}>daum.net</option>
@@ -112,8 +127,8 @@
         </td>
     </tr>
     <tr><td>전화번호</td></tr>
-    <tr><td><input type="text" name="tel" class="text" value="{{ form.tel.value|default_if_none:'' }}"></td></tr>
-    <tr><td><input type="submit" value="가입하기" class="btn"></td></tr>
+    <tr><td><input type="text" name="tel" class="text" value="{{ form.tel.value|default_if_none:'' }}" oninput="validateForm()"></td></tr>
+    <tr><td><input type="submit" value="가입하기" class="btn" disabled></td></tr>
     </table>
 </form>
 </body>

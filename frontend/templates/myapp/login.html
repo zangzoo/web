@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
 <style>
-   body {
+    body {
         background-color: #2B2D31;
         color: white;
         display: flex;
@@ -25,35 +25,34 @@
         margin-bottom: 20px;
     }
     .logo img {
-        width: 145px;
-        height: 145px;
+        width: 72px;
+        height: 72px;
         margin-right: 10px;
     }
     .logo h1 {
-        font-size: 120px;
+        font-size: 60px;
         margin: 0;
     }
     .form-container {
         display: flex;
-        align-items: flex-start;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
     .input-container {
         display: flex;
         flex-direction: column;
-        margin-right: 15px;
         position: relative;
     }
     input[type="text"], input[type="password"] {
-        width: 400px;
-        height: 50px;
-        font-size: 20px;
+        width: 300px;
+        height: 35px;
+        font-size: 16px;
         border: 0;
-        border-radius: 15px;
+        border-radius: 10px;
         outline: none;
         padding-left: 10px;
         background-color: #E9E9E9;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
     .small-text {
         margin-bottom: 10px;
@@ -61,26 +60,27 @@
         text-align: right;
     }
     .btn {
-        width: 94px;
-        height: 114px;
-        font-size: 23px;
+        width: 80px;
+        height: 40px;
+        font-size: 16px;
         font-weight: bold;
         border: 0;
-        border-radius: 15px;
+        border-radius: 10px;
         outline: none;
         background-color: #909090;
         color: white;
         cursor: pointer;
+        margin-top: 10px;
     }
     .btn:active {
-        background-color: #909090;
+        background-color: #707070;
     }
     .link-btn {
-        width: 190px;
-        height: 40px;
-        font-size: 15px;
+        width: 140px;
+        height: 30px;
+        font-size: 12px;
         border: 0;
-        border-radius: 15px;
+        border-radius: 10px;
         outline: none;
         background-color: #909090;
         color: white;
@@ -95,33 +95,51 @@
         display: flex;
         justify-content: space-between;
         margin-top: 3px;
-        margin-right: 10px;
-        width: 400px;
+        width: 300px;
     }
     .link-btn + .link-btn {
-        margin-left: 15px;
+        margin-left: 10px;
+    }
+    .errorlist {
+        color: red;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        font-size: 14px;
     }
 </style>
 </head>
 <body>
 <div class="container">
+    {% load static %}
     <div class="logo">
-        <img src="brain.png" alt="Brain Image">
+        <img src="{% static 'images/brain.png' %}" alt="Brain Image">
         <h1>Brain Works</h1>
     </div>
-    <form class="form-container">
+    <form method="post" action="{% url 'login' %}" class="form-container">
+        {% csrf_token %}
         <div class="input-container">
-            <input type="text" placeholder="아이디">
-            <input type="password" placeholder="비밀번호">
+            <input type="text" name="userID" placeholder="ID">
+            <input type="password" name="password" placeholder="Password">
             <div class="small-text">
-                <input type="checkbox"> 아이디 저장하기
+                <input type="checkbox" name="remember" {% if form.remember.value %}checked{% endif %}> 로그인 정보 저장
             </div>
-            <div class="button-container">
-                <button class="link-btn" type="button" onclick="alert('아이디 찾기')">아이디 찾기</button>
-                <button class="link-btn" type="button" onclick="alert('회원가입')">회원가입</button>
+            {% if form.non_field_errors %}
+            <div class="errorlist">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <div class="bugtton-container">
+{#                <button class="link-btn" type="button" onclick="window.location.href='{% url 'password_reset' %}'">아이디 찾기</button>#}
+                <button class="link-btn" type="button">아이디 찾기</button>
+                <button class="link-btn" type="button" onclick="window.location.href='{% url 'register' %}'">회원가입</button>
             </div>
         </div>
-        <input type="submit" value="login" class="btn" onclick="alert('로그인 성공!')">
+        <input type="submit" value="login" class="btn">
     </form>
 </div>
 </body>

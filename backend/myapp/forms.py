@@ -40,7 +40,7 @@ class RegisterForm(forms.ModelForm):
                 email_validator(email)
             except forms.ValidationError as e:
                 logger.error(f"Email validation error: {e}")
-                raise forms.ValidationError(f"유효한 이메일 주소를 입력해주세요: {full_email}")
+                raise forms.ValidationError(f"유효한 이메일 주소를 입력해주세요: {email}")
 
             logger.info(f"Combined email: {email}")
             cleaned_data['email'] = email
