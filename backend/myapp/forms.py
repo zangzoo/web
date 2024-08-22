@@ -19,7 +19,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['userID', 'password', 'password_confirm', 'name', 'hospital', 'email', 'email_domain', 'tel']
+        fields = ['userID', 'password', 'password_confirm', 'name', 'email', 'email_domain', 'tel']  # 'hospital' 필드 제거
 
     def clean(self):
         cleaned_data = super().clean()
@@ -34,7 +34,6 @@ class RegisterForm(forms.ModelForm):
         email = self.data.get('email')
 
         if email:
-            # EmailValidator를 사용하여 이메일 유효성 검사
             email_validator = EmailValidator()
             try:
                 email_validator(email)
@@ -54,6 +53,7 @@ class RegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
 
 
 class LoginForm(forms.Form):

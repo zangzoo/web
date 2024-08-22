@@ -1,6 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth import login
 from myapp.models import User, Hospital
 from myapp.forms import RegisterForm
 
