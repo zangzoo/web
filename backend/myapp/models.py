@@ -8,11 +8,12 @@ class Hospital(models.Model):
     def __str__(self):
         return self.hospital_name
 
+
 class MyUserManager(BaseUserManager):
     def create_user(self, userID, password=None, **extra_fields):
         if not userID:
             raise ValueError('The UserID field must be set')
-        user = self.model(userID=userID, **extra_fields)
+        user = User(userID=userID, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -23,6 +24,7 @@ class MyUserManager(BaseUserManager):
 
         return self.create_user(userID, password, **extra_fields)
 
+
 class User(AbstractBaseUser, PermissionsMixin):
     userID = models.CharField(max_length=50, unique=True)  # 회원 아이디
     name = models.CharField(max_length=255)  # 사용자 이름
@@ -30,7 +32,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255)
     tel = models.CharField(max_length=20)
     date_joined = models.DateTimeField(auto_now_add=True)
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    hospital = models.CharField(max_length=255, null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -38,7 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = MyUserManager()
 
     USERNAME_FIELD = 'userID'
-    REQUIRED_FIELDS = ['email', 'name', 'tel', 'hospital']
+    REQUIRED_FIELDS = ['email', 'name', 'tel']  # 'hospital' 제거
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
