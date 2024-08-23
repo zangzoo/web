@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3 Column Layout with Header</title>
     <style>
+        /* 기존 스타일 유지 */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -201,7 +202,9 @@
                 <select id="patientSelect" class="search-input">
                     <option value="" disabled selected>환자를 선택하세요</option>
                     {% for patient in patients %}
-                        <option value="{{ patient.id }}">{{ patient.patient_name }} ({{ patient.gender }}/{{ patient.age }})</option>
+                        <option value="{{ patient.id }}" {% if selected_patient and patient.id == selected_patient.id %}selected{% endif %}>
+                            {{ patient.patient_name }} ({{ patient.gender }}/{{ patient.age }})
+                        </option>
                     {% endfor %}
                 </select>
                 <button class="search-button" onclick="selectPatient()">선택</button>
@@ -209,15 +212,27 @@
             <div class="box box3">Box 3</div>
         </div>
         <div class="column column2">
-            <div class="box box1">
-                이미지
-            </div>
-            <div class="box box2">
-                <p id="analysis-result">영상 분석 결과</p>
-            </div>
-            <div class="box box3">
-                <p id="analysis-confidence">(영상 분석 결과를 남겨주세요.)</p>
-            </div>
+            <!-- 선택된 환자 정보 표시 -->
+            {% if selected_patient %}
+                <div class="box box1">
+                    <p>환자 이름: {{ selected_patient.patient_name }}</p>
+                    <p>성별: {{ selected_patient.gender }}</p>
+                    <p>나이: {{ selected_patient.age }}</p>
+                    <p>의료 기록: {{ selected_patient.medical_history }}</p>
+                </div>
+                {% if mri_images %}
+                    <div class="box box2">
+                        {% for image in mri_images %}
+                            <img src="{{ image.image.url }}" alt="MRI Image">
+                            <p>검사 날짜: {{ image.upload_date }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>해당 환자에 대한 MRI 이미지가 없습니다.</p>
+                {% endif %}
+            {% else %}
+                <p>환자를 선택하세요.</p>
+            {% endif %}
         </div>
         <div class="column column3">
             <div class="box box1">
@@ -228,11 +243,16 @@
                     <div class="date">검사일</div>
                     <div class="name">영상종류 (MRI/PET)</div>
                 </div>
-                <div class="inspection">
-                    <div class="date">2023-07-11</div>
-                    <div class="name">PET</div>
-                </div>
-                <!-- Add more inspections as needed -->
+                {% if selected_patient and mri_images %}
+                    {% for image in mri_images %}
+                        <div class="inspection">
+                            <div class="date">{{ image.upload_date }}</div>
+                            <div class="name">{{ image.image_type }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>검사 내역이 없습니다.</p>
+                {% endif %}
             </div>
             <div class="box box3">
                 Box 3
@@ -243,8 +263,10 @@
     <script>
         function selectPatient() {
             const patientId = document.getElementById('patientSelect').value;
-            localStorage.setItem('selectedPatientId', patientId);
-            window.location.href = '{% url "upload_image" %}';
+            if (patientId) {
+                // 선택된 환자의 ID를 URL에 추가
+                window.location.href = '?patient_id=' + patientId;
+            }
         }
     </script>
 </body>
