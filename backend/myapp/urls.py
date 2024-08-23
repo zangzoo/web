@@ -9,6 +9,9 @@ from myapp.views.register_views import register_view
 from myapp.views.home_views import home_view
 from myapp.views.analysis_result_views import PredictView
 from myapp.views.logout_views import logout_view
+from myapp.views.history_views import history_views
+from myapp.views.patient_detail_views import patient_detail
+from myapp.views import report_views
 
 urlpatterns = [
     path('upload_image/', upload_image, name='upload_image'),
@@ -17,6 +20,9 @@ urlpatterns = [
     path('home/', home_view, name='home'),
     path('analysis_result', PredictView.as_view(), name='analysis_result'),
     path('logout/', logout_view, name='logout'),
+    path('history/', history_views, name='history'),
+    path('patient/<int:id>/', patient_detail, name='patient_detail'),
+    path('download_report/', report_views.download_report, name='download_report'),
 ]
 
 if settings.DEBUG:

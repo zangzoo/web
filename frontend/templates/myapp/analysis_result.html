@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 Column Layout with Header</title>
+    <title>Analysis Result and Report Download</title>
     <style>
         body {
             margin: 0;
@@ -192,7 +192,8 @@
             <h1>BrainWorks</h1>
         </div>
         <div class="right-container">
-            <div class="file-upload">파일 업로드</div>
+            <div class="file-upload" onclick="document.getElementById('image-upload-input').click();">파일 업로드</div>
+            <a href="{% url 'download_report' %}" class="file-upload">보고서 다운로드</a>
             <button class="login-button">Login</button>
         </div>
     </div>
@@ -284,8 +285,8 @@
                 .then(data => {
                     if (data.status === 'success') {
                         document.getElementById('uploaded-image').src = data.image_url;
-                        document.getElementById('analysis-result').textContent = "Description: " + data.description;
-                        document.getElementById('analysis-confidence').textContent = "Confidence: " + data.confidence;
+                        document.getElementById('analysis-result').textContent = "Description: " + data.predicted_class_name;
+                        document.getElementById('analysis-confidence').textContent = "Confidence: " + data.confidence + "%";
                     } else {
                         alert('Image upload failed: ' + data.message);
                     }

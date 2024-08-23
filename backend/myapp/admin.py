@@ -21,8 +21,9 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ('patient_name', 'dob', 'gender', 'age', 'medical_history')
-
+    list_display = ('patient_name', 'dob', 'gender', 'age', 'medical_history', 'date_joined', 'treatment_progress', 'risk_level')
+    readonly_fields = ('date_joined',)
+    fields = ('patient_name', 'dob', 'gender', 'age', 'medical_history', 'photo', 'diagnosis_result','date_joined','treatment_progress', 'risk_level')
 
 @admin.register(MRIImage)
 class MRIImageAdmin(admin.ModelAdmin):

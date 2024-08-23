@@ -124,7 +124,7 @@
             <form id="uploadForm" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 <input type="file" id="imageFile" name="image" accept="image/*" required>
-                <input type="hidden" id="patientId" name="patient_id">
+                <input type="text" id="patientName" name="patient_name" placeholder="Enter patient name" required>
                 <button type="submit" class="file-upload">Upload</button>
             </form>
             <div id="result" class="result"></div>
@@ -132,56 +132,51 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const patientId = localStorage.getItem('selectedPatientId');
-            document.getElementById('patientId').value = patientId;
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            console.log(document.getElementById('patientName').value); 
 
-            document.getElementById('uploadForm').addEventListener('submit', async (event) => {
-                event.preventDefault();
-                const formData = new FormData();
-                formData.append('image', document.getElementById('imageFile').files[0]);
-                formData.append('patient_id', document.getElementById('patientId').value);
-
-                try {
-                    const response = await fetch('{% url "upload_image" %}', {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-
-                    const result = await response.json();
-                    if (result.status === 'success') {
-                        document.getElementById('result').innerText = 'Image uploaded successfully. Redirecting to analysis page...';
-                        showNotification('Image Upload', 'Image uploaded successfully.');
-
-                        // 분석 결과 페이지로 리디렉션하며 이미지 데이터 전달
-                        setTimeout(() => {
-                            window.location.href = `{% url 'analysis_result' %}?image_url=${encodeURIComponent(result.image_url)}&description=${encodeURIComponent(result.description)}&confidence=${encodeURIComponent(result.confidence)}`;
-                        }, 2000);
-                    } else {
-                        throw new Error(result.message);
-                    }
-                } catch (error) {
-                    document.getElementById('result').innerText = `Error: ${error.message}`;
-                    showNotification('Image Upload Error', `Error: ${error.message}`);
+            const formData = new FormData(document.getElementById('uploadForm')); // 기존 폼에서 FormData 생성
+        
+            try {
+                const response = await fetch('{% url "upload_image" %}', {
+                    method: 'POST',
+                    body: formData
+                });
+        
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-            });
-
-            function showNotification(title, message) {
-                if (Notification.permission === 'granted') {
-                    new Notification(title, { body: message });
-                } else if (Notification.permission !== 'denied') {
-                    Notification.requestPermission().then(permission => {
-                        if (permission === 'granted') {
-                            new Notification(title, { body: message });
-                        }
-                    });
+        
+                const result = await response.json();
+                if (result.status === 'success') {
+                    document.getElementById('result').innerText = 'Image uploaded successfully. Redirecting to analysis page...';
+                    showNotification('Image Upload', 'Image uploaded successfully.');
+        
+                    setTimeout(() => {
+                        window.location.href = `{% url 'analysis_result' %}?image_url=${encodeURIComponent(result.image_url)}&description=${encodeURIComponent(result.description)}&confidence=${encodeURIComponent(result.confidence)}`;
+                    }, 2000);
+                } else {
+                    throw new Error(result.message);
                 }
+            } catch (error) {
+                document.getElementById('result').innerText = `Error: ${error.message}`;
+                showNotification('Image Upload Error', `Error: ${error.message}`);
             }
         });
+                    
+
+        function showNotification(title, message) {
+            if (Notification.permission === 'granted') {
+                new Notification(title, { body: message });
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        new Notification(title, { body: message });
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>

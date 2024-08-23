@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ patient.patient_name }}'s Medical Record</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .patient-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .patient-info img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .patient-details {
+            line-height: 1.6;
+        }
+        .patient-details h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .patient-details p {
+            margin: 5px 0;
+        }
+        .risk-level {
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 48%;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+        .ai-button {
+            display: block;
+            width: 100%;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        .ai-button:hover {
+            background-color: #0056b3;
+        }
+        .report {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .report p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ patient.patient_name }}님의 진료 기록 - {{ visit_date|date:"Y-m-d" }}</h1>
+    </div>
+
+    <div class="container">
+        <div class="patient-info">
+            {% if patient.photo %}
+            <img src="{{ patient.photo.url }}" alt="Profile Photo">
+            {% else %}
+            <img src="{% static 'images/default_avatar.png' %}" alt="Default Photo">
+            {% endif %}
+            <div class="patient-details">
+                <h2>{{ patient.patient_name }}</h2>
+                <p>생년월일: {{ patient.dob|date:"Y.m.d" }} (만 {{ patient.age }}세)</p>
+                <p>내원 횟수: {{ patient.visit_count }}번</p>
+                <p class="risk-level">위험군: {{ patient.risk_level }}</p>
+            </div>
+        </div>
+
+        <div class="image-container">
+            {% for image in images %}
+            <img src="{{ image.url }}" alt="MRI Image">
+            {% empty %}
+            <p>이미지가 없습니다.</p>
+            {% endfor %}
+        </div>
+
+        <a href="#" class="ai-button">AI 진단 시작하기</a>
+
+        <div class="report">
+            <h3>AI Report:</h3>
+            <p>Diagnosis: {{ ai_report.diagnosis }}</p>
+            <p>Probability: {{ ai_report.probability }}%</p>
+        </div>
+    </div>
+</body>
+</html>
