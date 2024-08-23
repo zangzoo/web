@@ -19,6 +19,28 @@
             background-color: #333;
             padding: 10px 20px;
         }
+        .logo-and-history {
+            display: flex;
+            align-items: center;
+        }
+        
+        .history-button {
+            margin-left: 20px;
+            margin-right: 10px;
+            font-size: 0.8em;
+            color: white;
+            padding: 5px;
+            border: 1px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: transparent; /* 배경색을 투명하게 설정 */
+            font-weight: bold; /* 글자를 볼드체로 설정 */
+        }
+        
+        .history-button:hover {
+            background-color: #383b3e; /* 호버 상태의 배경색 변경 */
+        }
+        
         .logo {
             display: flex;
             align-items: center;
@@ -178,9 +200,12 @@
 <body>
     {% load static %}
     <div class="header">
-        <div class="logo">
-            <img src="{% static 'images/brain.png' %}" alt="Logo">
-            <h1>BrainWorks</h1>
+        <div class = 'logo-and-history'>
+            <div class="logo">
+                <img src="{% static 'images/brain.png' %}" alt="Logo">
+                <h1>BrainWorks</h1>
+            </div>
+            <button class="history-button" onclick="location.href='/history/'">History</button> 
         </div>
         <div class="right-container">
             <div class="file-upload" onclick="location.href='{% url 'upload_image' %}'">파일 업로드</div>

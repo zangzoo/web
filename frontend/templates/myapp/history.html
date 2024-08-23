@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient History</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1e2124;
+            color: white;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 1.5em;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            margin-right: 10px;
+            height: 40px;
+        }
+
+        .right-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .file-upload {
+            margin-left: 20px;
+            margin-right: 10px;
+            font-size: 0.8em;
+            color: white;
+            padding: 5px;
+            border: 1px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-button {
+            background-color: #424549;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .login-button:hover {
+            background-color: #383b3e;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #2e2e2e;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+
+        table th {
+            background-color: #333;
+            font-weight: 500;
+            color: #ddd;
+        }
+
+        table tr:hover {
+            background-color: #383b3e;
+        }
+
+        .patient-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .patient-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .risk-level {
+            font-weight: 500;
+            color: #007BFF;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2em;
+            color: #888;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .patient-list {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .patient-list th, .patient-list td {
+            padding: 10px;
+            border: 1px solid #555;
+        }
+        .patient-list th {
+            background-color: #424549;
+        }
+        .patient-name img {
+            margin-right: 10px;
+        }
+
+        .patient-name {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="{% static 'images/brain.png' %}" alt="Logo">
+            <h1>BrainWorks</h1>
+        </div>
+        <div class="right-container">
+            <div class="file-upload" onclick="location.href='{% url 'upload_image' %}'">파일 업로드</div>
+            {% if user.is_authenticated %}
+                <div class="user-id">{{ user.userID }}</div>
+                <button class="login-button" onclick="location.href='{% url 'logout' %}'">Logout</button>
+            {% else %}
+                <button class="login-button" onclick="location.href='{% url 'login' %}'">Login</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>진료 기록</h2>
+        <div class="table-container">
+            <form method="GET" action="{% url 'history' %}">
+                <input type="text" name="search" class="search-input" placeholder="환자 이름 검색" value="{{ search_query }}">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+        <div class="content">
+            <table class="patient-list">
+                <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>최근 진료 날짜</th>
+                        <th>치료 진행도</th>
+                        <th>위험군</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr onclick="window.location.href='{% url 'patient_detail' patient.id %}';">
+                        <td class="patient-name">
+                            {% if patient.photo %}
+                                <img src="{{ patient.photo.url }}" alt="프로필 사진" class="patient-photo">
+                            {% else %}
+                                <img src="{% static 'images/default_avatar.png' %}" alt="기본 사진" class="patient-photo">
+                            {% endif %}
+                            {{ patient.patient_name }}
+                        </td>
+                        <td>{{ patient.date_joined|date:"Y.m.d" }}</td>
+                        <td>{{ patient.treatment_progress }}%</td>
+                        <td>{{ patient.risk_level }}</td>
+                        <!-- 향후 모델링 결과를 여기에 반영 -->
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">해당하는 환자가 없습니다.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

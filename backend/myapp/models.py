@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils import timezone
 
 class Hospital(models.Model):
     hospital_name = models.CharField(max_length=255)
@@ -54,7 +55,13 @@ class Patient(models.Model):
     gender = models.CharField(max_length=6, choices=[('Male', 'Male'), ('Female', 'Female')])
     age = models.IntegerField()
     medical_history = models.TextField()
-
+    date_joined = models.DateTimeField(default=timezone.now)  # 환자 정보 등록 시간
+    photo = models.ImageField(upload_to='patient_photos/', null=True, blank=True)
+    diagnosis_result = models.TextField(null=True, blank=True)
+    treatment_progress = models.IntegerField(default=0)  # 치료 진행도 (백분율)
+    risk_level = models.CharField(max_length=50, default='')  # 위험군 (모델링 결과)
+    # 향후 모델링 결과로 risk_level을 업데이트
+    # 예: self.risk_level = get_model_prediction(self)  
     def __str__(self):
         return self.patient_name
 

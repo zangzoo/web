@@ -7,18 +7,23 @@ from myapp.utils import load_custom_model, load_label_map, predict_image
 from pathlib import Path
 import numpy as np
 from myapp.models import MRIImage, Patient
+import logging
 
+logger = logging.getLogger(__name__)
 
 @csrf_exempt
 def upload_image(request):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            patient_id = request.POST.get('patient_id')
-            print(f"Received patient_id: {patient_id}")  # 로그 추가
+            patient_name = request.POST.get('patient_name')
+            print(f"Received patient_name: {patient_name}")  # 로그 추가
+
+            if not patient_name:
+                return JsonResponse({'status': 'error', 'message': 'Patient name is missing'})
 
             try:
-                patient = Patient.objects.get(id=patient_id)
+                patient = Patient.objects.get(patient_name__icontains=patient_name)
             except Patient.DoesNotExist:
                 return JsonResponse({'status': 'error', 'message': 'Patient does not exist'})
 
@@ -47,13 +52,12 @@ def upload_image(request):
                 predicted_class_name = label_map[str(predicted_class_index)]
                 confidence = float(np.max(predictions[0]))
 
-                JsonResponse({
+                return JsonResponse({
                     'status': 'success',
                     'image_url': image_url,
                     'description': predicted_class_name,
                     'confidence': confidence
                 })
-
 
         return JsonResponse({
             'status': 'error',
