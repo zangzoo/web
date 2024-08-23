@@ -21,7 +21,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ('patient_name', 'dob', 'gender', 'age', 'medical_history', 'user')
+    list_display = ('patient_name', 'dob', 'gender', 'age', 'medical_history')
 
 
 @admin.register(MRIImage)
