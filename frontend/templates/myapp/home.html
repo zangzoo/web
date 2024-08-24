@@ -220,7 +220,15 @@
     <div class="content">
         <div class="column column1">
             <div class="box box1">
-                <p>환자 정보</p>
+                <!-- 여기서부터 환자 정보 관련 내용 추가 -->
+                {% if selected_patient %}
+                    <p>환자 이름: {{ selected_patient.patient_name }}</p>
+                    <p>성별: {{ selected_patient.gender }}</p>
+                    <p>나이: {{ selected_patient.age }}</p>
+                    <p>의료 기록: {{ selected_patient.medical_history }}</p>
+                {% else %}
+                    <p>환자를 선택하세요.</p>
+                {% endif %}
             </div>
             <div class="box box2">
                 <!-- 검색 박스 대신 환자 선택 드롭다운 추가 -->
@@ -239,17 +247,10 @@
         <div class="column column2">
             <!-- 선택된 환자 정보 표시 -->
             {% if selected_patient %}
-                <div class="box box1">
-                    <p>환자 이름: {{ selected_patient.patient_name }}</p>
-                    <p>성별: {{ selected_patient.gender }}</p>
-                    <p>나이: {{ selected_patient.age }}</p>
-                    <p>의료 기록: {{ selected_patient.medical_history }}</p>
-                </div>
                 {% if mri_images %}
                     <div class="box box2">
                         {% for image in mri_images %}
                             <img src="{{ image.image.url }}" alt="MRI Image">
-                            <p>검사 날짜: {{ image.upload_date }}</p>
                         {% endfor %}
                     </div>
                 {% else %}
@@ -293,6 +294,7 @@
                 window.location.href = '?patient_id=' + patientId;
             }
         }
+
     </script>
 </body>
 </html>
