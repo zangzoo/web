@@ -1,0 +1,62 @@
+/* src/components/Home.css */
+
+.home {
+    background: url('./homeheader.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 30px; /* 로고 크기 조정 */
+    height: 30px;
+    margin-right: 10px; /* 제목과의 간격 조정 */
+}
+
+.navbar-left h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+.navbar-left h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+.navbar-right a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #00CED1; /* 청록색 */
+    font-size: 18px;
+}
+
+.navbar-right a:hover {
+    color: #FFD700; /* 마우스를 올렸을 때 금색 */
+}
+
+.content {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.content h2 {
+    font-size: 36px;
+}
+
+.content p {
+    font-size: 24px;
+}
