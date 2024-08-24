@@ -14,8 +14,8 @@ function Onboarding() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigate('/home');  // 5초 후에 '/home'으로 이동
-        }, 5000); // 5000 밀리초 = 5초
+            navigate('/home');
+        }, 5000);
 
         return () => clearTimeout(timer);
     }, [navigate]);
