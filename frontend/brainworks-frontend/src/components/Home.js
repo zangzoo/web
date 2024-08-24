@@ -5,7 +5,6 @@ import './Home.css';
 function Home() {
     return (
         <div className="home">
-            <div className="header-background"></div>
             <nav className="navbar">
                 <div className="navbar-left">
                     <img src="/brainlogo.png" alt="Logo" className="logo" />
@@ -16,17 +15,20 @@ function Home() {
                     <a href="/login">Login</a>
                 </div>
             </nav>
-            <div className="content">
-                <div className="scroll-text">
-                    <p>Hello</p>
-                    <p>I'm BrainWork, your personal assistant.</p>
-                    <p>I specialize in diagnosing Alzheimer's disease.</p>
-                    <p>Please log in to use!</p>
-                    <p>Please register or log in to access your account.</p>
+            <div className="header-content-container">
+                <div className="header-background"></div>
+                <div className="content">
+                    <div className="scroll-text">
+                        <p className="Welcome">Welcome</p>
+                        <p>I'm <span className="brainworks">BrainWorks</span>, your personal assistant.</p>
+                        <p>I specialize in diagnosing <span className="alzheimers">Alzheimer's disease</span>.</p>
+                        <p>Please log in to use!</p>
+                        <p>Please register or log in to access your account.</p>
+                    </div>
+                    <button className="login-button" onClick={() => window.location.href = '/login'}>
+                        Login
+                    </button>
                 </div>
-                <button className="login-button" onClick={() => window.location.href = '/login'}>
-                    Login
-                </button>
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ html, body {
 
 .home {
     background-size: cover;
-    height: 150vh;
+    height: 110vh;
     color: white;
     background-color: #000000;
     display: flex;
@@ -68,6 +68,7 @@ html, body {
     height: 80vh;
     background: url('./humanbrain.jpg') no-repeat center 10% fixed;
     background-size: contain;
+    z-index: 1;
 }
 
 .content {
@@ -94,6 +95,26 @@ html, body {
     font-size: 24px;
     text-align: center;
     color: #fff;
+}
+
+.scroll-text p {
+    margin: 10px 0; /* 각 문구 사이에 간격 추가 */
+}
+
+.scroll-text .Welcome {
+    font-size: 36px;
+    font-weight: bold;
+    color: #00CED1; /* Hello 텍스트를 강조하기 위해 색상 변경 */
+}
+
+.scroll-text .brainworks {
+    color: #FFD700; /* BrainWorks 텍스트를 강조하기 위해 금색 적용 */
+    font-weight: bold;
+}
+
+.scroll-text .alzheimers {
+    color: #00CED1; /* Alzheimer's disease 텍스트를 강조하기 위해 주황색 적용 */
+    font-weight: bold;
 }
 
 .login-button {
