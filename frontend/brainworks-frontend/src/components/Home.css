@@ -30,7 +30,7 @@ html, body {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8); /* 배경을 반투명하게 설정 */
+    background-color: rgba(0, 0, 0, 0);
     z-index: 10;
 }
 
@@ -40,9 +40,9 @@ html, body {
 }
 
 .logo {
-    width: 30px; /* 로고 크기 조정 */
+    width: 30px;
     height: 30px;
-    margin-right: 10px; /* 제목과의 간격 조정 */
+    margin-right: 10px;
 }
 
 .navbar-left h1 {
@@ -68,17 +68,29 @@ html, body {
     height: 80vh;
     background: url('./humanbrain.jpg') no-repeat center 10% fixed;
     background-size: contain;
+    transition: transform 0.5s ease, height 0.5s ease;
     z-index: 1;
+}
+
+.header-background.scaled {
+    transform: scale(1.2);
+    height: 96vh;
 }
 
 .content {
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
     background-color: #000;
     color: #000;
     width: 100%;
     padding: 20px;
-    margin-top: 700px;
+    margin-top: 720px;
     z-index: 1;
+    transition: margin-top 0.5s ease;
+}
+
+.header-background.scaled + .content {
+    margin-top: 860px;
 }
 
 .content h2 {
@@ -98,27 +110,40 @@ html, body {
 }
 
 .scroll-text p {
-    margin: 10px 0; /* 각 문구 사이에 간격 추가 */
+    margin: 10px 0;
 }
 
 .scroll-text .Welcome {
     font-size: 36px;
     font-weight: bold;
-    color: #00CED1; /* Hello 텍스트를 강조하기 위해 색상 변경 */
+    color: #00CED1;
+    margin-bottom: 40px;
 }
 
 .scroll-text .brainworks {
-    color: #FFD700; /* BrainWorks 텍스트를 강조하기 위해 금색 적용 */
+    color: #FFD700;
     font-weight: bold;
 }
 
+.scroll-text .brainworks img {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}
+
+.scroll-text .small-text {
+    margin-top: 50px;
+    font-size: 14px;
+    color: #fff;
+}
+
 .scroll-text .alzheimers {
-    color: #00CED1; /* Alzheimer's disease 텍스트를 강조하기 위해 주황색 적용 */
+    color: #00CED1;
     font-weight: bold;
 }
 
 .login-button {
-    margin-top: 20px;
+    margin-top: 5px;
     padding: 10px 20px;
     background-color: #00CED1;
     color: #fff;
@@ -131,4 +156,5 @@ html, body {
 
 .login-button:hover {
     background-color: #FFD700;
+    font-weight: bold;
 }
