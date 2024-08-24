@@ -1,0 +1,21 @@
+/* src/components/Onboarding.css */
+.onboarding {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black; /* 배경을 검정색으로 설정 */
+    color: white; /* 텍스트를 흰색으로 설정 */
+    text-align: center;
+}
+
+canvas {
+    margin-top: 20px; /* 텍스트와 캔버스 사이에 간격 추가 */
+}
+
+.main-content {
+    color: white; /* 메인 페이지 텍스트를 흰색으로 설정 */
+    text-align: center;
+    padding: 20px;
+}
