@@ -134,25 +134,25 @@
     <script>
         document.getElementById('uploadForm').addEventListener('submit', async (event) => {
             event.preventDefault();
-            console.log(document.getElementById('patientName').value); 
+            console.log(document.getElementById('patientName').value);
 
             const formData = new FormData(document.getElementById('uploadForm')); // 기존 폼에서 FormData 생성
-        
+
             try {
                 const response = await fetch('{% url "upload_image" %}', {
                     method: 'POST',
                     body: formData
                 });
-        
+
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-        
+
                 const result = await response.json();
                 if (result.status === 'success') {
                     document.getElementById('result').innerText = 'Image uploaded successfully. Redirecting to analysis page...';
                     showNotification('Image Upload', 'Image uploaded successfully.');
-        
+
                     setTimeout(() => {
                         window.location.href = `{% url 'analysis_result' %}?image_url=${encodeURIComponent(result.image_url)}&description=${encodeURIComponent(result.description)}&confidence=${encodeURIComponent(result.confidence)}`;
                     }, 2000);
@@ -164,7 +164,7 @@
                 showNotification('Image Upload Error', `Error: ${error.message}`);
             }
         });
-                    
+
 
         function showNotification(title, message) {
             if (Notification.permission === 'granted') {

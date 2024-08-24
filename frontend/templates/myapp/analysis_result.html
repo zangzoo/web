@@ -200,18 +200,25 @@
     <div class="content">
         <div class="column column1">
             <div class="box box1">
-                <p>환자 정보</p>
-                <p>환자 ID: 12345</p>
-                <p>환자 이름: 홍길동(남/30)</p>
-                <p>진료과: 내과</p>
-                <p>진료일: 2023-07-12</p>
-                <p>진단명: 고혈압</p>
+                {% if selected_patient %}
+                    <p>환자 이름: {{ selected_patient.patient_name }}</p>
+                    <p>성별: {{ selected_patient.gender }}</p>
+                    <p>나이: {{ selected_patient.age }}</p>
+                    <p>의료 기록: {{ selected_patient.medical_history }}</p>
+                {% else %}
+                    <p>환자를 선택하세요.</p>
+                {% endif %}
             </div>
             <div class="box box2">
-                <div class="search-box">
-                    <input type="text" class="search-input" placeholder="환자명 검색">
-                    <button class="search-button">검색</button>
-                </div>
+                <select id="patientSelect" class="search-input">
+                    <option value="" disabled selected>환자를 선택하세요</option>
+                    {% for patient in patients %}
+                        <option value="{{ patient.id }}" {% if selected_patient and patient.id == selected_patient.id %}selected{% endif %}>
+                            {{ patient.patient_name }} ({{ patient.gender }}/{{ patient.age }})
+                        </option>
+                    {% endfor %}
+                </select>
+                <button class="search-button" onclick="selectPatient()">선택</button>
             </div>
             <div class="box box3">Box 3</div>
         </div>
