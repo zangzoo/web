@@ -62,41 +62,43 @@
 .login-logo {
     width: 50px;
     height: 50px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .login-input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 2px;
     border-radius: 5px;
     border: none;
     outline: none;
     font-size: 16px;
+    margin-top: 15px;
 }
 
 .options {
+    margin-top: 10px;
     text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: 13px;
 }
 
 .options label {
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .login-buttons {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .option-button {
     background-color: #555;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 26px;
     border: none;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
