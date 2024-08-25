@@ -6,6 +6,7 @@ import Onboarding from './components/Onboarding';
 import Home from './components/Home';
 import Login from './components/Login';
 import Main from './components/Main';
+import Analysis from './components/Analysis';
 
 function App() {
     return (
@@ -14,7 +15,8 @@ function App() {
                 <Route path="/" element={<Onboarding />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/main" element={<Main />} /> {/* 메인 화면 경로 추가 */}
+                <Route path="/main" element={<Main />} />
+                <Route path="/analysis" element={<Analysis />} />
             </Routes>
         </Router>
     );
