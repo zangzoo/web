@@ -8,7 +8,7 @@ function Home() {
         const handleScroll = () => {
             const headerBackground = document.querySelector('.header-background');
             const content = document.querySelector('.content');
-            if (window.scrollY > 50) { // 스크롤이 일정량 이상일 때
+            if (window.scrollY > 50) {
                 headerBackground.classList.add('scaled');
                 content.style.marginTop = '860px';
             } else {

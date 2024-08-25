@@ -32,11 +32,23 @@ function Main() {
                     <a href="/login">Login</a>
                 </div>
             </nav>
-            <div className="main-content">
-                <h2>Alzheimer detection</h2>
-                <p>Upload Image:</p>
-                <input type="file" onChange={handleFileChange} />
-                <button className="submit-button" onClick={handleSubmit}>Submit</button>
+
+            <div className="header-image-container">
+                <img src="/Analysis.png" alt="Header Image" className="header-image" />
+                <div className="header-text">
+                    <h1>Analysis</h1>
+                </div>
+            </div>
+
+            <div className="upload-section">
+                <h2>Upload MRI Scan for Alzheimer's Detection</h2>
+                <form>
+                    <label htmlFor="file-upload" className="file-upload-label">
+                        Upload Image:
+                    </label>
+                    <input type="file" id="file-upload" name="file-upload" />
+                    <button type="submit" className="submit-button">Submit</button>
+                </form>
             </div>
         </div>
     );
