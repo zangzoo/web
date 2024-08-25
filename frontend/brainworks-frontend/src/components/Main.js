@@ -1,19 +1,29 @@
-// src/components/Main.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Main.css';
 
 function Main() {
     const [selectedFile, setSelectedFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
     const navigate = useNavigate();
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
+        const file = event.target.files[0];
+        setSelectedFile(file);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setPreviewUrl(null);
+        }
     };
 
     const handleSubmit = () => {
         if (selectedFile) {
-            // 파일 업로드 로직 추가 (필요에 따라)
             navigate('/analysis');
         } else {
             alert('Please select an image.');
@@ -35,9 +45,7 @@ function Main() {
 
             <div className="header-image-container">
                 <img src="/Analysis.png" alt="Header Image" className="header-image" />
-                <div className="header-text">
-                    <h1>Analysis</h1>
-                </div>
+                <div className="header-text">Analysis</div>
             </div>
 
             <div className="upload-section">
@@ -46,9 +54,17 @@ function Main() {
                     <label htmlFor="file-upload" className="file-upload-label">
                         Upload Image:
                     </label>
-                    <input type="file" id="file-upload" name="file-upload" />
-                    <button type="submit" className="submit-button">Submit</button>
+                    <input type="file" id="file-upload" name="file-upload" onChange={handleFileChange} />
                 </form>
+                {previewUrl && (
+                    <div className="image-preview">
+                        <h3>Selected Image:</h3>
+                        <img src={previewUrl} alt="Selected file" />
+                    </div>
+                )}
+                <button type="button" className="submit-button" onClick={handleSubmit}>
+                    Submit
+                </button>
             </div>
         </div>
     );
