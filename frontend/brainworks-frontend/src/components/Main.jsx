@@ -5,8 +5,9 @@ import './Main.css';
 function Main() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [selectedPatient, setSelectedPatient] = useState(""); // 환자 선택 state 추가
+    const [selectedPatient, setSelectedPatient] = useState("");
     const navigate = useNavigate();
+    const userId = 'Dr.Okdol'
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -28,12 +29,19 @@ function Main() {
     };
 
     const handleSubmit = () => {
-        if (selectedPatient && selectedFile) {
-            navigate('/analysis');
-        } else {
-            alert('Please select a patient and an image.');
-        }
-    };
+    if (selectedPatient && selectedFile) {
+        console.log('Navigating with state:', {
+            selectedPatient,
+            selectedFile,
+            previewUrl,
+            userId
+        });
+        navigate('/analysis', { state: { selectedPatient, selectedFile, previewUrl, userId } });
+    } else {
+        alert('Please select a patient and an image.');
+    }
+};
+
 
     return (
         <div className="main-container">
@@ -66,14 +74,9 @@ function Main() {
                         className="patient-select"
                     >
                         <option value="">Please select a patient.</option>
-                        <option value="song yeogyeong">song yeogyeong</option>
-                        <option value="김새드">김새드</option>
-                        <option value="김해피">김해피</option>
-                        <option value="김맥주">김맥주</option>
-                        <option value="김술잔">김술잔</option>
-                        <option value="김애플">김애플</option>
-
-                        {/* 환자 목록을 이곳에 추가 */}
+                        <option value="kim minseo">Patient 1</option>
+                        <option value="김새드">Patient 2</option>
+                        <option value="김해피">Patient 3</option>
                     </select>
 
                     <label htmlFor="file-upload" className="file-upload-label">
