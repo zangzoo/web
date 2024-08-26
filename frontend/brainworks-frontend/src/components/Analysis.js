@@ -87,7 +87,7 @@ function Analysis() {
             </main>
             <Modal
                 show={showModal}
-                message="로그아웃하시겠습니까?"
+                message="Are you sure you want to sign out?"
                 onConfirm={handleConfirmLogout}
                 onCancel={handleCancelLogout}
             />

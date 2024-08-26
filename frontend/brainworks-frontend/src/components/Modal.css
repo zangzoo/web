@@ -17,8 +17,32 @@
     text-align: center;
 }
 
+.modal-content p {
+    margin-bottom: 10px;
+}
+
 .modal-content button {
     margin: 5px;
     padding: 10px 20px;
     cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.modal-content button.cancel-button {
+    background-color: #888;
+    color: white;
+}
+
+.modal-content button.cancel-button:hover {
+    background-color: #666;
+}
+
+.modal-content button.confirm-button {
+    background-color: #00CED1;
+    color: white;
+}
+
+.modal-content button.confirm-button:hover {
+    background-color: #FF4500; /* Hover 시 더 밝은 색 */
 }

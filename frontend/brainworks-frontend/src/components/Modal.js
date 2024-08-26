@@ -8,8 +8,8 @@ function Modal({ show, message, onConfirm, onCancel }) {
         <div className="modal-overlay">
             <div className="modal-content">
                 <p>{message}</p>
-                <button onClick={onConfirm}>확인</button>
-                <button onClick={onCancel}>취소</button>
+                <button className="confirm-button" onClick={onConfirm}>Confirm</button>
+                <button className="cancel-button" onClick={onCancel}>Cancel</button>
             </div>
         </div>
     );
