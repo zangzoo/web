@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Analysis.css';
 import Modal from './Modal';
+import jsPDF from 'jspdf';
 
 function Analysis() {
     const [showModal, setShowModal] = useState(false);
@@ -29,7 +30,6 @@ function Analysis() {
         }
     ]);
 
-    // 현재 선택된 분석 결과를 저장하기 위한 상태 추가
     const [selectedAnalysis, setSelectedAnalysis] = useState(mriRecords[0].analysis);
 
     const location = useLocation();
@@ -50,7 +50,7 @@ function Analysis() {
     };
 
     const handleRecordClick = (record) => {
-        setSelectedAnalysis(record.analysis); // 선택된 분석 결과를 설정
+        setSelectedAnalysis(record.analysis);
         navigate('/analysis', {
             state: {
                 selectedPatient,
@@ -83,6 +83,20 @@ function Analysis() {
 
     const handleCancel = () => {
         navigate('/main');
+    };
+
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+
+        doc.text("BrainWorks Analysis Report", 20, 20);
+        doc.text(`Patient Name: ${selectedPatient}`, 20, 30);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 40);
+        doc.text(`MRI Scan Description: ${mriRecords[mriRecords.length - 1].description}`, 20, 50);
+        doc.text(`Analysis: ${mriRecords[mriRecords.length - 1].analysis.description}`, 20, 60);
+        doc.text(`Confidence: ${mriRecords[mriRecords.length - 1].analysis.confidence}`, 20, 70);
+        doc.addImage(previewUrl, 'JPEG', 20, 80, 160, 90);
+
+        doc.save('BrainWorks_Analysis_Report.pdf');
     };
 
     return (
@@ -133,8 +147,8 @@ function Analysis() {
                     </section>
                     <section className="analysis-results">
                         <h2>Analysis Results</h2>
-                        <p>Description: {selectedAnalysis.description}</p> {/* 선택된 분석 결과를 반영 */}
-                        <p>Confidence: {selectedAnalysis.confidence}</p> {/* 선택된 분석 결과의 confidence 반영 */}
+                        <p>Description: {selectedAnalysis.description}</p>
+                        <p>Confidence: {selectedAnalysis.confidence}</p>
                         <div className="action-buttons">
                             <button className="save-button" onClick={handleSave}>Save</button>
                             <button className="cancel-button" onClick={handleCancel}>Cancel</button>

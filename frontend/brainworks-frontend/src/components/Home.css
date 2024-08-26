@@ -13,7 +13,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    box-sizing: border-box; /* 추가: 요소 크기를 조정하기 위한 박스 모델 설정 */
+    box-sizing: border-box;
 }
 
 .navbar {
@@ -25,7 +25,7 @@ html, body {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0); /* 투명하게 설정 */
+    background-color: rgba(0, 0, 0, 0);
     z-index: 10;
     box-sizing: border-box; /* 추가: 패딩이 요소 크기에 포함되도록 설정 */
 }
