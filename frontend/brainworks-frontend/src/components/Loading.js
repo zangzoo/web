@@ -13,7 +13,6 @@ function BrainModel() {
         setColorChange(colorChange + delta);
         scene.traverse((child) => {
             if (child.isMesh) {
-                // HSL로 색상을 변경하면서 지속적인 색상 변화
                 child.material.color.setHSL((colorChange / 10) % 1, 0.5, 0.5);
             }
         });

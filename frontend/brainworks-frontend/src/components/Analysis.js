@@ -29,6 +29,9 @@ function Analysis() {
         }
     ]);
 
+    // 현재 선택된 분석 결과를 저장하기 위한 상태 추가
+    const [selectedAnalysis, setSelectedAnalysis] = useState(mriRecords[0].analysis);
+
     const location = useLocation();
     const navigate = useNavigate();
     const { selectedPatient, previewUrl, userId } = location.state || {};
@@ -47,6 +50,7 @@ function Analysis() {
     };
 
     const handleRecordClick = (record) => {
+        setSelectedAnalysis(record.analysis); // 선택된 분석 결과를 설정
         navigate('/analysis', {
             state: {
                 selectedPatient,
@@ -78,7 +82,7 @@ function Analysis() {
     };
 
     const handleCancel = () => {
-        navigate('/main'); // Main 페이지로 이동시킴
+        navigate('/main');
     };
 
     return (
@@ -129,8 +133,8 @@ function Analysis() {
                     </section>
                     <section className="analysis-results">
                         <h2>Analysis Results</h2>
-                        <p>Description: Non_Demented</p>
-                        <p>Confidence: 0.7813544273376465</p>
+                        <p>Description: {selectedAnalysis.description}</p> {/* 선택된 분석 결과를 반영 */}
+                        <p>Confidence: {selectedAnalysis.confidence}</p> {/* 선택된 분석 결과의 confidence 반영 */}
                         <div className="action-buttons">
                             <button className="save-button" onClick={handleSave}>Save</button>
                             <button className="cancel-button" onClick={handleCancel}>Cancel</button>

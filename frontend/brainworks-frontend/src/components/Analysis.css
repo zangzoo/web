@@ -1,3 +1,4 @@
+/* Analysis.css */
 body, html {
     margin: 0;
     padding: 0;
@@ -84,7 +85,7 @@ body, html {
 .right-panel {
     display: flex;
     flex-direction: column;
-    width: 65%;
+    width: 67%;
     justify-content: space-between;
 }
 
@@ -93,7 +94,7 @@ body, html {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .patient-info h2, .image-display h2, .analysis-results h2, .mri-records h2 {
@@ -106,12 +107,13 @@ body, html {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    height: 540px;
 }
 
 .image-display h2 {
     color: #00CED1;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .image-display img {
@@ -162,7 +164,7 @@ body, html {
 }
 
 .image-display h2 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .analysis-results {
@@ -173,8 +175,11 @@ body, html {
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    margin-top: 5px;
     position: relative;
+    min-height: 170px;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .analysis-results p {
@@ -189,14 +194,12 @@ body, html {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    position: absolute;
-    left: 805px;
-    bottom: 20px;
 }
 
 .save-button:hover {
     background-color: #FF4500;
 }
+
 .action-buttons {
     display: flex;
     justify-content: flex-end;
@@ -212,6 +215,7 @@ body, html {
     cursor: pointer;
     margin-left: 10px;
 }
+
 .cancel-button {
     background-color: #cccccc;
     color: #333333;
@@ -222,21 +226,11 @@ body, html {
     color: #ffffff;
 }
 
+.save-button {
+    margin-left: 10px;
+}
 
 .save-button:hover:hover {
     background-color: #FF4500;
     color: white;
-}
-
-.analysis-results {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    position: relative;
-    min-height: 150px;
 }
