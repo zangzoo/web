@@ -116,13 +116,20 @@ function Analysis() {
         doc.save(fileName);
     };
 
+    // This function will handle the navigation to the Patient List screen
+    const handlePatientListClick = () => {
+        navigate('/patient-list', {
+            state: { userId } // Pass the userId to the patient list page
+        });
+    };
+
     return (
         <div className="analysis-container">
             <header className="analysis-header">
                 <div className="logo">
                     <img src="/brainlogo.png" alt="BrainWorks Logo" />
                     <h1>BrainWorks</h1>
-                    <button className="history-button">History</button>
+                    <button className="patient-list-button" onClick={handlePatientListClick}>Patient List</button>
                 </div>
                 <div className="user-info">
                     <button className="report-button" onClick={downloadPDF}>Download Report</button>
