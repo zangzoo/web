@@ -1,125 +1,32 @@
-/* src/components/Login.css */
-.login-container {
-    background-color: #000;
-    height: 100vh;
+/* Loading.css */
+.loading-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    height: 100vh;
+    background-color: #000000 !important;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
 }
 
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 10;
-}
-
-.navbar-left {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-}
-
-.navbar-left h1 {
-    margin: 0;
-    font-size: 24px;
-    color: white;
-}
-
-.navbar-right a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #00CED1;
-    font-size: 18px;
-}
-
-.navbar-right a:hover {
-    color: #FFD700;
-}
-
-.login-form {
-    background-color: #333;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    width: 300px;
-}
-
-.login-logo {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 15px;
-}
-
-.login-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 2px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    margin-top: 15px;
-}
-
-.options {
-    margin-top: 10px;
-    text-align: left;
-    margin-bottom: 13px;
-}
-
-.options label {
-    font-size: 13px;
-}
-
-.login-buttons {
-    display: flex;
-    justify-content: space-between;
+.loading-text {
     margin-bottom: 10px;
+    color: #ffffff;
 }
 
-.option-button {
-    background-color: #555;
-    color: white;
-    padding: 10px 26px;
-    border: none;
-    border-radius: 5px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.option-button:hover {
-    background-color: #777;
-}
-
-.login-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #00CED1;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.login-button:hover {
-    background-color: #FFD700;
+.patient-name {
     font-weight: bold;
+    color: #00CED1;
+}
+
+.file-name {
+    font-weight: bold;
+    color: #FF4500;
+}
+
+.loading-percentage {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
 }
