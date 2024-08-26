@@ -22,13 +22,19 @@ body, html {
     color: white;
 }
 
+.logo h1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+}
+
 .logo {
     display: flex;
     align-items: center;
 }
 
 .logo img {
-    height: 40px;
+    height: 35px;
     margin-right: 10px;
 }
 
@@ -38,11 +44,10 @@ body, html {
 }
 
 .user-info span.user-id {
-    margin-right: 20px; /* Logout 버튼과의 간격 */
-    font-weight: bold;
+    margin-right: 10px;
+    font-weight: light;
     color: white;
 }
-
 
 .report-button, .logout-button {
     padding: 5px 10px;
@@ -88,4 +93,21 @@ body, html {
     max-height: 400px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.history-button {
+    padding: 3px 8px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 10px;
+
+}
+
+.history-button:hover {
+    background-color: white;
+    color: #333;
 }

@@ -13,10 +13,11 @@ function Analysis() {
                 <div className="logo">
                     <img src="/brainlogo.png" alt="BrainWorks Logo" />
                     <h1>BrainWorks</h1>
+                    <button className="history-button">History</button>
                 </div>
                 <div className="user-info">
                     <button className="report-button">Download Report</button>
-                    <span className="user-id">{userId}</span> {/* 여기에 userId를 추가 */}
+                    <span className="user-id">{userId}</span>
                     <button className="logout-button">Logout</button>
                 </div>
             </header>
