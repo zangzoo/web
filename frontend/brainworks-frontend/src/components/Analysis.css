@@ -123,10 +123,11 @@ body, html {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
-.history-button {
+.patient-list-button {
     padding: 3px 8px;
     background-color: transparent;
     color: white;
+    width: 1000%;
     border: 1px solid white;
     border-radius: 5px;
     cursor: pointer;
@@ -134,7 +135,7 @@ body, html {
     font-size: 10px;
 }
 
-.history-button:hover {
+.patient-list-button:hover {
     background-color: white;
     color: #333;
 }

@@ -66,7 +66,7 @@
 }
 
 .login-input {
-    width: 92%;
+    width: 100%;
     padding: 10px;
     margin-bottom: 2px;
     border-radius: 5px;
@@ -85,7 +85,6 @@
 .options label {
     font-size: 13px;
 }
-
 .login-buttons {
     display: flex;
     justify-content: space-between;
@@ -93,9 +92,9 @@
 }
 
 .option-button {
-    background-color: #555;
+    background-color: #444;
     color: white;
-    padding: 10px 40px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     width: 48%;
@@ -105,7 +104,15 @@
 }
 
 .option-button:hover {
-    background-color: #777;
+    background-color: #666;
+}
+
+.option-button:first-child {
+    margin-right: 4%;
+}
+
+.option-button:nth-child(2) {
+    margin-left: 4%;
 }
 
 .login-button {

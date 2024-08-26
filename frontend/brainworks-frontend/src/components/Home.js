@@ -1,19 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './Home.css';
 
 function Home() {
-    const [isScaled, setIsScaled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScaled(window.scrollY > 50);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
 
     return (
         <div className="home">
@@ -28,7 +16,7 @@ function Home() {
                 </div>
             </nav>
 
-            <div className={`header-image-container ${isScaled ? 'scaled' : ''}`}>
+            <div className="header-image-container">
                 <img src="./humanbrain.jpg" alt="Header Image" className="header-image" />
                 <div className="header-text">Welcome to BrainWorks!</div>
             </div>
