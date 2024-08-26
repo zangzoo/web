@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PatientList.css';
-import Modal from './Modal'; // 모달 컴포넌트 임포트
+import Modal from './Modal';
 
 function PatientList() {
     const navigate = useNavigate();
-    const [showModal, setShowModal] = useState(false); // 모달 표시 상태 관리
+    const [showModal, setShowModal] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     // Mock patient data
     const patients = [
@@ -16,26 +17,34 @@ function PatientList() {
     ];
 
     const handlePatientClick = (patient) => {
-        // Navigate to detailed patient information screen
         navigate('/patient-details', { state: { patient } });
     };
 
     const handleHomeClick = () => {
-        navigate('/main');  // Main 화면으로 이동
+        navigate('/main');
     };
 
     const handleLogoutClick = () => {
-        setShowModal(true); // 로그아웃 버튼 클릭 시 모달 표시
+        setShowModal(true);
     };
 
     const handleConfirmLogout = () => {
         setShowModal(false);
-        navigate('/home');  // 확인 버튼 클릭 시 Home 화면으로 이동
+        navigate('/home');
     };
 
     const handleCancelLogout = () => {
-        setShowModal(false); // 취소 버튼 클릭 시 모달 닫기
+        setShowModal(false);
     };
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+
+    const filteredPatients = patients.filter(patient =>
+        patient.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="patient-list-container">
@@ -54,7 +63,12 @@ function PatientList() {
             <main className="patient-list-content">
                 <h2>Records</h2>
                 <div className="search-bar">
-                    <input type="text" placeholder="Patient Name Search" />
+                    <input
+                        type="text"
+                        placeholder="Patient Name Search"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
                     <button>Search</button>
                 </div>
                 <table className="patient-table">
@@ -62,12 +76,12 @@ function PatientList() {
                         <tr>
                             <th>Name</th>
                             <th>Recent Visit</th>
-                            <th>treatment progress</th>
-                            <th>risk group</th>
+                            <th>Treatment Progress</th>
+                            <th>Risk Group</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {patients.map(patient => (
+                        {filteredPatients.map(patient => (
                             <tr key={patient.id} onClick={() => handlePatientClick(patient)}>
                                 <td>
                                     <img src={patient.image} alt={patient.name} className="patient-image" />
