@@ -8,12 +8,14 @@ function Main() {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [selectedPatient, setSelectedPatient] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [fileName, setFileName] = useState(""); // 파일 이름 상태 추가
     const navigate = useNavigate();
-    const userId = 'Dr.Okdol'
+    const userId = 'Dr.Okdol';
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
+        setFileName(file.name); // 파일 이름 설정
 
         if (file) {
             const reader = new FileReader();
@@ -32,7 +34,7 @@ function Main() {
 
     const handleSubmit = () => {
         if (selectedPatient && selectedFile) {
-            setIsLoading(true); // 로딩 시작
+            setIsLoading(true);
             setTimeout(() => {
                 navigate('/analysis', { state: { selectedPatient, selectedFile, previewUrl, userId } });
             }, 10000); // 10초 후에 분석 페이지로 이동
@@ -42,7 +44,7 @@ function Main() {
     };
 
     if (isLoading) {
-        return <Loading />;
+        return <Loading patientName={selectedPatient} fileName={fileName} />; // 로딩 중일 때 환자 이름과 파일 이름 전달
     }
 
     return (
