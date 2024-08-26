@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './Analysis.css';
 import Modal from './Modal';
 import jsPDF from 'jspdf';
+import './Font/Font.css';
 
 function Analysis() {
     const [showModal, setShowModal] = useState(false);
@@ -85,19 +86,33 @@ function Analysis() {
         navigate('/main');
     };
 
-    const downloadPDF = () => {
+    const downloadPDF = async () => {
         const doc = new jsPDF();
 
+        // PDF에 사용할 폰트를 설정합니다.
+        doc.setFont("MaruBuri-Light"); // 미리 로드된 폰트 사용
+        doc.setFontSize(12); // 폰트 크기 설정
+        doc.setTextColor(0, 0, 0); // 텍스트 색상을 검정색으로 설정
+
+        // PDF 내용 작성
         doc.text("BrainWorks Analysis Report", 20, 20);
         doc.text(`Patient Name: ${selectedPatient}`, 20, 30);
         doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 40);
         doc.text(`MRI Scan Description: ${mriRecords[mriRecords.length - 1].description}`, 20, 50);
         doc.text(`Analysis: ${mriRecords[mriRecords.length - 1].analysis.description}`, 20, 60);
         doc.text(`Confidence: ${mriRecords[mriRecords.length - 1].analysis.confidence}`, 20, 70);
-        doc.addImage(previewUrl, 'JPEG', 20, 80, 160, 90);
 
+        // 이미지 추가
+        if (previewUrl) {
+            const img = new Image();
+            img.src = previewUrl;
+            doc.addImage(img, 'JPEG', 20, 80, 160, 90);
+        }
+
+        // 파일 이름 생성 및 PDF 저장
         const currentDate = new Date().toISOString().slice(0, 10);
-        const fileName = '${selectedPatient}_${currentDate}.pdf';
+        const fileName = `${selectedPatient}_${currentDate}.pdf`;
+
         doc.save(fileName);
     };
 

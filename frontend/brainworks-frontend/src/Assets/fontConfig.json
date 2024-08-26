@@ -1,0 +1,13 @@
+{
+  "fonts": [
+    {
+      "fontFamily": "MaruBuri",
+      "fontStyles": {
+        "normal": {
+          "fontUrl": "frontend/brainworks-frontend/src/components/MaruBuri-Light.ttf",
+          "fontType": "truetype"
+        }
+      }
+    }
+  ]
+}

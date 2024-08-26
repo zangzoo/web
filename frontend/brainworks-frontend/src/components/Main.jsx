@@ -79,8 +79,8 @@ function Main() {
                     >
                         <option value="">Please select a patient.</option>
                         <option value="kim minseo">Patient 1</option>
-                        <option value="김새드">Patient 2</option>
-                        <option value="김해피">Patient 3</option>
+                        <option value="moon good">Patient 2</option>
+                        <option value="song happy">Patient 3</option>
                     </select>
 
                     <label htmlFor="file-upload" className="file-upload-label">
