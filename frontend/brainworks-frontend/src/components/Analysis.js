@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Analysis.css';
+import Modal from './Modal';
 
 function Analysis() {
+    const [showModal, setShowModal] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const { selectedPatient, selectedFile, previewUrl, userId } = location.state || {};
 
+    const handleLogout = () => {
+        setShowModal(true);
+    };
+
+    const handleConfirmLogout = () => {
+        setShowModal(false);
+        navigate('/home');
+    };
+
+    const handleCancelLogout = () => {
+        setShowModal(false);
+    };
+
     const mriRecords = [
-        { id: 1, date: '2022-06-15', description: 'MRI Scan 1', imageUrl: '/mri_scan1.gif' },
-        { id: 2, date: '2023-07-01', description: 'MRI Scan 2', imageUrl: '/mri_scan2.gif' },
-        { id: 3, date: '2024-08-10', description: 'MRI Scan 3', imageUrl: '/mri_scan3.gif' }
+        { id: 1, date: '2023-06-15', description: 'MRI Scan 1', image: '/path-to-image-1.jpg' },
+        { id: 2, date: '2023-07-01', description: 'MRI Scan 2', image: '/path-to-image-2.jpg' },
+        { id: 3, date: '2023-08-10', description: 'MRI Scan 3', image: '/path-to-image-3.jpg' }
     ];
 
-    const [currentImageUrl, setCurrentImageUrl] = useState(previewUrl);
-
     const handleRecordClick = (record) => {
-        // Set the current image to the one associated with the clicked record
-        setCurrentImageUrl(record.imageUrl);
+        navigate('/analysis', { state: { selectedPatient, previewUrl: record.image, userId } });
     };
 
     return (
@@ -31,11 +43,11 @@ function Analysis() {
                 <div className="user-info">
                     <button className="report-button">Download Report</button>
                     <span className="user-id">{userId}</span>
-                    <button className="logout-button">Logout</button>
+                    <button className="logout-button" onClick={handleLogout}>Logout</button>
                 </div>
             </header>
             <main className="analysis-content">
-                <div className="left-panel">
+                <section className="left-panel">
                     <section className="patient-info">
                         <h2>Patient Information</h2>
                         <p>ID: 12345</p>
@@ -44,6 +56,7 @@ function Analysis() {
                         <p>Date: 2023-07-12</p>
                         <p>Diagnosis: Hypertension</p>
                     </section>
+
                     <section className="mri-records">
                         <h2>Previous MRI Records</h2>
                         <ul>
@@ -54,12 +67,13 @@ function Analysis() {
                             ))}
                         </ul>
                     </section>
-                </div>
-                <div className="right-panel">
+                </section>
+
+                <section className="right-panel">
                     <section className="image-display">
                         <h2>MRI Scan</h2>
-                        {currentImageUrl ? (
-                            <img src={currentImageUrl} alt="MRI Scan" />
+                        {previewUrl ? (
+                            <img src={previewUrl} alt="MRI Scan" />
                         ) : (
                             <p>No image selected.</p>
                         )}
@@ -69,8 +83,14 @@ function Analysis() {
                         <p>Description: Non_Demented</p>
                         <p>Confidence: 0.7813544273376465</p>
                     </section>
-                </div>
+                </section>
             </main>
+            <Modal
+                show={showModal}
+                message="로그아웃하시겠습니까?"
+                onConfirm={handleConfirmLogout}
+                onCancel={handleCancelLogout}
+            />
         </div>
     );
 }
