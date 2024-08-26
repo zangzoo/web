@@ -96,7 +96,9 @@ function Analysis() {
         doc.text(`Confidence: ${mriRecords[mriRecords.length - 1].analysis.confidence}`, 20, 70);
         doc.addImage(previewUrl, 'JPEG', 20, 80, 160, 90);
 
-        doc.save('BrainWorks_Analysis_Report.pdf');
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const fileName = '${selectedPatient}_${currentDate}.pdf';
+        doc.save(fileName);
     };
 
     return (
@@ -108,7 +110,7 @@ function Analysis() {
                     <button className="history-button">History</button>
                 </div>
                 <div className="user-info">
-                    <button className="report-button">Download Report</button>
+                    <button className="report-button" onClick={downloadPDF}>Download Report</button>
                     <span className="user-id">{userId}</span>
                     <button className="logout-button" onClick={handleLogout}>Logout</button>
                 </div>
