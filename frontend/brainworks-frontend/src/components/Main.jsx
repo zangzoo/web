@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Main.css';
+import Loading from './Loading';
 
 function Main() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [selectedPatient, setSelectedPatient] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const userId = 'Dr.Okdol'
 
@@ -29,19 +31,19 @@ function Main() {
     };
 
     const handleSubmit = () => {
-    if (selectedPatient && selectedFile) {
-        console.log('Navigating with state:', {
-            selectedPatient,
-            selectedFile,
-            previewUrl,
-            userId
-        });
-        navigate('/analysis', { state: { selectedPatient, selectedFile, previewUrl, userId } });
-    } else {
-        alert('Please select a patient and an image.');
-    }
-};
+        if (selectedPatient && selectedFile) {
+            setIsLoading(true); // 로딩 시작
+            setTimeout(() => {
+                navigate('/analysis', { state: { selectedPatient, selectedFile, previewUrl, userId } });
+            }, 10000); // 10초 후에 분석 페이지로 이동
+        } else {
+            alert('Please select a patient and an image.');
+        }
+    };
 
+    if (isLoading) {
+        return <Loading />;
+    }
 
     return (
         <div className="main-container">
