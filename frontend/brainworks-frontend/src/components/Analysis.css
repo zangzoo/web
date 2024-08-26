@@ -70,21 +70,33 @@ body, html {
 .analysis-content {
     display: flex;
     justify-content: space-around;
-    align-items: flex-start;
     padding: 20px;
     background-color: #fff;
     flex-grow: 1;
 }
 
-.patient-info, .image-display, .analysis-results {
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    justify-content: space-between;
+}
+
+.patient-info, .image-display, .analysis-results, .mri-records {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    flex-basis: 30%;
+    margin-bottom: 20px;
 }
 
-.patient-info h2, .image-display h2, .analysis-results h2 {
+.patient-info h2, .image-display h2, .analysis-results h2, .mri-records h2 {
     margin-top: 0;
 }
 
@@ -104,10 +116,33 @@ body, html {
     cursor: pointer;
     margin-left: 10px;
     font-size: 10px;
-
 }
 
 .history-button:hover {
     background-color: white;
     color: #333;
+}
+
+.patient-info p {
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+
+.patient-info h2 {
+    margin-bottom: 15px;
+}
+
+.mri-records ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.mri-records li {
+    cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.mri-records li:hover {
+    background-color: #eee;
 }
