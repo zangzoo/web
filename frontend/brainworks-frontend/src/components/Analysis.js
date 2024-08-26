@@ -5,9 +5,36 @@ import Modal from './Modal';
 
 function Analysis() {
     const [showModal, setShowModal] = useState(false);
+    const [mriRecords, setMriRecords] = useState([
+        {
+            id: 1,
+            date: '2023-06-15',
+            description: 'MRI Scan 1',
+            image: '/mri_scan1.gif',
+            analysis: { description: 'Non_Demented', confidence: 0.7813544273376465 }
+        },
+        {
+            id: 2,
+            date: '2023-07-01',
+            description: 'MRI Scan 2',
+            image: '/mri_scan2.gif',
+            analysis: { description: 'Mild_Demented', confidence: 0.6423453487357645 }
+        },
+        {
+            id: 3,
+            date: '2023-08-10',
+            description: 'MRI Scan 3',
+            image: '/mri_scan3.gif',
+            analysis: { description: 'Moderate_Demented', confidence: 0.8712434532837645 }
+        }
+    ]);
+
+    // 현재 선택된 분석 결과를 저장하기 위한 상태 추가
+    const [selectedAnalysis, setSelectedAnalysis] = useState(mriRecords[0].analysis);
+
     const location = useLocation();
     const navigate = useNavigate();
-    const { selectedPatient, selectedFile, previewUrl, userId } = location.state || {};
+    const { selectedPatient, previewUrl, userId } = location.state || {};
 
     const handleLogout = () => {
         setShowModal(true);
@@ -22,14 +49,40 @@ function Analysis() {
         setShowModal(false);
     };
 
-    const mriRecords = [
-        { id: 1, date: '2023-06-15', description: 'MRI Scan 1', image: '/path-to-image-1.jpg' },
-        { id: 2, date: '2023-07-01', description: 'MRI Scan 2', image: '/path-to-image-2.jpg' },
-        { id: 3, date: '2023-08-10', description: 'MRI Scan 3', image: '/path-to-image-3.jpg' }
-    ];
-
     const handleRecordClick = (record) => {
-        navigate('/analysis', { state: { selectedPatient, previewUrl: record.image, userId } });
+        setSelectedAnalysis(record.analysis); // 선택된 분석 결과를 설정
+        navigate('/analysis', {
+            state: {
+                selectedPatient,
+                previewUrl: record.image,
+                userId,
+                analysis: record.analysis
+            }
+        });
+    };
+
+    const handleSave = () => {
+        if (!previewUrl) {
+            alert('No MRI scan selected to save.');
+            return;
+        }
+
+        const newRecord = {
+            id: mriRecords.length + 1,
+            date: new Date().toISOString().slice(0, 10),
+            description: `MRI Scan ${mriRecords.length + 1}`,
+            image: previewUrl,
+            analysis: {
+                description: 'Demented',
+                confidence: 0.9813544273376465
+            }
+        };
+
+        setMriRecords([...mriRecords, newRecord]);
+    };
+
+    const handleCancel = () => {
+        navigate('/main');
     };
 
     return (
@@ -80,8 +133,12 @@ function Analysis() {
                     </section>
                     <section className="analysis-results">
                         <h2>Analysis Results</h2>
-                        <p>Description: Non_Demented</p>
-                        <p>Confidence: 0.7813544273376465</p>
+                        <p>Description: {selectedAnalysis.description}</p> {/* 선택된 분석 결과를 반영 */}
+                        <p>Confidence: {selectedAnalysis.confidence}</p> {/* 선택된 분석 결과의 confidence 반영 */}
+                        <div className="action-buttons">
+                            <button className="save-button" onClick={handleSave}>Save</button>
+                            <button className="cancel-button" onClick={handleCancel}>Cancel</button>
+                        </div>
                     </section>
                 </section>
             </main>

@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Main.css';
+import Loading from './Loading';
 
 function Main() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [selectedPatient, setSelectedPatient] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [fileName, setFileName] = useState(""); // 파일 이름 상태 추가
     const navigate = useNavigate();
-    const userId = 'Dr.Okdol'
+    const userId = 'Dr.Okdol';
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
+        setFileName(file.name); // 파일 이름 설정
 
         if (file) {
             const reader = new FileReader();
@@ -29,19 +33,19 @@ function Main() {
     };
 
     const handleSubmit = () => {
-    if (selectedPatient && selectedFile) {
-        console.log('Navigating with state:', {
-            selectedPatient,
-            selectedFile,
-            previewUrl,
-            userId
-        });
-        navigate('/analysis', { state: { selectedPatient, selectedFile, previewUrl, userId } });
-    } else {
-        alert('Please select a patient and an image.');
-    }
-};
+        if (selectedPatient && selectedFile) {
+            setIsLoading(true);
+            setTimeout(() => {
+                navigate('/analysis', { state: { selectedPatient, selectedFile, previewUrl, userId } });
+            }, 10000); // 10초 후에 분석 페이지로 이동
+        } else {
+            alert('Please select a patient and an image.');
+        }
+    };
 
+    if (isLoading) {
+        return <Loading patientName={selectedPatient} fileName={fileName} />; // 로딩 중일 때 환자 이름과 파일 이름 전달
+    }
 
     return (
         <div className="main-container">
