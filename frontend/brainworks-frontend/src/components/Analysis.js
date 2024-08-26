@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Analysis.css';
 import Modal from './Modal';
 
 function Analysis() {
     const [showModal, setShowModal] = useState(false);
-    const [selectedAnalysis, setSelectedAnalysis] = useState(null); // 선택된 분석 결과 상태 추가
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { selectedPatient, previewUrl, userId, analysis } = location.state || {};
-
     const [mriRecords, setMriRecords] = useState([
         {
             id: 1,
@@ -34,12 +29,9 @@ function Analysis() {
         }
     ]);
 
-    // 페이지가 처음 로드될 때 분석 결과를 설정
-    useEffect(() => {
-        if (analysis) {
-            setSelectedAnalysis(analysis);
-        }
-    }, [analysis]);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { selectedPatient, previewUrl, userId } = location.state || {};
 
     const handleLogout = () => {
         setShowModal(true);
@@ -55,7 +47,6 @@ function Analysis() {
     };
 
     const handleRecordClick = (record) => {
-        setSelectedAnalysis(record.analysis);  // 클릭된 Record의 분석 결과를 업데이트
         navigate('/analysis', {
             state: {
                 selectedPatient,
@@ -84,7 +75,10 @@ function Analysis() {
         };
 
         setMriRecords([...mriRecords, newRecord]);
-        setSelectedAnalysis(newRecord.analysis); //업데이트
+    };
+
+    const handleCancel = () => {
+        navigate('/main'); // Main 페이지로 이동시킴
     };
 
     return (
@@ -132,18 +126,15 @@ function Analysis() {
                         ) : (
                             <p>No image selected.</p>
                         )}
-                        <button className="save-button" onClick={handleSave}>Save</button>
                     </section>
                     <section className="analysis-results">
                         <h2>Analysis Results</h2>
-                        {selectedAnalysis ? (
-                            <>
-                                <p>Description: {selectedAnalysis.description}</p>
-                                <p>Confidence: {selectedAnalysis.confidence}</p>
-                            </>
-                        ) : (
-                            <p>No analysis available.</p>
-                        )}
+                        <p>Description: Non_Demented</p>
+                        <p>Confidence: 0.7813544273376465</p>
+                        <div className="action-buttons">
+                            <button className="save-button" onClick={handleSave}>Save</button>
+                            <button className="cancel-button" onClick={handleCancel}>Cancel</button>
+                        </div>
                     </section>
                 </section>
             </main>

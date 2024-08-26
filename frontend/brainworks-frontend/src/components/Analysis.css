@@ -189,9 +189,54 @@ body, html {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    position: absolute;
+    left: 805px;
+    bottom: 20px;
 }
 
 .save-button:hover {
     background-color: #FF4500;
+}
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.action-buttons .save-button, .action-buttons .cancel-button {
+    padding: 5px 10px;
+    background-color: #00CED1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.cancel-button {
+    background-color: #cccccc;
+    color: #333333;
+}
+
+.cancel-button:hover {
+    background-color: #999999;
+    color: #ffffff;
+}
+
+
+.save-button:hover:hover {
+    background-color: #FF4500;
+    color: white;
+}
+
+.analysis-results {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    position: relative;
+    min-height: 150px;
 }
