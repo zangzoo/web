@@ -5,7 +5,9 @@ import './Main.css';
 function Main() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [selectedPatient, setSelectedPatient] = useState("");
     const navigate = useNavigate();
+    const userId = 'Dr.Okdol'
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -22,13 +24,24 @@ function Main() {
         }
     };
 
-    const handleSubmit = () => {
-        if (selectedFile) {
-            navigate('/analysis');
-        } else {
-            alert('Please select an image.');
-        }
+    const handlePatientChange = (event) => {
+        setSelectedPatient(event.target.value);
     };
+
+    const handleSubmit = () => {
+    if (selectedPatient && selectedFile) {
+        console.log('Navigating with state:', {
+            selectedPatient,
+            selectedFile,
+            previewUrl,
+            userId
+        });
+        navigate('/analysis', { state: { selectedPatient, selectedFile, previewUrl, userId } });
+    } else {
+        alert('Please select a patient and an image.');
+    }
+};
+
 
     return (
         <div className="main-container">
@@ -49,8 +62,23 @@ function Main() {
             </div>
 
             <div className="upload-section">
-                <h2>Upload MRI Scan for Alzheimer's Detection</h2>
+                <h2>Upload an Image for Alzheimer's Prediction</h2>
                 <form>
+                    <label htmlFor="patient-select" className="file-upload-label">
+                        Select Patient:
+                    </label>
+                    <select
+                        id="patient-select"
+                        value={selectedPatient}
+                        onChange={handlePatientChange}
+                        className="patient-select"
+                    >
+                        <option value="">Please select a patient.</option>
+                        <option value="kim minseo">Patient 1</option>
+                        <option value="김새드">Patient 2</option>
+                        <option value="김해피">Patient 3</option>
+                    </select>
+
                     <label htmlFor="file-upload" className="file-upload-label">
                         Upload Image:
                     </label>
