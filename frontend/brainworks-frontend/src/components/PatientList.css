@@ -124,3 +124,33 @@
     margin-right: 10px;
     vertical-align: middle;
 }
+
+
+.home-button {
+    padding: 5px 10px;
+    background-color: #00CED1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.home-button:hover {
+    background-color: #FF4500;
+}
+
+.logout-button {
+    padding: 5px 10px;
+    background-color: #ff4b4b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.logout-button:hover {
+    background-color: #FF4500;
+}
+
