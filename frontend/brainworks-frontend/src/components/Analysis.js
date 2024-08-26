@@ -23,9 +23,9 @@ function Analysis() {
     };
 
     const mriRecords = [
-        { id: 1, date: '2023-06-15', description: 'MRI Scan 1', image: '/path-to-image-1.jpg' },
-        { id: 2, date: '2023-07-01', description: 'MRI Scan 2', image: '/path-to-image-2.jpg' },
-        { id: 3, date: '2023-08-10', description: 'MRI Scan 3', image: '/path-to-image-3.jpg' }
+        { id: 1, date: '2023-06-15', description: 'MRI Scan 1', image: '/mri_scan1.gif' },
+        { id: 2, date: '2023-07-01', description: 'MRI Scan 2', image: '/mri_scan2.gif' },
+        { id: 3, date: '2023-08-10', description: 'MRI Scan 3', image: '/mri_scan3.gif' }
     ];
 
     const handleRecordClick = (record) => {
