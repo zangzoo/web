@@ -1,11 +1,24 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Html } from '@react-three/drei';
 import './Loading.css';
 
 function BrainModel() {
     const { scene } = useGLTF('/finalbrain.glb');
+    const [colorChange, setColorChange] = useState(0);
+
+    // 색상 변화를 위한 useFrame 훅
+    useFrame((state, delta) => {
+        setColorChange(colorChange + delta);
+        scene.traverse((child) => {
+            if (child.isMesh) {
+                // HSL로 색상을 변경하면서 지속적인 색상 변화
+                child.material.color.setHSL((colorChange / 10) % 1, 0.5, 0.5);
+            }
+        });
+    });
+
     return <primitive object={scene} scale={0.029} />;
 }
 
