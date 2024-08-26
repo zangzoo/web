@@ -1,24 +1,15 @@
-// src/components/Home.js
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 
 function Home() {
+    const [isScaled, setIsScaled] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            const headerBackground = document.querySelector('.header-background');
-            const content = document.querySelector('.content');
-            if (window.scrollY > 50) {
-                headerBackground.classList.add('scaled');
-                content.style.marginTop = '860px';
-            } else {
-                headerBackground.classList.remove('scaled');
-                content.style.marginTop = '720px';
-            }
+            setIsScaled(window.scrollY > 50);
         };
 
         window.addEventListener('scroll', handleScroll);
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -36,7 +27,12 @@ function Home() {
                     <a href="/login">Login</a>
                 </div>
             </nav>
-            <div className="header-background"></div>
+
+            <div className={`header-image-container ${isScaled ? 'scaled' : ''}`}>
+                <img src="./humanbrain.jpg" alt="Header Image" className="header-image" />
+                <div className="header-text">Welcome to BrainWorks!</div>
+            </div>
+
             <div className="content">
                 <div className="scroll-text">
                     <p className="Welcome">Hello</p>
@@ -54,4 +50,3 @@ function Home() {
 }
 
 export default Home;
-

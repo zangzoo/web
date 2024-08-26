@@ -14,7 +14,7 @@ function Login() {
 
         // 로그인 검증 로직
         if (username === hardcodedUsername && password === hardcodedPassword) {
-            navigate('/main'); // Main 화면으로 이동
+            navigate('/main');
         } else {
             alert('Invalid username or password');
         }

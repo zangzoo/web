@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Analysis.css';
 import Modal from './Modal';
+import jsPDF from 'jspdf';
+import './Font/Font.css';
 
 function Analysis() {
     const [showModal, setShowModal] = useState(false);
@@ -29,7 +31,6 @@ function Analysis() {
         }
     ]);
 
-    // 현재 선택된 분석 결과를 저장하기 위한 상태 추가
     const [selectedAnalysis, setSelectedAnalysis] = useState(mriRecords[0].analysis);
 
     const location = useLocation();
@@ -50,7 +51,7 @@ function Analysis() {
     };
 
     const handleRecordClick = (record) => {
-        setSelectedAnalysis(record.analysis); // 선택된 분석 결과를 설정
+        setSelectedAnalysis(record.analysis);
         navigate('/analysis', {
             state: {
                 selectedPatient,
@@ -85,6 +86,36 @@ function Analysis() {
         navigate('/main');
     };
 
+    const downloadPDF = async () => {
+        const doc = new jsPDF();
+
+        // PDF에 사용할 폰트를 설정합니다.
+        doc.setFont("MaruBuri-Light"); // 미리 로드된 폰트 사용
+        doc.setFontSize(12); // 폰트 크기 설정
+        doc.setTextColor(0, 0, 0); // 텍스트 색상을 검정색으로 설정
+
+        // PDF 내용 작성
+        doc.text("BrainWorks Analysis Report", 20, 20);
+        doc.text(`Patient Name: ${selectedPatient}`, 20, 30);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 40);
+        doc.text(`MRI Scan Description: ${mriRecords[mriRecords.length - 1].description}`, 20, 50);
+        doc.text(`Analysis: ${mriRecords[mriRecords.length - 1].analysis.description}`, 20, 60);
+        doc.text(`Confidence: ${mriRecords[mriRecords.length - 1].analysis.confidence}`, 20, 70);
+
+        // 이미지 추가
+        if (previewUrl) {
+            const img = new Image();
+            img.src = previewUrl;
+            doc.addImage(img, 'JPEG', 20, 80, 160, 90);
+        }
+
+        // 파일 이름 생성 및 PDF 저장
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const fileName = `${selectedPatient}_${currentDate}.pdf`;
+
+        doc.save(fileName);
+    };
+
     return (
         <div className="analysis-container">
             <header className="analysis-header">
@@ -94,7 +125,7 @@ function Analysis() {
                     <button className="history-button">History</button>
                 </div>
                 <div className="user-info">
-                    <button className="report-button">Download Report</button>
+                    <button className="report-button" onClick={downloadPDF}>Download Report</button>
                     <span className="user-id">{userId}</span>
                     <button className="logout-button" onClick={handleLogout}>Logout</button>
                 </div>
@@ -133,8 +164,8 @@ function Analysis() {
                     </section>
                     <section className="analysis-results">
                         <h2>Analysis Results</h2>
-                        <p>Description: {selectedAnalysis.description}</p> {/* 선택된 분석 결과를 반영 */}
-                        <p>Confidence: {selectedAnalysis.confidence}</p> {/* 선택된 분석 결과의 confidence 반영 */}
+                        <p>Description: {selectedAnalysis.description}</p>
+                        <p>Confidence: {selectedAnalysis.confidence}</p>
                         <div className="action-buttons">
                             <button className="save-button" onClick={handleSave}>Save</button>
                             <button className="cancel-button" onClick={handleCancel}>Cancel</button>
