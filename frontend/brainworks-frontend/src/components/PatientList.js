@@ -8,7 +8,7 @@ function PatientList() {
     const [showModal, setShowModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
 
-    // Mock patient data
+    // Mock 환자 데이터
     const patients = [
         { id: 1, name: 'Sarang', image: 'patient1.png', lastVisit: '2024.08.23', progress: '55%', diagnosis: 'Mild Cognitive Impairment' },
         { id: 2, name: 'James', image: 'patient2.png', lastVisit: '2024.08.23', progress: '15%', diagnosis: 'Alzheimer\'s disease' },
@@ -41,7 +41,6 @@ function PatientList() {
         setSearchTerm(event.target.value);
     };
 
-
     const filteredPatients = patients.filter(patient =>
         patient.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -56,7 +55,7 @@ function PatientList() {
                 <div className="user-info">
                     <span className="user-id">Dr. David</span>
                     <button className="home-button" onClick={handleHomeClick}>Home</button>
-                    <button className="logout-button" onClick={handleLogoutClick}>Logout</button> {/* 로그아웃 클릭 시 모달 표시 */}
+                    <button className="logout-button" onClick={handleLogoutClick}>Logout</button>
                 </div>
             </header>
 
