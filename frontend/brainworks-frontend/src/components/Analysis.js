@@ -93,12 +93,10 @@ function Analysis() {
     const downloadPDF = async () => {
         const doc = new jsPDF();
 
-        // PDF에 사용할 폰트를 설정합니다.
         doc.setFont("MaruBuri-Light");
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
 
-        // PDF 내용 작성
         doc.text("BrainWorks Analysis Report", 20, 20);
         doc.text(`Patient Name: ${selectedPatient}`, 20, 30);
         doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 40);
@@ -126,7 +124,6 @@ function Analysis() {
 
     const handleDateChange = (date) => {
         setSelectedDateValue(date);
-
     };
 
     return (
@@ -190,6 +187,27 @@ function Analysis() {
                 <section className="calendar-section">
                     <h2></h2>
                     <Calendar onChange={handleDateChange} value={selectedDateValue} />
+                </section>
+
+                <section className="ad-related-test-orders">
+                    <h2>AD related Test Orders</h2>
+                    <div className="ad-orders-content">
+                        <p>PET (Positron Emission Tomography)</p>
+                        <p>SPECT (Single Photon Emission Computed Tomography)</p>
+                        <p>EEG (Electroencephalogram)</p>
+                        <p>fMRI (Functional MRI)</p>
+                        <p>Neuropsychological Testing</p>
+                        <p>&gt; Mini-Mental State Examination (MMSE)</p>
+                        <p>&gt; Montreal Cognitive Assessment (MoCA)</p>
+                        <p>&gt; ADAS-Cog(Alzheimer’s Disease Assessment Scale-Cognitive Subscale)</p>
+                        <p>Blood Tests</p>
+                        <p>&gt; ApoE gene test</p>
+                        <p>&gt; Tau protein, beta amyloid</p>
+                        <p>&gt; Vit B12</p>
+                        <p>&gt; TFTs</p>
+                        <p>&gt; CPR, ESR</p>
+                        <p>Cerebrospinal Fluid Analysis</p>
+                    </div>
                 </section>
             </main>
             <Modal

@@ -309,3 +309,24 @@ body, html {
     background: #00ced1;
     color: white;
 }
+
+.ad-related-test-orders {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    overflow-y: auto;
+    max-height: 300px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+}
+.ad-related-test-orders h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.ad-related-test-orders p {
+    margin: 8px 0;
+    line-height: 1.5;
+}
