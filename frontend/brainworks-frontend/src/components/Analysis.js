@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import './Analysis.css';
 import Modal from './Modal';
-import jsPDF from 'jspdf';
 import './Font/Font.css';
 
 function Analysis() {
@@ -108,38 +107,12 @@ function Analysis() {
         setIsEditing(true);
     };
 
-    const downloadPDF = async () => {
-        const doc = new jsPDF();
-
-        doc.setFont("MaruBuri-Light");
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);
-
-        doc.text("BrainWorks Analysis Report", 20, 20);
-        doc.text(`Patient Name: ${selectedPatient}`, 20, 30);
-        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 40);
-        doc.text(`MRI Scan Description: ${selectedDate}`, 20, 50);
-        doc.text(`Analysis: ${selectedAnalysis.description}`, 20, 60);
-        doc.text(`Accuracy: ${selectedAnalysis.accuracy}`, 20, 70);
-        doc.text(`Radiologist Comment: ${selectedRadiologistComment}`, 20, 80);
-        doc.text(`Physician Comment: ${physicianComment}`, 20, 90);
-
-        if (selectedImages.length > 0) {
-            selectedImages.forEach((image, index) => {
-                const img = new Image();
-                img.src = image;
-                doc.addImage(img, 'JPEG', 20, 100 + index * 100, 160, 90);
-            });
+    // tileClassName 함수 정의
+    const tileClassName = ({ date, view }) => {
+        if (view === 'month') {
+            return mriRecords.some(record => record.date === formatDate(date)) ? 'highlighted-tile' : null;
         }
-
-        const currentDate = new Date().toISOString().slice(0, 10);
-        const fileName = `${selectedPatient}_${currentDate}.pdf`;
-
-        doc.save(fileName);
-    };
-
-    const tileClassName = ({ date }) => {
-        return mriRecords.some(record => record.date === formatDate(date)) ? 'highlighted-tile' : null;
+        return null;
     };
 
     const handleDateChange = (date) => {
@@ -165,7 +138,7 @@ function Analysis() {
                     <button className="patient-list-button" onClick={handlePatientListClick}>Patient List</button>
                 </div>
                 <div className="user-info">
-                    <button className="report-button" onClick={downloadPDF}>Download Report</button>
+                    <a href="/HanIum_2024_09_02.pdf" download="HanIum_2024_09_02.pdf" className="report-button">Download Report</a>
                     <span className="user-id">{userId}</span>
                     <button className="logout-button" onClick={handleLogout}>Logout</button>
                 </div>
@@ -235,11 +208,11 @@ function Analysis() {
                         />
                         <div className="action-buttons">
                             {isEditing ? (
-                                <button className="save-button" onClick={handleSave}>Save</button>
+                                <button className="save-button" onClick={handleSave}>Draft Completed</button>
                             ) : (
                                 <button className="edit-button" onClick={handleEdit}>Edit</button>
                             )}
-                            <button className="cancel-button" onClick={handleCancel}>Cancel</button>
+                            <button className="cancel-button" onClick={handleCancel}>Draft Cancelled</button>
                         </div>
                     </section>
                 </section>
