@@ -10,7 +10,7 @@ body, html {
 .analysis-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh; /* 전체 화면에 맞춤 */
 }
 
 .analysis-header {
@@ -62,7 +62,6 @@ body, html {
 
 .report-button {
     margin-right: -20px;
-
 }
 
 .patient-list-button {
@@ -87,17 +86,19 @@ body, html {
 
 .analysis-content {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 20px;
     background-color: #fff;
     flex-grow: 1;
     gap: 20px;
+    overflow: hidden; /* 스크롤 방지 */
 }
 
 .left-panel {
-    width: 30%;
+    width: 25%;
     display: flex;
     flex-direction: column;
+    overflow-y: auto; /* 필요한 경우 스크롤 가능 */
 }
 
 .patient-info, .radiology-records {
@@ -140,8 +141,9 @@ body, html {
 .right-panel {
     display: flex;
     flex-direction: column;
-    width: 67%;
+    width: 60%;
     justify-content: space-between;
+    overflow-y: auto; /* 필요한 경우 스크롤 가능 */
 }
 
 .image-display {
@@ -150,8 +152,8 @@ body, html {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 5px;
-    height: 540px;
+    margin-bottom: 10px;
+    height: 60%;
 }
 
 .image-display h2 {
@@ -174,11 +176,9 @@ body, html {
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 5px;
     position: relative;
-    min-height: 170px;
-    max-height: 200px;
-    overflow-y: auto;
+    height: 25%;
+    overflow-y: auto; /* 필요한 경우 스크롤 가능 */
 }
 
 .analysis-results p {
@@ -189,7 +189,7 @@ body, html {
 .action-buttons {
     display: flex;
     justify-content: flex-end;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .action-buttons .save-button, .action-buttons .cancel-button {
@@ -212,13 +212,17 @@ body, html {
     color: #ffffff;
 }
 
-.save-button {
-    margin-left: 10px;
-}
-
 .save-button:hover {
     background-color: #FF4500;
     color: white;
+}
+
+.ferightpanel {
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
 .calendar-section {
@@ -226,14 +230,7 @@ body, html {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    width: 30%;
-    height: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
-
 
 .react-calendar {
     width: 100%;
@@ -312,15 +309,15 @@ body, html {
 
 .ad-related-test-orders {
     background-color: #f9f9f9;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
     overflow-y: auto;
     max-height: 300px;
     font-size: 14px;
     border: 1px solid #ccc;
 }
+
 .ad-related-test-orders h2 {
     text-align: center;
     margin-top: 0;

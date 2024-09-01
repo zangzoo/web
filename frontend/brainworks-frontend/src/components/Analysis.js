@@ -184,30 +184,36 @@ function Analysis() {
                     </section>
                 </section>
 
-                <section className="calendar-section">
-                    <h2></h2>
-                    <Calendar onChange={handleDateChange} value={selectedDateValue} />
-                </section>
+                <section className="ferightpanel">
+                    <section className="calendar-section">
+                        <h2></h2>
+                        <Calendar
+                            onChange={handleDateChange}
+                            value={selectedDateValue}
+                            locale="en-US"  /* 여기에서 달력 언어를 영어로 설정 */
+                        />
+                    </section>
 
-                <section className="ad-related-test-orders">
-                    <h2>AD related Test Orders</h2>
-                    <div className="ad-orders-content">
-                        <p>PET (Positron Emission Tomography)</p>
-                        <p>SPECT (Single Photon Emission Computed Tomography)</p>
-                        <p>EEG (Electroencephalogram)</p>
-                        <p>fMRI (Functional MRI)</p>
-                        <p>Neuropsychological Testing</p>
-                        <p>&gt; Mini-Mental State Examination (MMSE)</p>
-                        <p>&gt; Montreal Cognitive Assessment (MoCA)</p>
-                        <p>&gt; ADAS-Cog(Alzheimer’s Disease Assessment Scale-Cognitive Subscale)</p>
-                        <p>Blood Tests</p>
-                        <p>&gt; ApoE gene test</p>
-                        <p>&gt; Tau protein, beta amyloid</p>
-                        <p>&gt; Vit B12</p>
-                        <p>&gt; TFTs</p>
-                        <p>&gt; CPR, ESR</p>
-                        <p>Cerebrospinal Fluid Analysis</p>
-                    </div>
+                    <section className="ad-related-test-orders">
+                        <h2>AD related Test Orders</h2>
+                        <div className="ad-orders-content">
+                            <p>PET (Positron Emission Tomography)</p>
+                            <p>SPECT (Single Photon Emission Computed Tomography)</p>
+                            <p>EEG (Electroencephalogram)</p>
+                            <p>fMRI (Functional MRI)</p>
+                            <p>Neuropsychological Testing</p>
+                            <p>&gt; Mini-Mental State Examination (MMSE)</p>
+                            <p>&gt; Montreal Cognitive Assessment (MoCA)</p>
+                            <p>&gt; ADAS-Cog(Alzheimer’s Disease Assessment Scale-Cognitive Subscale)</p>
+                            <p>Blood Tests</p>
+                            <p>&gt; ApoE gene test</p>
+                            <p>&gt; Tau protein, beta amyloid</p>
+                            <p>&gt; Vit B12</p>
+                            <p>&gt; TFTs</p>
+                            <p>&gt; CPR, ESR</p>
+                            <p>Cerebrospinal Fluid Analysis</p>
+                        </div>
+                    </section>
                 </section>
             </main>
             <Modal
