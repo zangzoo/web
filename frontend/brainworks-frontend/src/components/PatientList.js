@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './PatientList.css';
 import Modal from './Modal';
 
@@ -55,7 +55,7 @@ function PatientList() {
                 <div className="user-info">
                     <span className="user-id">Dr. Yeogyeong</span>
                     <button className="home-button" onClick={handleHomeClick}>Home</button>
-                    <button className="logout-button" onClick={handleLogoutClick}>Logout</button> {/* 로그아웃 클릭 시 모달 표시 */}
+                    <button className="logout-button" onClick={handleLogoutClick}>Logout</button>
                 </div>
             </header>
 

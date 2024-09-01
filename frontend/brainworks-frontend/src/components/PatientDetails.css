@@ -1,0 +1,144 @@
+.patient-details-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #888888;
+}
+
+.analysis-header {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logo h1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 35px;
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info span.user-id {
+    margin-right: 10px;
+    font-weight: light;
+    color: white;
+}
+
+.logout-button {
+    padding: 5px 10px;
+    background-color: #ff4b4b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #FF4500;
+}
+
+.patient-details-content {
+    padding: 20px;
+    width: 60%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.patient-details-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.patient-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.patient-image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+}
+
+.patient-info h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #333;
+}
+
+.patient-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.risk-group {
+    color: blue;
+}
+
+.diagnose-button-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.diagnose-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 35%;
+}
+
+.diagnose-button:hover {
+    background-color: #0056b3;
+}
+
+.ai-report-container {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.ai-report-container h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.ai-report-item {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.ai-report-item p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
