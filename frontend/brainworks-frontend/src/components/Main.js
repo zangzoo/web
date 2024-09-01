@@ -21,7 +21,7 @@ function Main() {
         let newPreviewUrls = [...previewUrls];
 
         newSelectedFiles[index] = file;
-        newFileNames[index] = file.name;
+        newFileNames[index] = file ? file.name : 'No file selected';
 
         setSelectedFiles(newSelectedFiles);
         setFileNames(newFileNames);
@@ -105,7 +105,9 @@ function Main() {
                                 id={`file-upload-${index}`}
                                 name={`file-upload-${index}`}
                                 onChange={(event) => handleFileChange(event, index)}
+                                className="custom-file-input"
                             />
+                            <span className="file-name">{fileNames[index]}</span>
                         </div>
                     ))}
                 </form>
