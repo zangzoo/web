@@ -52,7 +52,7 @@ function Analysis() {
     const [selectedDate, setSelectedDate] = useState(mriRecords[0].date);
     const [selectedRadiologistComment, setSelectedRadiologistComment] = useState(mriRecords[0].radiologistComment);
     const [physicianComment, setPhysicianComment] = useState(mriRecords[0].physicianComment);
-    const [selectedDateValue, setSelectedDateValue] = useState(new Date());
+    const [selectedDateValue, setSelectedDateValue] = useState(new Date(mriRecords[0].date));
     const [isEditing, setIsEditing] = useState(true);
 
     const location = useLocation();
@@ -78,11 +78,11 @@ function Analysis() {
         setSelectedDate(record.date);
         setSelectedRadiologistComment(record.radiologistComment);
         setPhysicianComment(record.physicianComment);
+        setSelectedDateValue(new Date(record.date));
     };
 
     const handleSave = () => {
         setIsEditing(false);
-        // 업데이트된 physicianComment를 mriRecords 상태에 반영
         setMriRecords(prevRecords =>
             prevRecords.map(record =>
                 record.date === selectedDate ? { ...record, physicianComment } : record
@@ -136,6 +136,14 @@ function Analysis() {
 
     const handleDateChange = (date) => {
         setSelectedDateValue(date);
+    };
+
+    const tileClassName = ({ date, view }) => {
+        if (view === 'month') {
+            const formattedDate = date.toISOString().split('T')[0];
+            const record = mriRecords.find(record => new Date(record.date).toISOString().split('T')[0] === formattedDate);
+            return record ? 'highlight' : null;
+        }
     };
 
     return (
@@ -227,6 +235,7 @@ function Analysis() {
                             onChange={handleDateChange}
                             value={selectedDateValue}
                             locale="en-US"
+                            tileClassName={tileClassName}
                         />
                     </section>
 
