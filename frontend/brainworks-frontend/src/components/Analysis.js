@@ -28,7 +28,7 @@ function Analysis() {
         },
         {
             id: 3,
-            date: '07-Feb-2024',
+            date: '07-Jan-2024',
             description: 'MRI Scan 2',
             images: ['/mri_scan2.gif', '/mri_scan3.gif'],
             analysis: { description: 'Mild_Demented', accuracy: 0.6423453487357645 },

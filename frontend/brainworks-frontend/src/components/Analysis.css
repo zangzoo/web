@@ -453,3 +453,8 @@ h2 {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.selected-record {
+    background-color: #e0e0e0;
+    border-left: 5px solid #00CED1;
+}
