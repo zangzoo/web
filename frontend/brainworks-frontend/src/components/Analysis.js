@@ -13,7 +13,7 @@ function Analysis() {
             date: '01-Sep-2024',
             description: 'MRI Scan 4',
             images: ['/0076_MRI_mpr-1_anon_sag_67.gif', '/0076_MRI_mpr-2_anon_sag_66.gif'],
-            analysis: { description: 'Alzheimer’s Disease', accuracy: 0.9634178346327 },
+            analysis: { description: 'Alzheimer’s Disease', accuracy: 0.96 },
             radiologistComment: "Based on the MRI findings and the patient's clinical symptoms, a diagnosis of Alzheimer's disease is strongly suggested.\nThe observed hippocampal and temporal lobe atrophy, ventricular enlargement, and white matter changes are consistent with typical imaging findings of Alzheimer's disease.\nTherefore, the patient is likely suffering from Alzheimer's disease, and further neuropsychological testing and treatment planning are recommended.",
             physicianComment: ""
         },
@@ -22,7 +22,7 @@ function Analysis() {
             date: '07-Feb-2024',
             description: 'MRI Scan 3',
             images: ['/mri_scan2.gif', '/mri_scan3.gif'],
-            analysis: { description: 'Mild_Demented', accuracy: 0.6423453487357645 },
+            analysis: { description: 'Mild_Demented', accuracy: 0.64 },
             radiologistComment: "Mild hippocampal atrophy observed, consistent with Mild Dementia.",
             physicianComment: "Recommend close monitoring and possible early intervention."
         },
@@ -31,7 +31,7 @@ function Analysis() {
             date: '07-Jan-2024',
             description: 'MRI Scan 2',
             images: ['/mri_scan2.gif', '/mri_scan3.gif'],
-            analysis: { description: 'Mild_Demented', accuracy: 0.6423453487357645 },
+            analysis: { description: 'Mild_Demented', accuracy: 0.64 },
             radiologistComment: "Mild hippocampal atrophy observed, consistent with Mild Dementia.",
             physicianComment: "Recommend close monitoring and possible early intervention."
         },
@@ -40,7 +40,7 @@ function Analysis() {
             date: '01-Aug-2023',
             description: 'MRI Scan 1',
             images: ['/mri_scan3.gif', '/mri_scan1.gif'],
-            analysis: { description: 'Moderate_Demented', accuracy: 0.8712434532837645 },
+            analysis: { description: 'Moderate_Demented', accuracy: 0.87 },
             radiologistComment: "Upon analyzing the MRI results, there is clear evidence of Alzheimer’s disease progression. The scans reveal marked atrophy in the medial temporal lobes including the entorhinal cortex. The presence of diffuse cortical atrophy and prominent sulcal widening are also consistent with this diagnosis. Given these imaging findings and the patient’s cognitive decline, it is recommended to initiate a thorough evaluation with neuropsychological tests to assess the extent of impairment. Early intervention strategies and treatment planning should be considered to manage the disease effectively.",
             physicianComment: "Based on the medical examination results, memory decline and cognitive impairment were additionally observed; \n Neuropsychological testing is recommended to further assess the presence of Alzheimer's disease."
         }
