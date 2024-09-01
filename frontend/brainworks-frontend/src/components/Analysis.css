@@ -55,7 +55,7 @@ body, html {
     font-family: 'Aileron', Arial, sans-serif;
 }
 
-.report-button, .logout-button, .patient-list-button {
+.report-button,.patient-list-button {
     padding: 5px 10px;
     background-color: white;
     color: #333;
@@ -67,7 +67,7 @@ body, html {
 }
 
 .report-button {
-    margin-right: -20px;
+    margin-right: -15px;
 }
 
 .patient-list-button {
@@ -79,11 +79,17 @@ body, html {
 .report-button:hover, .logout-button:hover, .patient-list-button:hover {
     background-color: #e0e0e0;
 }
-
 .logout-button {
+    padding: 5px 10px;
     background-color: #ff4b4b;
     color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Aileron', Arial, sans-serif;
     border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: -15px;
 }
 
 .logout-button:hover {
