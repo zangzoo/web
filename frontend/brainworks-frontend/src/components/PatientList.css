@@ -106,9 +106,13 @@
     font-family: 'Aileron', Arial, sans-serif;
 }
 
+.patient-table td.name-column {
+    text-align: left;
+}
+
 .patient-table th, .patient-table td {
     padding: 10px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #555;
 }
 

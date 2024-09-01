@@ -41,7 +41,6 @@ function PatientList() {
         setSearchTerm(event.target.value);
     };
 
-
     const filteredPatients = patients.filter(patient =>
         patient.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -83,7 +82,7 @@ function PatientList() {
                     <tbody>
                         {filteredPatients.map(patient => (
                             <tr key={patient.id} onClick={() => handlePatientClick(patient)}>
-                                <td>
+                                <td className="name-column">
                                     <img src={patient.image} alt={patient.name} className="patient-image" />
                                     {patient.name}
                                 </td>
