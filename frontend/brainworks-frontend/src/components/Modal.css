@@ -16,6 +16,9 @@
     border-radius: 5px;
     text-align: center;
 }
+.user-id {
+    margin-left: 20px;
+}
 
 .modal-content p {
     margin-bottom: 10px;

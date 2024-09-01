@@ -1,108 +1,70 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './PatientList.css';
-import Modal from './Modal';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import './Analysis.css';  // Analysis.css를 사용하여 동일한 헤더 스타일 적용
 
-function PatientList() {
+function PatientDetails() {
+    const location = useLocation();
+    const { patient } = location.state;
     const navigate = useNavigate();
-    const [showModal, setShowModal] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
+    const { userId } = location.state || {}; // 로그인된 유저 정보
 
-    // Mock 환자 데이터
-    const patients = [
-        { id: 1, name: 'Sarang', image: 'patient1.png', lastVisit: '2024.08.23', progress: '55%', diagnosis: 'Mild Cognitive Impairment' },
-        { id: 2, name: 'James', image: 'patient2.png', lastVisit: '2024.08.23', progress: '15%', diagnosis: 'Alzheimer\'s disease' },
-        { id: 3, name: 'Pill', image: 'patient3.png', lastVisit: '2024.08.06', progress: '95%', diagnosis: 'Mild Cognitive Impairment' },
-        { id: 4, name: 'Cloud', image: 'patient4.png', lastVisit: '2024.08.01', progress: '60%', diagnosis: 'Mild Cognitive Impairment' },
-    ];
-
-    const handlePatientClick = (patient) => {
-        navigate('/patient-details', { state: { patient } });
-    };
-
-    const handleHomeClick = () => {
+    const handleDiagnoseClick = () => {
         navigate('/main');
     };
 
-    const handleLogoutClick = () => {
-        setShowModal(true);
+    const handleLogout = () => {
+        navigate('/login');
     };
 
-    const handleConfirmLogout = () => {
-        setShowModal(false);
-        navigate('/home');
+    // 환자 목록 화면으로 이동하는 함수
+    const handlePatientListClick = () => {
+        navigate('/patient-list', {
+            state: { userId } // 유저 정보를 환자 목록 페이지로 전달
+        });
     };
-
-    const handleCancelLogout = () => {
-        setShowModal(false);
-    };
-
-    const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
-    };
-
-    const filteredPatients = patients.filter(patient =>
-        patient.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
 
     return (
-        <div className="patient-list-container">
-            <header className="patient-list-header">
+        <div className="patient-details-container">
+            {/* Header (Analysis와 동일한 헤더 스타일 적용) */}
+            <header className="analysis-header">
                 <div className="logo">
                     <img src="/brainlogo.png" alt="BrainWorks Logo" />
                     <h1>BrainWorks</h1>
+                    <button className="patient-list-button" onClick={handlePatientListClick}>Patient List</button>
                 </div>
                 <div className="user-info">
-                    <span className="user-id">Dr. David</span>
-                    <button className="home-button" onClick={handleHomeClick}>Home</button>
-                    <button className="logout-button" onClick={handleLogoutClick}>Logout</button>
+                    <span className="user-id">{userId}</span>
+                    <button className="logout-button" onClick={handleLogout}>Logout</button>
                 </div>
             </header>
 
-            <main className="patient-list-content">
-                <h2>Records</h2>
-                <div className="search-bar">
-                    <input
-                        type="text"
-                        placeholder="Patient Name Search"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                    />
-                    <button>Search</button>
+            {/* Patient Details (나머지 부분은 기존의 PatientDetails 스타일 유지) */}
+            <main className="patient-details-content">
+                <div style={{ padding: '20px', maxWidth: '600px', margin: '20px auto', backgroundColor: '#f8f8f8', borderRadius: '10px' }}>
+                    <h1 style={{ textAlign: 'center' }}>{patient.name}'s Medical Record</h1>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                        <img src={patient.image} alt={patient.name} style={{ borderRadius: '50%', width: '100px', height: '100px', marginRight: '20px' }} />
+                        <div>
+                            <h2>{patient.name}</h2>
+                            <p>Date of Birth: 2024.08.06 (Age 45)</p>
+                            <p>Last Visit: {patient.lastVisit}</p>
+                            <p style={{ color: 'blue' }}>Risk Group: {patient.diagnosis}</p>
+                        </div>
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                        <button onClick={handleDiagnoseClick} style={{ backgroundColor: '#007bff', color: '#fff', padding: '10px 20px', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                            Start AI Diagnosis
+                        </button>
+                    </div>
+                    <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                        <h3>AI Report:</h3>
+                        <p>Diagnosis: <span style={{ color: '#888' }}>Pending...</span></p>
+                        <p>Probability: <span style={{ color: '#888' }}>Pending...</span></p>
+                    </div>
                 </div>
-                <table className="patient-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Recent Visit</th>
-                            <th>Treatment Progress</th>
-                            <th>Risk Group</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredPatients.map(patient => (
-                            <tr key={patient.id} onClick={() => handlePatientClick(patient)}>
-                                <td>
-                                    <img src={patient.image} alt={patient.name} className="patient-image" />
-                                    {patient.name}
-                                </td>
-                                <td>{patient.lastVisit}</td>
-                                <td>{patient.progress}</td>
-                                <td>{patient.diagnosis}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
             </main>
-
-            <Modal
-                show={showModal}
-                message="Are you sure you want to log out?"
-                onConfirm={handleConfirmLogout}
-                onCancel={handleCancelLogout}
-            />
         </div>
     );
 }
 
-export default PatientList;
+export default PatientDetails;

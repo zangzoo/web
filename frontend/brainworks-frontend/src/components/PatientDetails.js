@@ -1,9 +1,15 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import './PatientDetails.css';  // 필요한 스타일을 적용합니다.
 
 function PatientDetails() {
     const location = useLocation();
-    const { patient } = location.state;
+    const patient = location.state?.patient || {
+        name: 'Unknown',
+        image: '/default-image.png',
+        lastVisit: 'N/A',
+        diagnosis: 'N/A',
+    };
     const navigate = useNavigate();
 
     const handleDiagnoseClick = () => {
@@ -11,26 +17,75 @@ function PatientDetails() {
     };
 
     return (
-        <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto', backgroundColor: '#f8f8f8', borderRadius: '10px' }}>
-            <h1 style={{ textAlign: 'center' }}>Patient's Medical Record</h1>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                <img src={patient.image} alt={patient.name} style={{ borderRadius: '50%', width: '100px', height: '100px', marginRight: '20px' }} />
-                <div>
-                    <h2>{patient.name}</h2>
-                    <p>Date of Birth: 2024.08.06 (Age 45)</p>
-                    <p>Last Visit: {patient.lastVisit}</p>
-                    <p style={{ color: 'blue' }}>Risk Group: {patient.diagnosis}</p>
+        <div className="patient-details-container">
+            <header className="analysis-header">
+                <div className="logo">
+                    <img src="/brainlogo.png" alt="BrainWorks Logo" />
+                    <h1>BrainWorks</h1>
+                </div>
+                <div className="user-info">
+                    <span className="user-id">Dr.David</span>
+                    <button className="logout-button" onClick={() => navigate('/home')}>Logout</button>
+                </div>
+            </header>
+            <div className="patient-details-content">
+                <h1 className="patient-details-header">{patient.name}'s Medical Record</h1>
+                <div className="patient-info">
+                    <img src={patient.image} alt={patient.name} />
+                    <div>
+                        <h2>{patient.name}</h2>
+                        <p>Date of Birth: 2024.08.06 (Age 45)</p>
+                        <p>Last Visit: {patient.lastVisit}</p>
+                        <p className="risk-group">Risk Group: {patient.diagnosis}</p>
+                    </div>
+                </div>
+                <div className="diagnose-button-container">
+                    <button className="diagnose-button" onClick={handleDiagnoseClick}>
+                        Start AI Diagnosis
+                    </button>
+                </div>
+                <div className="ai-report-container">
+                    <h3>AI Report:</h3>
+                    <p>Diagnosis: <span>Pending...</span></p>
+                    <p>Probability: <span>Pending...</span></p>
                 </div>
             </div>
-            <div style={{ textAlign: 'center' }}>
-                <button onClick={handleDiagnoseClick} style={{ backgroundColor: '#007bff', color: '#fff', padding: '10px 20px', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-                    Start AI Diagnosis
-                </button>
-            </div>
-            <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                <h3>AI Report:</h3>
-                <p>Diagnosis: <span style={{ color: '#888' }}>Pending...</span></p>
-                <p>Probability: <span style={{ color: '#888' }}>Pending...</span></p>
+        </div>
+    );
+
+    return (
+        <div className="patient-details-container">
+            <header className="analysis-header">
+                <div className="logo">
+                    <img src="/brainlogo.png" alt="BrainWorks Logo" />
+                    <h1>BrainWorks</h1>
+                </div>
+                <div className="user-info">
+                    <span className="user-id">Dr.David</span>
+                    <button className="logout-button" onClick={() => navigate('/home')}>Logout</button>
+                </div>
+            </header>
+            <div className="patient-details-content">
+                <h1 className="patient-details-header">{patient.name}'s Medical Record</h1>
+                <div className="patient-info">
+                    <img src={patient.image} alt={patient.name} />
+                    <div>
+                        <h2>{patient.name}</h2>
+                        <p>Date of Birth: 2024.08.06 (Age 45)</p>
+                        <p>Last Visit: {patient.lastVisit}</p>
+                        <p className="risk-group">Risk Group: {patient.diagnosis}</p>
+                    </div>
+                </div>
+                <div className="diagnose-button-container">
+                    <button className="diagnose-button" onClick={handleDiagnoseClick}>
+                        Start AI Diagnosis
+                    </button>
+                </div>
+                <div className="ai-report-container">
+                    <h3>AI Report:</h3>
+                    <p>Diagnosis: <span>Pending...</span></p>
+                    <p>Probability: <span>Pending...</span></p>
+                </div>
             </div>
         </div>
     );
