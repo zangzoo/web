@@ -57,9 +57,9 @@ body, html {
 
 .report-button,.patient-list-button {
     padding: 5px 10px;
-    background-color: white;
-    color: #333;
-    border: 1px solid #ccc;
+    background-color: #00CED1;
+    color: white;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -76,9 +76,10 @@ body, html {
     margin-left: 10px;
 }
 
-.report-button:hover, .logout-button:hover, .patient-list-button:hover {
-    background-color: #e0e0e0;
+.report-button:hover, .patient-list-button:hover {
+    background-color: #FF4500;
 }
+
 .logout-button {
     padding: 5px 10px;
     background-color: #ff4b4b;
@@ -100,7 +101,7 @@ body, html {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    background-color: #fff;
+    background-color: #555555;
     flex-grow: 1;
     gap: 20px;
     overflow: hidden;
@@ -113,18 +114,18 @@ body, html {
     flex-direction: column;
     overflow-y: auto;
     font-family: 'Aileron', Arial, sans-serif;
+    border-radius: 10px;
 }
 
-.patient-info, .radiology-records {
+.patient-info, .radiology-records, .image-display, .ai-result, .radiologist-comment, .physician-comment, .ad-related-test-orders {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
     text-align: left;
-    border-radius: 20px;
     border: 1px solid #ccc;
     font-family: 'Aileron', Arial, sans-serif;
+    margin-bottom: 3px;
 }
 
 .patient-info h2, .radiology-records h2 {
@@ -164,6 +165,7 @@ body, html {
     justify-content: space-between;
     overflow-y: auto;
     font-family: 'Aileron', Arial, sans-serif;
+    border-radius: 10px;
 }
 
 .image-display {
@@ -195,6 +197,7 @@ body, html {
     justify-content: space-between;
     margin-top: 10px;
     font-family: 'Aileron', Arial, sans-serif;
+    border-radius: 10px;
 }
 
 .ai-result, .radiologist-comment {
@@ -292,6 +295,7 @@ textarea::placeholder {
     flex-direction: column;
     justify-content: flex-start;
     gap: 10px;
+    border-radius: 10px;
 }
 
 .calendar-section {
@@ -382,7 +386,7 @@ textarea::placeholder {
 .ad-related-test-orders {
     background-color: #f9f9f9;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 10px; /* 라운드 처리 */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     max-height: 1000px;
@@ -406,4 +410,22 @@ textarea::placeholder {
 h2 {
     font-size: 18px;
     font-family: 'Aileron', Arial, sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
