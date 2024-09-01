@@ -3,7 +3,7 @@
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: 'Aileron', Arial, sans-serif;
     background-color: #333;
     color: white;
     display: flex;
@@ -18,6 +18,7 @@
     justify-content: space-between;
     align-items: center;
     color: white;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .logo {
@@ -29,6 +30,7 @@
     font-size: 22px;
     font-weight: bold;
     margin: 0;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .logo img {
@@ -39,6 +41,7 @@
 .user-info {
     display: flex;
     align-items: center;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .user-info span.user-id {
@@ -55,6 +58,7 @@
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .logout-button:hover {
@@ -66,6 +70,7 @@
     background-color: #222;
     flex-grow: 1;
     color: white;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .patient-list-content h2 {
@@ -92,17 +97,26 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .patient-table {
     width: 100%;
     border-collapse: collapse;
+    font-family: 'Aileron', Arial, sans-serif;
+    height: 10px;
+
+}
+
+.patient-table td.name-column {
+    text-align: left;
 }
 
 .patient-table th, .patient-table td {
     padding: 10px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #555;
+    height: 10px;
 }
 
 .patient-table th {
@@ -122,7 +136,6 @@
     vertical-align: middle;
 }
 
-
 .home-button {
     padding: 5px 10px;
     background-color: #00CED1;
@@ -131,6 +144,8 @@
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
+    margin-left: -10px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .home-button:hover {
@@ -145,6 +160,7 @@
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .logout-button:hover {

@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Main from './components/Main';
 import Analysis from './components/Analysis';
 import PatientList from './components/PatientList';
+import PatientDetails from './components/PatientDetails';
 import './components/fonts/aileron/aileron.css';
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
                 <Route path="/main" element={<Main />} />
                 <Route path="/analysis" element={<Analysis />} />
                 <Route path="/patient-list" element={<PatientList />} />
+                <Route path="/patient-details" element={<PatientDetails />} />
+
             </Routes>
         </Router>
     );

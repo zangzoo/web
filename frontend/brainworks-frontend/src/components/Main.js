@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Main.css';
 import Loading from './Loading';
+import Modal from './Modal';
 
 function Main() {
     const [selectedFiles, setSelectedFiles] = useState([null, null]);
@@ -9,9 +10,9 @@ function Main() {
     const [selectedPatient, setSelectedPatient] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [fileNames, setFileNames] = useState(["", ""]);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const navigate = useNavigate();
 
-    // Mock userId
     const userId = "Dr.Yeogyeong";
 
     const handleFileChange = (event, index) => {
@@ -54,6 +55,19 @@ function Main() {
         }
     };
 
+    const handleLogoutClick = () => {
+        setShowLogoutModal(true);  // 모달을 표시하도록 상태를 변경
+    };
+
+    const handleConfirmLogout = () => {
+        setShowLogoutModal(false);
+        navigate('/home');
+    };
+
+    const handleCancelLogout = () => {
+        setShowLogoutModal(false);
+    };
+
     if (isLoading) {
         return <Loading patientName={selectedPatient} fileName={fileNames.join(", ")} />;
     }
@@ -68,6 +82,7 @@ function Main() {
                 <div className="navbar-right">
                     <a href="/home">Home</a>
                     <span className="user-id">{userId}</span>
+                    <button className="logout-button" onClick={handleLogoutClick}>Logout</button>
                 </div>
             </nav>
 
@@ -90,9 +105,9 @@ function Main() {
                     >
                         <option value="">Please select a patient.</option>
                         <option value="Han IUM">Han, IUM</option>
-                        <option value="Moon Soyeon">Moon Soyeon</option>
-                        <option value="Jang Jiwoo">Jang Jiwoo</option>
-                        <option value="Jo Chaeeun">Jo Chaeeun</option>
+                        <option value="Moon Soyeon">Moon, Soyeon</option>
+                        <option value="Jang Jiwoo">Jang, Jiwoo</option>
+                        <option value="Cho Chaeeun">Cho, Chaeeun</option>
                     </select>
 
                     {[0, 1].map(index => (
@@ -127,6 +142,13 @@ function Main() {
                     Submit
                 </button>
             </div>
+
+            <Modal
+                show={showLogoutModal}
+                message="Are you sure you want to log out?"
+                onConfirm={handleConfirmLogout}
+                onCancel={handleCancelLogout}
+            />
         </div>
     );
 }

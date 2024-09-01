@@ -6,7 +6,7 @@ import './Onboarding.css';
 
 function BrainModel() {
     const { scene } = useGLTF('/finalbrain.glb');
-    return <primitive object={scene} scale={0.029} />; // 스케일 값을 조정
+    return <primitive object={scene} scale={0.029} />;
 }
 
 function Onboarding() {

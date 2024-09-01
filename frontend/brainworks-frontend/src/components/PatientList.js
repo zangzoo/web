@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './PatientList.css';
 import Modal from './Modal';
 
@@ -10,10 +10,10 @@ function PatientList() {
 
     // Mock patient data
     const patients = [
-        { id: 1, name: 'Sarang', image: 'patient1.png', lastVisit: '2024.08.23', progress: '55%', diagnosis: 'Mild Cognitive Impairment' },
-        { id: 2, name: 'James', image: 'patient2.png', lastVisit: '2024.08.23', progress: '15%', diagnosis: 'Alzheimer\'s disease' },
-        { id: 3, name: 'Pill', image: 'patient3.png', lastVisit: '2024.08.06', progress: '95%', diagnosis: 'Mild Cognitive Impairment' },
-        { id: 4, name: 'Cloud', image: 'patient4.png', lastVisit: '2024.08.01', progress: '60%', diagnosis: 'Mild Cognitive Impairment' },
+        { id: 1, name: 'Han, IUM', image: 'patient1.png', lastVisit: '2024.09.02', progress: '45%', diagnosis: 'Alzheimer’s Disease' },
+        { id: 2, name: 'Moon, Soyeon', image: 'patient2.png', lastVisit: '2024.08.23', progress: '60%', diagnosis: 'Alzheimer\'s Disease' },
+        { id: 3, name: 'Jang, Jiwoo', image: 'patient3.png', lastVisit: '2024.08.06', progress: '85%', diagnosis: 'Mild_Demented' },
+        { id: 4, name: 'Cho, Chaeeun', image: 'patient4.png', lastVisit: '2024.04.01', progress: '60%', diagnosis: 'Moderate_Demented' },
     ];
 
     const handlePatientClick = (patient) => {
@@ -41,7 +41,6 @@ function PatientList() {
         setSearchTerm(event.target.value);
     };
 
-
     const filteredPatients = patients.filter(patient =>
         patient.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -56,7 +55,7 @@ function PatientList() {
                 <div className="user-info">
                     <span className="user-id">Dr. Yeogyeong</span>
                     <button className="home-button" onClick={handleHomeClick}>Home</button>
-                    <button className="logout-button" onClick={handleLogoutClick}>Logout</button> {/* 로그아웃 클릭 시 모달 표시 */}
+                    <button className="logout-button" onClick={handleLogoutClick}>Logout</button>
                 </div>
             </header>
 
@@ -83,7 +82,7 @@ function PatientList() {
                     <tbody>
                         {filteredPatients.map(patient => (
                             <tr key={patient.id} onClick={() => handlePatientClick(patient)}>
-                                <td>
+                                <td className="name-column">
                                     <img src={patient.image} alt={patient.name} className="patient-image" />
                                     {patient.name}
                                 </td>

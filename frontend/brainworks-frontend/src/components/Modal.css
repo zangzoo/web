@@ -8,6 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Aileron', Arial, sans-serif;
+    z-index: 9999;
 }
 
 .modal-content {
@@ -15,13 +17,18 @@
     padding: 20px;
     border-radius: 5px;
     text-align: center;
+    font-family: 'Aileron', Arial, sans-serif;
 }
+
 .user-id {
     margin-left: 20px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .modal-content p {
     margin-bottom: 10px;
+    font-family: 'Aileron', Arial, sans-serif;
+    color: black;
 }
 
 .modal-content button {
@@ -30,6 +37,7 @@
     cursor: pointer;
     border: none;
     border-radius: 5px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .modal-content button.cancel-button {
@@ -47,5 +55,5 @@
 }
 
 .modal-content button.confirm-button:hover {
-    background-color: #FF4500; /* Hover 시 더 밝은 색 */
+    background-color: #FF4500;
 }
