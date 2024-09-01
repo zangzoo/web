@@ -80,9 +80,11 @@ function Main() {
                         className="patient-select"
                     >
                         <option value="">Please select a patient.</option>
-                        <option value="kim minseo">Patient 1</option>
-                        <option value="moon good">Patient 2</option>
-                        <option value="song happy">Patient 3</option>
+                        <option value="Han IUM">Han, IUM</option>
+                        <option value="moon soyeon">moon soyeon</option>
+                        <option value="jang jiwoo">jang jiwoo</option>
+                        <option value="jo chaeeun">jo chaeeun</option>
+
                     </select>
 
                     <label htmlFor="file-upload" className="file-upload-label">
