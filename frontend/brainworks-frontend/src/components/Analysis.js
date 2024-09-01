@@ -36,6 +36,7 @@ function Analysis() {
     const [selectedImage, setSelectedImage] = useState(mriRecords[0].image);
     const [selectedDate, setSelectedDate] = useState(mriRecords[0].date);
     const [selectedDateValue, setSelectedDateValue] = useState(new Date());
+    const [physicianComment, setPhysicianComment] = useState('');
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -126,6 +127,10 @@ function Analysis() {
         setSelectedDateValue(date);
     };
 
+    const handlePhysicianCommentChange = (event) => {
+        setPhysicianComment(event.target.value);
+    };
+
     return (
         <div className="analysis-container">
             <header className="analysis-header">
@@ -173,15 +178,32 @@ function Analysis() {
                             <p>No image selected.</p>
                         )}
                     </section>
-                    <section className="analysis-results">
-                        <h2>Analysis Results</h2>
-                        <p>Description: {selectedAnalysis.description}</p>
-                        <p>Confidence: {selectedAnalysis.confidence}</p>
-                        <div className="action-buttons">
-                            <button className="save-button" onClick={handleSave}>Save</button>
-                            <button className="cancel-button" onClick={handleCancel}>Cancel</button>
+
+                    <section className="results-comments-container">
+                        <div className="ai-result">
+                            <h2>AI Result</h2>
+                            <p>Diagnosis: Alzheimer's Disease</p>
+                            <p>Accuracy: 0.963</p>
+                        </div>
+
+                        <div className="radiologist-comment">
+                            <h2>Radiologist Comment</h2>
+                            <p>Based on the MRI findings and the patient's clinical symptoms, a diagnosis of Alzheimer's disease is strongly suggested. The observed hippocampal and temporal lobe atrophy, ventricular enlargement, and white matter changes are consistent with typical imaging findings of Alzheimer's disease. Therefore, the patient is likely suffering from Alzheimer's disease, and further neuropsychological testing and treatment planning are recommended.</p>
                         </div>
                     </section>
+
+                    <section className="physician-comment">
+                        <h2>Ordering Physician Comment</h2>
+                        <textarea
+                            placeholder="Enter Ordering Physician Comment"
+                            value={physicianComment}
+                            onChange={handlePhysicianCommentChange}
+                        />
+                    </section>
+                    <div className="action-buttons">
+                        <button className="save-button" onClick={handleSave}>Save</button>
+                        <button className="cancel-button" onClick={handleCancel}>Cancel</button>
+                    </div>
                 </section>
 
                 <section className="ferightpanel">
@@ -190,7 +212,7 @@ function Analysis() {
                         <Calendar
                             onChange={handleDateChange}
                             value={selectedDateValue}
-                            locale="en-US"  /* 여기에서 달력 언어를 영어로 설정 */
+                            locale="en-US"
                         />
                     </section>
 
