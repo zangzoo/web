@@ -36,7 +36,8 @@ function Analysis() {
     const [selectedImage, setSelectedImage] = useState(mriRecords[0].image);
     const [selectedDate, setSelectedDate] = useState(mriRecords[0].date);
     const [selectedDateValue, setSelectedDateValue] = useState(new Date());
-    const [physicianComment, setPhysicianComment] = useState('');
+    const [physicianComment, setPhysicianComment] = useState("");
+    const [isEditing, setIsEditing] = useState(true); // 처음에는 편집 가능 상태
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -62,33 +63,15 @@ function Analysis() {
     };
 
     const handleSave = () => {
-        if (!selectedImage) {
-            alert('No MRI scan selected to save.');
-            return;
-        }
-
-        const currentDate = new Date().toLocaleDateString('en-GB', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric'
-        }).replace(/ /g, '-');
-
-        const newRecord = {
-            id: mriRecords.length + 1,
-            date: currentDate,
-            description: `MRI Scan ${mriRecords.length + 1}`,
-            image: selectedImage,
-            analysis: {
-                description: 'Demented',
-                confidence: 0.9813544273376465
-            }
-        };
-
-        setMriRecords([...mriRecords, newRecord]);
+        setIsEditing(false);
     };
 
     const handleCancel = () => {
         navigate('/main');
+    };
+
+    const handleEdit = () => {
+        setIsEditing(true);
     };
 
     const downloadPDF = async () => {
@@ -125,10 +108,6 @@ function Analysis() {
 
     const handleDateChange = (date) => {
         setSelectedDateValue(date);
-    };
-
-    const handlePhysicianCommentChange = (event) => {
-        setPhysicianComment(event.target.value);
     };
 
     return (
@@ -178,32 +157,33 @@ function Analysis() {
                             <p>No image selected.</p>
                         )}
                     </section>
-
-                    <section className="results-comments-container">
-                        <div className="ai-result">
+                    <div className="results-comments-container">
+                        <section className="ai-result">
                             <h2>AI Result</h2>
                             <p>Diagnosis: Alzheimer's Disease</p>
                             <p>Accuracy: 0.963</p>
-                        </div>
-
-                        <div className="radiologist-comment">
+                        </section>
+                        <section className="radiologist-comment">
                             <h2>Radiologist Comment</h2>
                             <p>Based on the MRI findings and the patient's clinical symptoms, a diagnosis of Alzheimer's disease is strongly suggested. The observed hippocampal and temporal lobe atrophy, ventricular enlargement, and white matter changes are consistent with typical imaging findings of Alzheimer's disease. Therefore, the patient is likely suffering from Alzheimer's disease, and further neuropsychological testing and treatment planning are recommended.</p>
-                        </div>
-                    </section>
-
+                        </section>
+                    </div>
                     <section className="physician-comment">
                         <h2>Ordering Physician Comment</h2>
                         <textarea
-                            placeholder="Enter Ordering Physician Comment"
                             value={physicianComment}
-                            onChange={handlePhysicianCommentChange}
+                            onChange={(e) => setPhysicianComment(e.target.value)}
+                            disabled={!isEditing} // 입력 불가능 여부 제어
                         />
+                        <div className="action-buttons">
+                            {isEditing ? (
+                                <button className="save-button" onClick={handleSave}>Save</button>
+                            ) : (
+                                <button className="edit-button" onClick={handleEdit}>Edit</button>
+                            )}
+                            <button className="cancel-button" onClick={handleCancel}>Cancel</button>
+                        </div>
                     </section>
-                    <div className="action-buttons">
-                        <button className="save-button" onClick={handleSave}>Save</button>
-                        <button className="cancel-button" onClick={handleCancel}>Cancel</button>
-                    </div>
                 </section>
 
                 <section className="ferightpanel">
@@ -212,7 +192,7 @@ function Analysis() {
                         <Calendar
                             onChange={handleDateChange}
                             value={selectedDateValue}
-                            locale="en-US"
+                            locale="en-US"  /* 여기에서 달력 언어를 영어로 설정 */
                         />
                     </section>
 
