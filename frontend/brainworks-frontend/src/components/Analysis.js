@@ -52,12 +52,17 @@ function Analysis() {
     const [selectedDate, setSelectedDate] = useState(mriRecords[0].date);
     const [selectedRadiologistComment, setSelectedRadiologistComment] = useState(mriRecords[0].radiologistComment);
     const [physicianComment, setPhysicianComment] = useState(mriRecords[0].physicianComment);
-    const [selectedDateValue, setSelectedDateValue] = useState(new Date(mriRecords[0].date));
+    const [selectedDateValue, setSelectedDateValue] = useState(new Date());
     const [isEditing, setIsEditing] = useState(true);
 
     const location = useLocation();
     const navigate = useNavigate();
     const { selectedPatient, userId } = location.state || {};
+
+    const formatDate = (date) => {
+        const options = { day: '2-digit', month: 'short', year: 'numeric' };
+        return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
+    };
 
     const handleLogout = () => {
         setShowModal(true);
@@ -83,11 +88,16 @@ function Analysis() {
 
     const handleSave = () => {
         setIsEditing(false);
-        setMriRecords(prevRecords =>
-            prevRecords.map(record =>
-                record.date === selectedDate ? { ...record, physicianComment } : record
-            )
-        );
+        const newRecord = {
+            id: mriRecords.length + 1,
+            date: formatDate(new Date()),
+            description: `MRI Scan ${mriRecords.length + 1}`,
+            images: selectedImages,
+            analysis: selectedAnalysis,
+            radiologistComment: selectedRadiologistComment,
+            physicianComment: physicianComment
+        };
+        setMriRecords([newRecord, ...mriRecords]);
     };
 
     const handleCancel = () => {
@@ -128,23 +138,23 @@ function Analysis() {
         doc.save(fileName);
     };
 
-    const handlePatientListClick = () => {
-        navigate('/patient-list', {
-            state: { userId }
-        });
+    const tileClassName = ({ date }) => {
+        return mriRecords.some(record => record.date === formatDate(date)) ? 'highlighted-tile' : null;
     };
 
     const handleDateChange = (date) => {
         setSelectedDateValue(date);
-    };
-
-    const tileClassName = ({ date, view }) => {
-        if (view === 'month') {
-            const formattedDate = date.toISOString().split('T')[0];
-            const record = mriRecords.find(record => new Date(record.date).toISOString().split('T')[0] === formattedDate);
-            return record ? 'highlight' : null;
+        const matchingRecord = mriRecords.find(record => record.date === formatDate(date));
+        if (matchingRecord) {
+            handleRecordClick(matchingRecord);
         }
     };
+
+    const handlePatientListClick = () => {
+    navigate('/patient-list', {
+        state: { userId }
+    });
+};
 
     return (
         <div className="analysis-container">
@@ -176,7 +186,11 @@ function Analysis() {
                         <h2>Previous MRI Records</h2>
                         <ul>
                             {mriRecords.map(record => (
-                                <li key={record.id} onClick={() => handleRecordClick(record)}>
+                                <li
+                                    key={record.id}
+                                    onClick={() => handleRecordClick(record)}
+                                    className={record.date === selectedDate ? 'selected-record' : ''}
+                                >
                                     {record.date}: {record.description}
                                 </li>
                             ))}
