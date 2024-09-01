@@ -1,9 +1,11 @@
+
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     min-height: 100%;
     overflow-x: hidden;
+    font-family: 'Aileron', sans-serif; /* 폰트 적용 */
 }
 
 .main-container {
@@ -16,6 +18,7 @@ html, body {
     width: 100%;
     min-height: 100vh;
     box-sizing: border-box;
+    font-family: 'Aileron', sans-serif; /* 폰트 적용 */
 }
 
 .navbar {
@@ -29,6 +32,7 @@ html, body {
     padding: 20px;
     background-color: rgba(0, 0, 0, 1);
     z-index: 10;
+    font-family: 'Aileron', sans-serif; /* 폰트 적용 */
 }
 
 .header-image-container {
@@ -53,6 +57,7 @@ html, body {
     font-weight: bold;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    font-family: 'Aileron', sans-serif; /* 폰트 적용 */
 }
 
 .upload-section {
@@ -64,6 +69,7 @@ html, body {
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     text-align: center;
+    font-family: 'Aileron', sans-serif; /* 폰트 적용 */
 }
 
 .upload-section h2 {
@@ -81,6 +87,7 @@ html, body {
     width: 100%;
     margin-bottom: 20px;
     color: white;
+    font-family: 'Aileron', sans-serif; /* 폰트 적용 */
 }
 
 .submit-button {
@@ -94,6 +101,7 @@ html, body {
     cursor: pointer;
     text-align: center;
     font-weight: bold;
+    font-family: 'Aileron', sans-serif; /* 폰트 적용 */
 }
 
 .submit-button:hover {
@@ -120,4 +128,5 @@ html, body {
     font-size: 13px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    font-family: 'Aileron', sans-serif; /* 폰트 적용 */
 }
