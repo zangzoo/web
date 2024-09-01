@@ -4,29 +4,38 @@ import './Main.css';
 import Loading from './Loading';
 
 function Main() {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [previewUrl, setPreviewUrl] = useState(null);
+    const [selectedFiles, setSelectedFiles] = useState([null, null]);
+    const [previewUrls, setPreviewUrls] = useState([null, null]);
     const [selectedPatient, setSelectedPatient] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [fileName, setFileName] = useState("");
+    const [fileNames, setFileNames] = useState(["", ""]);
     const navigate = useNavigate();
 
     // Mock userId
     const userId = "Dr.Yeogyeong";
 
-    const handleFileChange = (event) => {
+    const handleFileChange = (event, index) => {
         const file = event.target.files[0];
-        setSelectedFile(file);
-        setFileName(file.name);
+        let newSelectedFiles = [...selectedFiles];
+        let newFileNames = [...fileNames];
+        let newPreviewUrls = [...previewUrls];
+
+        newSelectedFiles[index] = file;
+        newFileNames[index] = file ? file.name : 'No file selected';
+
+        setSelectedFiles(newSelectedFiles);
+        setFileNames(newFileNames);
 
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setPreviewUrl(reader.result);
+                newPreviewUrls[index] = reader.result;
+                setPreviewUrls(newPreviewUrls);
             };
             reader.readAsDataURL(file);
         } else {
-            setPreviewUrl(null);
+            newPreviewUrls[index] = null;
+            setPreviewUrls(newPreviewUrls);
         }
     };
 
@@ -35,18 +44,18 @@ function Main() {
     };
 
     const handleSubmit = () => {
-        if (selectedPatient && selectedFile) {
+        if (selectedPatient && selectedFiles[0] && selectedFiles[1]) {
             setIsLoading(true);
             setTimeout(() => {
-                navigate('/analysis', { state: { selectedPatient, selectedFile, previewUrl, userId } });
+                navigate('/analysis', { state: { selectedPatient, selectedFiles, previewUrls, userId, isNewUpload: true } });
             }, 10000);
         } else {
-            alert('Please select a patient and an image.');
+            alert('Please select a patient and two images.');
         }
     };
 
     if (isLoading) {
-        return <Loading patientName={selectedPatient} fileName={fileName} />;
+        return <Loading patientName={selectedPatient} fileName={fileNames.join(", ")} />;
     }
 
     return (
@@ -68,7 +77,7 @@ function Main() {
             </div>
 
             <div className="upload-section">
-                <h2>Upload an Image for Alzheimer's Prediction</h2>
+                <h2>Upload Images for Alzheimer's Prediction</h2>
                 <form>
                     <label htmlFor="patient-select" className="file-upload-label">
                         Select Patient:
@@ -80,20 +89,38 @@ function Main() {
                         className="patient-select"
                     >
                         <option value="">Please select a patient.</option>
-                        <option value="kim minseo">Patient 1</option>
-                        <option value="moon good">Patient 2</option>
-                        <option value="song happy">Patient 3</option>
+                        <option value="Han IUM">Han, IUM</option>
+                        <option value="Moon Soyeon">Moon Soyeon</option>
+                        <option value="Jang Jiwoo">Jang Jiwoo</option>
+                        <option value="Jo Chaeeun">Jo Chaeeun</option>
                     </select>
 
-                    <label htmlFor="file-upload" className="file-upload-label">
-                        Upload Image:
-                    </label>
-                    <input type="file" id="file-upload" name="file-upload" onChange={handleFileChange} />
+                    {[0, 1].map(index => (
+                        <div key={index}>
+                            <label htmlFor={`file-upload-${index}`} className="file-upload-label">
+                                Upload Image {index + 1}:
+                            </label>
+                            <input
+                                type="file"
+                                id={`file-upload-${index}`}
+                                name={`file-upload-${index}`}
+                                onChange={(event) => handleFileChange(event, index)}
+                                className="custom-file-input"
+                            />
+                            <span className="file-name">{fileNames[index]}</span>
+                        </div>
+                    ))}
                 </form>
-                {previewUrl && (
+                {previewUrls[0] && (
                     <div className="image-preview">
-                        <h3>Selected Image:</h3>
-                        <img src={previewUrl} alt="Selected file" />
+                        <h3>Selected Image 1:</h3>
+                        <img src={previewUrls[0]} alt="Selected file 1" />
+                    </div>
+                )}
+                {previewUrls[1] && (
+                    <div className="image-preview">
+                        <h3>Selected Image 2:</h3>
+                        <img src={previewUrls[1]} alt="Selected file 2" />
                     </div>
                 )}
                 <button type="button" className="submit-button" onClick={handleSubmit}>

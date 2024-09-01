@@ -1,6 +1,3 @@
-/* PatientList.css */
-
-/* body, html 전역 스타일 제거 */
 .patient-list-container {
     margin: 0;
     padding: 0;
@@ -153,4 +150,3 @@
 .logout-button:hover {
     background-color: #FF4500;
 }
-
