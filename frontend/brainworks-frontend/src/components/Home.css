@@ -2,11 +2,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 html, body {
     width: 100%;
     height: 100%;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .home {
@@ -17,10 +19,12 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .home .navbar {
     background-color: transparent;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .navbar {
@@ -34,14 +38,14 @@ html, body {
     padding: 20px;
     z-index: 1;
     box-sizing: border-box;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .navbar-left {
     display: flex;
     align-items: center;
+    font-family: 'Aileron', Arial, sans-serif;
 }
-
-
 
 .logo {
     width: 30px;
@@ -53,6 +57,7 @@ html, body {
     margin: 0;
     font-size: 24px;
     color: white;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .navbar-right a {
@@ -60,6 +65,7 @@ html, body {
     text-decoration: none;
     color: #00CED1;
     font-size: 18px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .navbar-right a:hover {
@@ -89,6 +95,7 @@ html, body {
     font-weight: bold;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .content {
@@ -100,6 +107,7 @@ html, body {
     margin-top: 20px;
     z-index: 1;
     box-sizing: border-box;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .scroll-text {
@@ -107,10 +115,12 @@ html, body {
     padding: 20px;
     font-size: 24px;
     text-align: center;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .scroll-text p {
     margin: 10px 0;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .scroll-text .Welcome {
@@ -118,11 +128,13 @@ html, body {
     font-weight: bold;
     color: #00CED1;
     margin-bottom: 40px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .scroll-text .brainworks {
     color: #FFD700;
     font-weight: bold;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .scroll-text .brainworks img {
@@ -134,11 +146,13 @@ html, body {
 .scroll-text .small-text {
     margin-top: 50px;
     font-size: 14px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .scroll-text .alzheimers {
     color: #00CED1;
     font-weight: bold;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .login-button {
@@ -154,6 +168,7 @@ html, body {
     font-weight: bold;
     width: auto;
     max-width: 300px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .login-button:hover {
