@@ -13,7 +13,6 @@ function Main() {
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const navigate = useNavigate();
 
-    // Mock userId
     const userId = "Dr.Yeogyeong";
 
     const handleFileChange = (event, index) => {
@@ -57,7 +56,7 @@ function Main() {
     };
 
     const handleLogoutClick = () => {
-        setShowLogoutModal(true);
+        setShowLogoutModal(true);  // 모달을 표시하도록 상태를 변경
     };
 
     const handleConfirmLogout = () => {

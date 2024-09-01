@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: center;
     font-family: 'Aileron', Arial, sans-serif;
+    z-index: 9999;
 }
 
 .modal-content {
@@ -27,6 +28,7 @@
 .modal-content p {
     margin-bottom: 10px;
     font-family: 'Aileron', Arial, sans-serif;
+    color: black;
 }
 
 .modal-content button {
