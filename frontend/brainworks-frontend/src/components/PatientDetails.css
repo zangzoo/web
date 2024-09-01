@@ -3,6 +3,7 @@
     flex-direction: column;
     min-height: 100vh;
     background-color: #888888;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .analysis-header {
@@ -12,12 +13,14 @@
     justify-content: space-between;
     align-items: center;
     color: white;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .logo h1 {
     font-size: 22px;
     font-weight: bold;
     margin: 0;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .logo {
@@ -33,6 +36,7 @@
 .user-info {
     display: flex;
     align-items: center;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .user-info span.user-id {
@@ -48,6 +52,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .logout-button:hover {
@@ -61,6 +66,7 @@
     background-color: #fff;
     border-radius: 10px;
     margin-top: 20px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .patient-details-header {
@@ -68,12 +74,14 @@
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .patient-info {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .patient-image {
@@ -87,6 +95,7 @@
     margin: 0;
     font-size: 22px;
     color: #333;
+    text-align: left;
 }
 
 .patient-info p {
@@ -113,6 +122,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: 35%;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .diagnose-button:hover {
@@ -122,6 +132,7 @@
 .ai-report-container {
     margin-top: 20px;
     text-align: left;
+    font-family: 'Aileron', Arial, sans-serif;
 }
 
 .ai-report-container h3 {

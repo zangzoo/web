@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Modal from './Modal';
 import './PatientDetails.css';
 
 function PatientDetails() {
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
     const patient = {
         name: 'HAN, IUM',
@@ -21,6 +23,19 @@ function PatientDetails() {
         { id: 4, diagnosis: 'Moderate_Demented', accuracy: '0.87' },
     ];
 
+    const handleLogout = () => {
+        setShowModal(true);
+    };
+
+    const handleConfirmLogout = () => {
+        setShowModal(false);
+        navigate('/home');
+    };
+
+    const handleCancelLogout = () => {
+        setShowModal(false);
+    };
+
     return (
         <div className="patient-details-container">
             <header className="analysis-header">
@@ -30,7 +45,7 @@ function PatientDetails() {
                 </div>
                 <div className="user-info">
                     <span className="user-id">Dr. Yeogyeong</span>
-                    <button className="logout-button" onClick={() => navigate('/home')}>Logout</button>
+                    <button className="logout-button" onClick={handleLogout}>Logout</button>
                 </div>
             </header>
             <div className="patient-details-content">
@@ -46,18 +61,29 @@ function PatientDetails() {
                     </div>
                 </div>
                 <div className="diagnose-button-container">
-                    <button className="diagnose-button">Start AI Diagnosis</button>
+                    <button
+                        className="diagnose-button"
+                        onClick={() => navigate('/main')}
+                    >
+                        Start AI Diagnosis
+                    </button>
                 </div>
                 <div className="ai-report-container">
                     <h3>AI Report:</h3>
                     {aiReports.map(report => (
                         <div key={report.id} className="ai-report-item">
                             <p>Diagnosis: {report.diagnosis}</p>
-                            <p>Accuracy: {report.accuracy}</p>
+                            <p>Probability: {report.accuracy}</p>
                         </div>
                     ))}
                 </div>
             </div>
+            <Modal
+                show={showModal}
+                message="Are you sure you want to log out?"
+                onConfirm={handleConfirmLogout}
+                onCancel={handleCancelLogout}
+            />
         </div>
     );
 }
