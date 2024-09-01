@@ -10,21 +10,21 @@ function Analysis() {
     const [mriRecords, setMriRecords] = useState([
         {
             id: 1,
-            date: '2023-06-15',
+            date: '04-Sep-2023',
             description: 'MRI Scan 1',
             image: '/mri_scan1.gif',
             analysis: { description: 'Non_Demented', confidence: 0.7813544273376465 }
         },
         {
             id: 2,
-            date: '2023-07-01',
+            date: '07-Feb-2024',
             description: 'MRI Scan 2',
             image: '/mri_scan2.gif',
             analysis: { description: 'Mild_Demented', confidence: 0.6423453487357645 }
         },
         {
             id: 3,
-            date: '2023-08-10',
+            date: '01-Aug-2024',
             description: 'MRI Scan 3',
             image: '/mri_scan3.gif',
             analysis: { description: 'Moderate_Demented', confidence: 0.8712434532837645 }
@@ -32,10 +32,12 @@ function Analysis() {
     ]);
 
     const [selectedAnalysis, setSelectedAnalysis] = useState(mriRecords[0].analysis);
+    const [selectedImage, setSelectedImage] = useState(mriRecords[0].image); // 선택된 이미지를 추적
+    const [selectedDate, setSelectedDate] = useState(mriRecords[0].date); // 선택된 날짜를 추적
 
     const location = useLocation();
     const navigate = useNavigate();
-    const { selectedPatient, previewUrl, userId } = location.state || {};
+    const { selectedPatient, userId } = location.state || {};
 
     const handleLogout = () => {
         setShowModal(true);
@@ -52,27 +54,28 @@ function Analysis() {
 
     const handleRecordClick = (record) => {
         setSelectedAnalysis(record.analysis);
-        navigate('/analysis', {
-            state: {
-                selectedPatient,
-                previewUrl: record.image,
-                userId,
-                analysis: record.analysis
-            }
-        });
+        setSelectedImage(record.image);
+        setSelectedDate(record.date); // 선택된 날짜 업데이트
     };
 
     const handleSave = () => {
-        if (!previewUrl) {
+        if (!selectedImage) {
             alert('No MRI scan selected to save.');
             return;
         }
 
+        // 날짜를 "DD-MMM-YYYY" 형식으로 변환
+        const currentDate = new Date().toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+        }).replace(/ /g, '-'); // 공백을 '-'로 교체하여 "DD-MMM-YYYY" 형식으로 변환
+
         const newRecord = {
             id: mriRecords.length + 1,
-            date: new Date().toISOString().slice(0, 10),
-            description: `MRI Scan ${mriRecords.length + 1}`,
-            image: previewUrl,
+            date: currentDate, // 변환된 날짜 반영
+            description: `MRI Scan ${mriRecords.length + 1}`, // 제목에 Scan 번호를 반영
+            image: selectedImage,
             analysis: {
                 description: 'Demented',
                 confidence: 0.9813544273376465
@@ -90,26 +93,25 @@ function Analysis() {
         const doc = new jsPDF();
 
         // PDF에 사용할 폰트를 설정합니다.
-        doc.setFont("MaruBuri-Light"); // 미리 로드된 폰트 사용
-        doc.setFontSize(12); // 폰트 크기 설정
-        doc.setTextColor(0, 0, 0); // 텍스트 색상을 검정색으로 설정
+        doc.setFont("MaruBuri-Light");
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);
 
         // PDF 내용 작성
         doc.text("BrainWorks Analysis Report", 20, 20);
         doc.text(`Patient Name: ${selectedPatient}`, 20, 30);
         doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 40);
-        doc.text(`MRI Scan Description: ${mriRecords[mriRecords.length - 1].description}`, 20, 50);
-        doc.text(`Analysis: ${mriRecords[mriRecords.length - 1].analysis.description}`, 20, 60);
-        doc.text(`Confidence: ${mriRecords[mriRecords.length - 1].analysis.confidence}`, 20, 70);
+        doc.text(`MRI Scan Description: ${selectedDate}`, 20, 50);
+        doc.text(`Analysis: ${selectedAnalysis.description}`, 20, 60);
+        doc.text(`Confidence: ${selectedAnalysis.confidence}`, 20, 70);
 
         // 이미지 추가
-        if (previewUrl) {
+        if (selectedImage) {
             const img = new Image();
-            img.src = previewUrl;
+            img.src = selectedImage;
             doc.addImage(img, 'JPEG', 20, 80, 160, 90);
         }
 
-        // 파일 이름 생성 및 PDF 저장
         const currentDate = new Date().toISOString().slice(0, 10);
         const fileName = `${selectedPatient}_${currentDate}.pdf`;
 
@@ -141,14 +143,15 @@ function Analysis() {
                 <section className="left-panel">
                     <section className="patient-info">
                         <h2>Patient Information</h2>
-                        <p>ID: 12345</p>
-                        <p>Name: {selectedPatient}</p>
-                        <p>Department: Internal Medicine</p>
-                        <p>Date: 2023-07-12</p>
-                        <p>Diagnosis: Hypertension</p>
+                        <p>Patient Name: HAN, IUM</p>
+                        <p>Patient ID: 2408271</p>
+                        <p>Gender / Age: Female / 72</p>
+                        <p>Department: Neurology</p>
+                        <p>Date of Consultation: 01-Aug-2024</p>
+                        <p>Diagnosis: Alzheimer’s Disease</p>
                     </section>
 
-                    <section className="mri-records">
+                    <section className="radiology-records">
                         <h2>Previous MRI Records</h2>
                         <ul>
                             {mriRecords.map(record => (
@@ -163,8 +166,8 @@ function Analysis() {
                 <section className="right-panel">
                     <section className="image-display">
                         <h2>MRI Scan</h2>
-                        {previewUrl ? (
-                            <img src={previewUrl} alt="MRI Scan" />
+                        {selectedImage ? (
+                            <img src={selectedImage} alt="MRI Scan" />
                         ) : (
                             <p>No image selected.</p>
                         )}
