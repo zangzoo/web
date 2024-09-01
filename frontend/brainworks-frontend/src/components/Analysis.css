@@ -10,7 +10,7 @@ body, html {
 .analysis-container {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* 전체 화면에 맞춤 */
+    height: 100vh;
 }
 
 .analysis-header {
@@ -98,7 +98,7 @@ body, html {
     width: 25%;
     display: flex;
     flex-direction: column;
-    overflow-y: auto; /* 필요한 경우 스크롤 가능 */
+    overflow-y: auto;
 }
 
 .patient-info, .radiology-records {
@@ -143,7 +143,7 @@ body, html {
     flex-direction: column;
     width: 60%;
     justify-content: space-between;
-    overflow-y: auto; /* 필요한 경우 스크롤 가능 */
+    overflow-y: auto;
 }
 
 .image-display {
@@ -178,7 +178,7 @@ body, html {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     position: relative;
     height: 25%;
-    overflow-y: auto; /* 필요한 경우 스크롤 가능 */
+    overflow-y: auto;
 }
 
 .analysis-results p {
@@ -313,7 +313,7 @@ body, html {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
-    max-height: 300px;
+    max-height: 600px;
     font-size: 14px;
     border: 1px solid #ccc;
 }
