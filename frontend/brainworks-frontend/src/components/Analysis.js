@@ -11,33 +11,49 @@ function Analysis() {
     const [mriRecords, setMriRecords] = useState([
         {
             id: 1,
-            date: '04-Sep-2023',
-            description: 'MRI Scan 1',
-            image: '/mri_scan1.gif',
-            analysis: { description: 'Non_Demented', confidence: 0.7813544273376465 }
+            date: '02-Sep-2024',
+            description: 'MRI Scan 4',
+            images: ['/0076_MRI_mpr-1_anon_sag_67.gif', '/0076_MRI_mpr-2_anon_sag_66.gif'],
+            analysis: { description: 'Alzheimer’s Disease', accuracy: 0.9634178346327 },
+            radiologistComment: "Based on the MRI findings and the patient's clinical symptoms, a diagnosis of Alzheimer's disease is strongly suggested. The observed hippocampal and temporal lobe atrophy, ventricular enlargement, and white matter changes are consistent with typical imaging findings of Alzheimer's disease. Therefore, the patient is likely suffering from Alzheimer's disease, and further neuropsychological testing and treatment planning are recommended.",
+            physicianComment: ""
         },
         {
             id: 2,
             date: '07-Feb-2024',
-            description: 'MRI Scan 2',
-            image: '/mri_scan2.gif',
-            analysis: { description: 'Mild_Demented', confidence: 0.6423453487357645 }
+            description: 'MRI Scan 3',
+            images: ['/mri_scan2.gif','/mri_scan3.gif'],
+            analysis: { description: 'Mild_Demented', accuracy: 0.6423453487357645 },
+            radiologistComment: "Mild hippocampal atrophy observed, consistent with Mild Dementia.",
+            physicianComment: "Recommend close monitoring and possible early intervention."
         },
         {
             id: 3,
-            date: '01-Aug-2024',
-            description: 'MRI Scan 3',
-            image: '/mri_scan3.gif',
-            analysis: { description: 'Moderate_Demented', confidence: 0.8712434532837645 }
+            date: '07-Feb-2024',
+            description: 'MRI Scan 2',
+            images: ['/mri_scan2.gif','/mri_scan3.gif'],
+            analysis: { description: 'Mild_Demented', accuracy: 0.6423453487357645 },
+            radiologistComment: "Mild hippocampal atrophy observed, consistent with Mild Dementia.",
+            physicianComment: "Recommend close monitoring and possible early intervention."
+        },
+        {
+            id: 4,
+            date: '01-Aug-2023',
+            description: 'MRI Scan 1',
+            images: ['/mri_scan3.gif','/mri_scan1.gif'],
+            analysis: { description: 'Moderate_Demented', accuracy: 0.8712434532837645 },
+            radiologistComment: "Upon analyzing the MRI results, there is clear evidence of Alzheimer’s disease progression. The scans reveal marked atrophy in the medial temporal lobes including the entorhinal cortex. The presence of diffuse cortical atrophy and prominent sulcal widening are also consistent with this diagnosis. Given these imaging findings and the patient’s cognitive decline, it is recommended to initiate a thorough evaluation with neuropsychological tests to assess the extent of impairment. Early intervention strategies and treatment planning should be considered to manage the disease effectively.",
+            physicianComment: "Based on the medical examination results, memory decline and cognitive impairment were additionally observed; Neuropsychological testing is recommended to further assess the presence of Alzheimer's disease."
         }
     ]);
 
     const [selectedAnalysis, setSelectedAnalysis] = useState(mriRecords[0].analysis);
-    const [selectedImage, setSelectedImage] = useState(mriRecords[0].image);
+    const [selectedImages, setSelectedImages] = useState(mriRecords[0].images);
     const [selectedDate, setSelectedDate] = useState(mriRecords[0].date);
+    const [selectedRadiologistComment, setSelectedRadiologistComment] = useState(mriRecords[0].radiologistComment);
+    const [physicianComment, setPhysicianComment] = useState(mriRecords[0].physicianComment);
     const [selectedDateValue, setSelectedDateValue] = useState(new Date());
-    const [physicianComment, setPhysicianComment] = useState("");
-    const [isEditing, setIsEditing] = useState(true); // 처음에는 편집 가능 상태
+    const [isEditing, setIsEditing] = useState(true);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -58,12 +74,20 @@ function Analysis() {
 
     const handleRecordClick = (record) => {
         setSelectedAnalysis(record.analysis);
-        setSelectedImage(record.image);
+        setSelectedImages(record.images);
         setSelectedDate(record.date);
+        setSelectedRadiologistComment(record.radiologistComment);
+        setPhysicianComment(record.physicianComment);
     };
 
     const handleSave = () => {
         setIsEditing(false);
+        // 업데이트된 physicianComment를 mriRecords 상태에 반영
+        setMriRecords(prevRecords =>
+            prevRecords.map(record =>
+                record.date === selectedDate ? { ...record, physicianComment } : record
+            )
+        );
     };
 
     const handleCancel = () => {
@@ -86,12 +110,16 @@ function Analysis() {
         doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 40);
         doc.text(`MRI Scan Description: ${selectedDate}`, 20, 50);
         doc.text(`Analysis: ${selectedAnalysis.description}`, 20, 60);
-        doc.text(`Confidence: ${selectedAnalysis.confidence}`, 20, 70);
+        doc.text(`Accuracy: ${selectedAnalysis.accuracy}`, 20, 70);
+        doc.text(`Radiologist Comment: ${selectedRadiologistComment}`, 20, 80);
+        doc.text(`Physician Comment: ${physicianComment}`, 20, 90);
 
-        if (selectedImage) {
-            const img = new Image();
-            img.src = selectedImage;
-            doc.addImage(img, 'JPEG', 20, 80, 160, 90);
+        if (selectedImages.length > 0) {
+            selectedImages.forEach((image, index) => {
+                const img = new Image();
+                img.src = image;
+                doc.addImage(img, 'JPEG', 20, 100 + index * 100, 160, 90);
+            });
         }
 
         const currentDate = new Date().toISOString().slice(0, 10);
@@ -151,21 +179,25 @@ function Analysis() {
                 <section className="right-panel">
                     <section className="image-display">
                         <h2>MRI Scan</h2>
-                        {selectedImage ? (
-                            <img src={selectedImage} alt="MRI Scan" />
+                        {selectedImages && selectedImages.length > 0 ? (
+                            selectedImages.map((image, index) => (
+                                <img key={index} src={image} alt={`MRI Scan ${index + 1}`} />
+                            ))
                         ) : (
-                            <p>No image selected.</p>
+                            <p>No images selected.</p>
                         )}
                     </section>
                     <div className="results-comments-container">
                         <section className="ai-result">
                             <h2>AI Result</h2>
-                            <p>Diagnosis: Alzheimer's Disease</p>
-                            <p>Accuracy: 0.963</p>
+                            <p>Diagnosis: {selectedAnalysis.description}</p>
+                            <p style={{ color: selectedAnalysis.accuracy >= 0.9 ? 'red' : 'black' }}>
+                                Accuracy: {selectedAnalysis.accuracy}
+                            </p>
                         </section>
                         <section className="radiologist-comment">
                             <h2>Radiologist Comment</h2>
-                            <p>Based on the MRI findings and the patient's clinical symptoms, a diagnosis of Alzheimer's disease is strongly suggested. The observed hippocampal and temporal lobe atrophy, ventricular enlargement, and white matter changes are consistent with typical imaging findings of Alzheimer's disease. Therefore, the patient is likely suffering from Alzheimer's disease, and further neuropsychological testing and treatment planning are recommended.</p>
+                            <p>{selectedRadiologistComment}</p>
                         </section>
                     </div>
                     <section className="physician-comment">
