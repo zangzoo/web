@@ -202,7 +202,7 @@ body, html {
 }
 
 .physician-comment textarea:disabled {
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
     border: none;
     color: #333;
     font-weight: bold;
