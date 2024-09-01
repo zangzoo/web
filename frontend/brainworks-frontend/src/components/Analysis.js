@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Calendar from 'react-calendar'; // 달력 라이브러리 추가
 import './Analysis.css';
 import Modal from './Modal';
 import jsPDF from 'jspdf';
@@ -34,6 +35,7 @@ function Analysis() {
     const [selectedAnalysis, setSelectedAnalysis] = useState(mriRecords[0].analysis);
     const [selectedImage, setSelectedImage] = useState(mriRecords[0].image); // 선택된 이미지를 추적
     const [selectedDate, setSelectedDate] = useState(mriRecords[0].date); // 선택된 날짜를 추적
+    const [selectedDateValue, setSelectedDateValue] = useState(new Date()); // 달력에서 선택한 날짜
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -64,7 +66,6 @@ function Analysis() {
             return;
         }
 
-        // 날짜를 "DD-MMM-YYYY" 형식으로 변환
         const currentDate = new Date().toLocaleDateString('en-GB', {
             day: '2-digit',
             month: 'short',
@@ -118,11 +119,15 @@ function Analysis() {
         doc.save(fileName);
     };
 
-    // This function will handle the navigation to the Patient List screen
     const handlePatientListClick = () => {
         navigate('/patient-list', {
             state: { userId } // Pass the userId to the patient list page
         });
+    };
+
+    const handleDateChange = (date) => {
+        setSelectedDateValue(date);
+        // 이곳에 선택한 날짜를 기반으로 하는 추가 로직을 구현할 수 있습니다.
     };
 
     return (
@@ -181,6 +186,11 @@ function Analysis() {
                             <button className="cancel-button" onClick={handleCancel}>Cancel</button>
                         </div>
                     </section>
+                </section>
+
+                <section className="calendar-section">
+                    <h2>Calendar</h2>
+                    <Calendar onChange={handleDateChange} value={selectedDateValue} />
                 </section>
             </main>
             <Modal
