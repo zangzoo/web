@@ -107,7 +107,6 @@ function Analysis() {
         setIsEditing(true);
     };
 
-    // tileClassName 함수 정의
     const tileClassName = ({ date, view }) => {
         if (view === 'month') {
             return mriRecords.some(record => record.date === formatDate(date)) ? 'highlighted-tile' : null;

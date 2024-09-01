@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Main.css';
 import Loading from './Loading';
+import Modal from './Modal';
 
 function Main() {
     const [selectedFiles, setSelectedFiles] = useState([null, null]);
@@ -9,6 +10,7 @@ function Main() {
     const [selectedPatient, setSelectedPatient] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [fileNames, setFileNames] = useState(["", ""]);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const navigate = useNavigate();
 
     // Mock userId
@@ -54,6 +56,19 @@ function Main() {
         }
     };
 
+    const handleLogoutClick = () => {
+        setShowLogoutModal(true);
+    };
+
+    const handleConfirmLogout = () => {
+        setShowLogoutModal(false);
+        navigate('/home');
+    };
+
+    const handleCancelLogout = () => {
+        setShowLogoutModal(false);
+    };
+
     if (isLoading) {
         return <Loading patientName={selectedPatient} fileName={fileNames.join(", ")} />;
     }
@@ -68,6 +83,7 @@ function Main() {
                 <div className="navbar-right">
                     <a href="/home">Home</a>
                     <span className="user-id">{userId}</span>
+                    <button className="logout-button" onClick={handleLogoutClick}>Logout</button>
                 </div>
             </nav>
 
@@ -127,6 +143,13 @@ function Main() {
                     Submit
                 </button>
             </div>
+
+            <Modal
+                show={showLogoutModal}
+                message="Are you sure you want to log out?"
+                onConfirm={handleConfirmLogout}
+                onCancel={handleCancelLogout}
+            />
         </div>
     );
 }

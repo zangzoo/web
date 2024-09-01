@@ -164,5 +164,46 @@ html, body {
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    font-family: 'Aileron', sans-serif; /* 폰트 적용 */
+    font-family: 'Aileron', sans-serif;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-id {
+    margin-left: 20px;
+    margin-right: 20px; /* Adjusted margin-right for better alignment */
+    font-size: 18px;
+    color: white;
+}
+
+.navbar-right button {
+    margin-left: 0px;
+    background-color: #555555;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Aileron', sans-serif;
+    display: flex;
+    align-items: center;
+    padding: 1;
+}
+
+.navbar-right a:hover,
+.logout-button:hover {
+    color: #FFD700;
+}
+
+.logout-button {
+    color: #FF4500;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.logout-button:hover {
+    background: none;
+    border: none;
 }
