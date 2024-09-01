@@ -220,6 +220,7 @@ body, html {
     background-color: #FF4500;
     color: white;
 }
+
 .calendar-section {
     background-color: #f9f9f9;
     padding: 10px;
@@ -232,6 +233,7 @@ body, html {
     justify-content: center;
     align-items: center;
 }
+
 
 .react-calendar {
     width: 100%;
@@ -246,6 +248,7 @@ body, html {
     background: none;
     font-size: 16px;
     margin-top: 8px;
+    border: none;
 }
 
 .react-calendar__navigation button:enabled:hover,
@@ -271,6 +274,7 @@ body, html {
     background: none;
     text-align: center;
     line-height: 16px;
+    border: none;
 }
 
 .react-calendar__tile:enabled:hover,

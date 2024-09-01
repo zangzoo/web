@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Calendar from 'react-calendar'; // 달력 라이브러리 추가
+import Calendar from 'react-calendar';
 import './Analysis.css';
 import Modal from './Modal';
 import jsPDF from 'jspdf';
@@ -33,9 +33,9 @@ function Analysis() {
     ]);
 
     const [selectedAnalysis, setSelectedAnalysis] = useState(mriRecords[0].analysis);
-    const [selectedImage, setSelectedImage] = useState(mriRecords[0].image); // 선택된 이미지를 추적
-    const [selectedDate, setSelectedDate] = useState(mriRecords[0].date); // 선택된 날짜를 추적
-    const [selectedDateValue, setSelectedDateValue] = useState(new Date()); // 달력에서 선택한 날짜
+    const [selectedImage, setSelectedImage] = useState(mriRecords[0].image);
+    const [selectedDate, setSelectedDate] = useState(mriRecords[0].date);
+    const [selectedDateValue, setSelectedDateValue] = useState(new Date());
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -57,7 +57,7 @@ function Analysis() {
     const handleRecordClick = (record) => {
         setSelectedAnalysis(record.analysis);
         setSelectedImage(record.image);
-        setSelectedDate(record.date); // 선택된 날짜 업데이트
+        setSelectedDate(record.date);
     };
 
     const handleSave = () => {
@@ -70,12 +70,12 @@ function Analysis() {
             day: '2-digit',
             month: 'short',
             year: 'numeric'
-        }).replace(/ /g, '-'); // 공백을 '-'로 교체하여 "DD-MMM-YYYY" 형식으로 변환
+        }).replace(/ /g, '-');
 
         const newRecord = {
             id: mriRecords.length + 1,
-            date: currentDate, // 변환된 날짜 반영
-            description: `MRI Scan ${mriRecords.length + 1}`, // 제목에 Scan 번호를 반영
+            date: currentDate,
+            description: `MRI Scan ${mriRecords.length + 1}`,
             image: selectedImage,
             analysis: {
                 description: 'Demented',
@@ -106,7 +106,6 @@ function Analysis() {
         doc.text(`Analysis: ${selectedAnalysis.description}`, 20, 60);
         doc.text(`Confidence: ${selectedAnalysis.confidence}`, 20, 70);
 
-        // 이미지 추가
         if (selectedImage) {
             const img = new Image();
             img.src = selectedImage;
@@ -121,13 +120,13 @@ function Analysis() {
 
     const handlePatientListClick = () => {
         navigate('/patient-list', {
-            state: { userId } // Pass the userId to the patient list page
+            state: { userId }
         });
     };
 
     const handleDateChange = (date) => {
         setSelectedDateValue(date);
-        // 이곳에 선택한 날짜를 기반으로 하는 추가 로직을 구현할 수 있습니다.
+
     };
 
     return (
@@ -189,7 +188,7 @@ function Analysis() {
                 </section>
 
                 <section className="calendar-section">
-                    <h2>Calendar</h2>
+                    <h2></h2>
                     <Calendar onChange={handleDateChange} value={selectedDateValue} />
                 </section>
             </main>
