@@ -173,7 +173,9 @@ function Analysis() {
                         <textarea
                             value={physicianComment}
                             onChange={(e) => setPhysicianComment(e.target.value)}
-                            disabled={!isEditing} // 입력 불가능 여부 제어
+                            placeholder="Please enter comments."
+                            className={!isEditing ? "textarea-disabled" : ""}
+                            disabled={!isEditing}
                         />
                         <div className="action-buttons">
                             {isEditing ? (
@@ -192,7 +194,7 @@ function Analysis() {
                         <Calendar
                             onChange={handleDateChange}
                             value={selectedDateValue}
-                            locale="en-US"  /* 여기에서 달력 언어를 영어로 설정 */
+                            locale="en-US"
                         />
                     </section>
 

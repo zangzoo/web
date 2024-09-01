@@ -168,22 +168,50 @@ body, html {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
-.analysis-results {
+.results-comments-container {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
+    margin-top: 10px;
+}
+
+.ai-result, .radiologist-comment {
+    width: 48%;
     background-color: #f9f9f9;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    height: 25%;
+    height: 150px;
     overflow-y: auto;
 }
 
-.analysis-results p {
+.physician-comment {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
-    line-height: 1.2;
+}
+
+.physician-comment textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+.physician-comment textarea:disabled {
+    background-color: #f4f4f4;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    cursor: default;
+}
+
+textarea::placeholder {
+    color: #999;
+    font-style: italic;
 }
 
 .action-buttons {
@@ -192,42 +220,42 @@ body, html {
     margin-top: 10px;
 }
 
-.action-buttons .save-button, .action-buttons .cancel-button .edit-button {
+.action-buttons .save-button, .action-buttons .edit-button, .action-buttons .cancel-button {
     padding: 5px 10px;
-    background-color: #00CED1;
-    color: white;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
+    border: none;
 }
 
-.cancel-button {
-    background-color: #c0c0c0;
-    color: #333333;
-    border: none;
-    border-radius: 5px;
-    margin-left: 10px;
-    padding: 5px 10px;
-}
-.edit-button {
-    padding: 5px 10px;
+.action-buttons .save-button {
     background-color: #00CED1;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
 }
 
-.cancel-button:hover {
-    background-color: #999999;
-    color: #ffffff;
-}
-
-.save-button:hover {
+.action-buttons .save-button:hover {
     background-color: #FF4500;
     color: white;
+}
+
+.action-buttons .edit-button {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.action-buttons .edit-button:hover {
+    background-color: #00CED1;
+    color: white;
+}
+
+.action-buttons .cancel-button {
+    background-color: #c0c0c0;
+    color: #333333;
+}
+
+.action-buttons .cancel-button:hover {
+    background-color: #999999;
+    color: #ffffff;
 }
 
 .ferightpanel {
@@ -339,50 +367,6 @@ body, html {
 .ad-related-test-orders p {
     margin: 8px 0;
     line-height: 1.5;
-}
-
-.results-comments-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-}
-
-.ai-result,
-.radiologist-comment {
-    width: 48%;
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    height: 150px;
-    overflow-y: auto;
-}
-
-.physician-comment {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-}
-
-.physician-comment textarea {
-    width: 100%;
-    height: 80px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    resize: none;
-}
-
-.physician-comment textarea:disabled {
-    background-color: #e9e9e9;
-    color: #777;
-    cursor: not-allowed;
-}
-
-.save-button, .edit-button {
-    margin-left: 10px;
 }
 
 h2 {
