@@ -77,7 +77,7 @@
     font-family: 'Aileron', Arial, sans-serif;
 }
 
-.patient-info {
+.patients-info {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
@@ -91,14 +91,14 @@
     margin-right: 20px;
 }
 
-.patient-info h2 {
+.patients-info h2 {
     margin: 0;
     font-size: 22px;
     color: #333;
     text-align: left;
 }
 
-.patient-info p {
+.patients-info p {
     margin: 5px 0;
     font-size: 16px;
     color: #666;

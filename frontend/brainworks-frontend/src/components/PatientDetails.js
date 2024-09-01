@@ -50,7 +50,7 @@ function PatientDetails() {
             </header>
             <div className="patient-details-content">
                 <h1 className="patient-details-header">{patient.name}'s Medical Record</h1>
-                <div className="patient-info">
+                <div className="patients-info">
                     <img src={patient.image} alt={patient.name} className="patient-image"/>
                     <div>
                         <h2>{patient.name}</h2>
