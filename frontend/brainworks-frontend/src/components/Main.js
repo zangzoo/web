@@ -10,7 +10,9 @@ function Main() {
     const [isLoading, setIsLoading] = useState(false);
     const [fileName, setFileName] = useState("");
     const navigate = useNavigate();
-    const userId = 'Dr.David';
+
+    // Mock userId
+    const userId = "Dr.Yeogyeong";
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -44,7 +46,7 @@ function Main() {
     };
 
     if (isLoading) {
-        return <Loading patientName={selectedPatient} fileName={fileName} />; // 로딩 중일 때 환자 이름과 파일 이름 전달
+        return <Loading patientName={selectedPatient} fileName={fileName} />;
     }
 
     return (
@@ -56,7 +58,7 @@ function Main() {
                 </div>
                 <div className="navbar-right">
                     <a href="/home">Home</a>
-                    <a href="/login">Login</a>
+                    <span className="user-id">{userId}</span>
                 </div>
             </nav>
 

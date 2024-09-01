@@ -1,4 +1,3 @@
-/* Analysis.css */
 body, html {
     margin: 0;
     padding: 0;
@@ -11,7 +10,7 @@ body, html {
 .analysis-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 .analysis-header {
@@ -42,63 +41,109 @@ body, html {
 .user-info {
     display: flex;
     align-items: center;
+    gap: 15px;
 }
 
 .user-info span.user-id {
     margin-right: 10px;
-    font-weight: light;
+    font-weight: lighter;
     color: white;
 }
 
-.report-button, .logout-button {
+.report-button, .logout-button, .patient-list-button {
     padding: 5px 10px;
-    background-color: #00CED1;
-    color: white;
-    border: none;
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
+    transition: background-color 0.3s ease;
 }
 
-.report-button:hover, .logout-button:hover {
-    background-color: #FF4500;
+.report-button {
+    margin-right: -20px;
+}
+
+.patient-list-button {
+    padding: 3px 6px;
+    font-size: 10px;
+    margin-left: 10px;
+}
+
+.report-button:hover, .logout-button:hover, .patient-list-button:hover {
+    background-color: #e0e0e0;
 }
 
 .logout-button {
     background-color: #ff4b4b;
+    color: white;
+    border: none;
+}
+
+.logout-button:hover {
+    background-color: #FF6347;
 }
 
 .analysis-content {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 20px;
     background-color: #fff;
     flex-grow: 1;
+    gap: 20px;
+    overflow: hidden;
 }
 
 .left-panel {
+    width: 25%;
     display: flex;
     flex-direction: column;
-    width: 30%;
+    overflow-y: auto;
 }
 
-.right-panel {
-    display: flex;
-    flex-direction: column;
-    width: 67%;
-    justify-content: space-between;
-}
-
-.patient-info, .image-display, .analysis-results, .mri-records {
+.patient-info, .radiology-records {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
+    text-align: left;
+    border-radius: 20px;
+    border: 1px solid #ccc;
 }
 
-.patient-info h2, .image-display h2, .analysis-results h2, .mri-records h2 {
+.patient-info h2, .radiology-records h2 {
     margin-top: 0;
+    text-align: center;
+}
+
+.patient-info p, .radiology-records p {
+    line-height: 1.5;
+    margin: 8px 0;
+}
+
+.radiology-records ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.radiology-records li {
+    cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.radiology-records li:hover {
+    background-color: #eee;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    justify-content: space-between;
+    overflow-y: auto;
 }
 
 .image-display {
@@ -107,8 +152,8 @@ body, html {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 5px;
-    height: 540px;
+    margin-bottom: 10px;
+    height: 60%;
 }
 
 .image-display h2 {
@@ -123,115 +168,207 @@ body, html {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
-.patient-list-button {
-    padding: 3px 8px;
-    background-color: transparent;
-    color: white;
-    width: 1000%;
-    border: 1px solid white;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-    font-size: 10px;
-}
-
-.patient-list-button:hover {
-    background-color: white;
-    color: #333;
-}
-
-.patient-info p {
-    line-height: 1.2;
-    margin-bottom: 5px;
-}
-
-.patient-info h2 {
-    margin-bottom: 15px;
-}
-
-.mri-records ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.mri-records li {
-    cursor: pointer;
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-}
-
-.mri-records li:hover {
-    background-color: #eee;
-}
-
-.image-display h2 {
-    margin-bottom: 10px;
-}
-
-.analysis-results {
+.results-comments-container {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
+    margin-top: 10px;
+}
+
+.ai-result, .radiologist-comment {
+    width: 48%;
     background-color: #f9f9f9;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 5px;
-    position: relative;
-    min-height: 170px;
-    max-height: 200px;
+    height: 150px;
     overflow-y: auto;
 }
 
-.analysis-results p {
+.physician-comment {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
-    line-height: 1.2;
 }
 
-.save-button {
-    padding: 5px 10px;
-    background-color: #00CED1;
-    color: white;
-    border: none;
+.physician-comment textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
     border-radius: 5px;
-    cursor: pointer;
+    border: 1px solid #ccc;
+    resize: none;
 }
 
-.save-button:hover {
-    background-color: #FF4500;
+.physician-comment textarea:disabled {
+    background-color: #f9f9f9;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    cursor: default;
+}
+
+textarea::placeholder {
+    color: #999;
+    font-style: italic;
 }
 
 .action-buttons {
     display: flex;
     justify-content: flex-end;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
-.action-buttons .save-button, .action-buttons .cancel-button {
+.action-buttons .save-button, .action-buttons .edit-button, .action-buttons .cancel-button {
     padding: 5px 10px;
-    background-color: #00CED1;
-    color: white;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
+    border: none;
 }
 
-.cancel-button {
-    background-color: #cccccc;
+.action-buttons .save-button {
+    background-color: #00CED1;
+    color: white;
+}
+
+.action-buttons .save-button:hover {
+    background-color: #FF4500;
+    color: white;
+}
+
+.action-buttons .edit-button {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.action-buttons .edit-button:hover {
+    background-color: #00CED1;
+    color: white;
+}
+
+.action-buttons .cancel-button {
+    background-color: #c0c0c0;
     color: #333333;
 }
 
-.cancel-button:hover {
+.action-buttons .cancel-button:hover {
     background-color: #999999;
     color: #ffffff;
 }
 
-.save-button {
-    margin-left: 10px;
+.ferightpanel {
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
-.save-button:hover:hover {
-    background-color: #FF4500;
+.calendar-section {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar {
+    width: 100%;
+    border: none;
+    font-family: Arial, sans-serif;
+    line-height: 1.125em;
+}
+
+.react-calendar__navigation button {
+    color: #333;
+    min-width: 44px;
+    background: none;
+    font-size: 16px;
+    margin-top: 8px;
+    border: none;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+    background-color: #e0e0e0;
+    border-radius: 6px;
+}
+
+.react-calendar__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.875em;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: #d10000;
+}
+
+.react-calendar__tile {
+    max-width: 100%;
+    padding: 10px 6.6667px;
+    background: none;
+    text-align: center;
+    line-height: 16px;
+    border: none;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+    background: #00ced1;
     color: white;
+    border-radius: 6px;
+}
+
+.react-calendar__tile--now {
+    background: #ffeb3b;
+    border-radius: 6px;
+    font-weight: bold;
+    color: black;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+    background: #ffeb3b;
+    color: black;
+}
+
+.react-calendar__tile--active {
+    background: #00ced1;
+    border-radius: 6px;
+    font-weight: bold;
+    color: white;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+    background: #00ced1;
+    color: white;
+}
+
+.ad-related-test-orders {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 600px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+}
+
+.ad-related-test-orders h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.ad-related-test-orders p {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+h2 {
+    font-size: 18px;
 }

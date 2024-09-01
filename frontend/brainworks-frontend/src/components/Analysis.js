@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Calendar from 'react-calendar';
 import './Analysis.css';
 import Modal from './Modal';
 import jsPDF from 'jspdf';
@@ -10,21 +11,21 @@ function Analysis() {
     const [mriRecords, setMriRecords] = useState([
         {
             id: 1,
-            date: '2023-06-15',
+            date: '04-Sep-2023',
             description: 'MRI Scan 1',
             image: '/mri_scan1.gif',
             analysis: { description: 'Non_Demented', confidence: 0.7813544273376465 }
         },
         {
             id: 2,
-            date: '2023-07-01',
+            date: '07-Feb-2024',
             description: 'MRI Scan 2',
             image: '/mri_scan2.gif',
             analysis: { description: 'Mild_Demented', confidence: 0.6423453487357645 }
         },
         {
             id: 3,
-            date: '2023-08-10',
+            date: '01-Aug-2024',
             description: 'MRI Scan 3',
             image: '/mri_scan3.gif',
             analysis: { description: 'Moderate_Demented', confidence: 0.8712434532837645 }
@@ -32,10 +33,15 @@ function Analysis() {
     ]);
 
     const [selectedAnalysis, setSelectedAnalysis] = useState(mriRecords[0].analysis);
+    const [selectedImage, setSelectedImage] = useState(mriRecords[0].image);
+    const [selectedDate, setSelectedDate] = useState(mriRecords[0].date);
+    const [selectedDateValue, setSelectedDateValue] = useState(new Date());
+    const [physicianComment, setPhysicianComment] = useState("");
+    const [isEditing, setIsEditing] = useState(true); // 처음에는 편집 가능 상태
 
     const location = useLocation();
     const navigate = useNavigate();
-    const { selectedPatient, previewUrl, userId } = location.state || {};
+    const { selectedPatient, userId } = location.state || {};
 
     const handleLogout = () => {
         setShowModal(true);
@@ -52,75 +58,56 @@ function Analysis() {
 
     const handleRecordClick = (record) => {
         setSelectedAnalysis(record.analysis);
-        navigate('/analysis', {
-            state: {
-                selectedPatient,
-                previewUrl: record.image,
-                userId,
-                analysis: record.analysis
-            }
-        });
+        setSelectedImage(record.image);
+        setSelectedDate(record.date);
     };
 
     const handleSave = () => {
-        if (!previewUrl) {
-            alert('No MRI scan selected to save.');
-            return;
-        }
-
-        const newRecord = {
-            id: mriRecords.length + 1,
-            date: new Date().toISOString().slice(0, 10),
-            description: `MRI Scan ${mriRecords.length + 1}`,
-            image: previewUrl,
-            analysis: {
-                description: 'Demented',
-                confidence: 0.9813544273376465
-            }
-        };
-
-        setMriRecords([...mriRecords, newRecord]);
+        setIsEditing(false);
     };
 
     const handleCancel = () => {
         navigate('/main');
     };
 
+    const handleEdit = () => {
+        setIsEditing(true);
+    };
+
     const downloadPDF = async () => {
         const doc = new jsPDF();
 
-        // PDF에 사용할 폰트를 설정합니다.
-        doc.setFont("MaruBuri-Light"); // 미리 로드된 폰트 사용
-        doc.setFontSize(12); // 폰트 크기 설정
-        doc.setTextColor(0, 0, 0); // 텍스트 색상을 검정색으로 설정
+        doc.setFont("MaruBuri-Light");
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);
 
-        // PDF 내용 작성
         doc.text("BrainWorks Analysis Report", 20, 20);
         doc.text(`Patient Name: ${selectedPatient}`, 20, 30);
         doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 40);
-        doc.text(`MRI Scan Description: ${mriRecords[mriRecords.length - 1].description}`, 20, 50);
-        doc.text(`Analysis: ${mriRecords[mriRecords.length - 1].analysis.description}`, 20, 60);
-        doc.text(`Confidence: ${mriRecords[mriRecords.length - 1].analysis.confidence}`, 20, 70);
+        doc.text(`MRI Scan Description: ${selectedDate}`, 20, 50);
+        doc.text(`Analysis: ${selectedAnalysis.description}`, 20, 60);
+        doc.text(`Confidence: ${selectedAnalysis.confidence}`, 20, 70);
 
-        // 이미지 추가
-        if (previewUrl) {
+        if (selectedImage) {
             const img = new Image();
-            img.src = previewUrl;
+            img.src = selectedImage;
             doc.addImage(img, 'JPEG', 20, 80, 160, 90);
         }
 
-        // 파일 이름 생성 및 PDF 저장
         const currentDate = new Date().toISOString().slice(0, 10);
         const fileName = `${selectedPatient}_${currentDate}.pdf`;
 
         doc.save(fileName);
     };
 
-    // This function will handle the navigation to the Patient List screen
     const handlePatientListClick = () => {
         navigate('/patient-list', {
-            state: { userId } // Pass the userId to the patient list page
+            state: { userId }
         });
+    };
+
+    const handleDateChange = (date) => {
+        setSelectedDateValue(date);
     };
 
     return (
@@ -141,14 +128,15 @@ function Analysis() {
                 <section className="left-panel">
                     <section className="patient-info">
                         <h2>Patient Information</h2>
-                        <p>ID: 12345</p>
-                        <p>Name: {selectedPatient}</p>
-                        <p>Department: Internal Medicine</p>
-                        <p>Date: 2023-07-12</p>
-                        <p>Diagnosis: Hypertension</p>
+                        <p>Patient Name: HAN, IUM</p>
+                        <p>Patient ID: 2408271</p>
+                        <p>Gender / Age: Female / 72</p>
+                        <p>Department: Neurology</p>
+                        <p>Date of Consultation: 01-Aug-2024</p>
+                        <p>Diagnosis: Alzheimer’s Disease</p>
                     </section>
 
-                    <section className="mri-records">
+                    <section className="radiology-records">
                         <h2>Previous MRI Records</h2>
                         <ul>
                             {mriRecords.map(record => (
@@ -163,19 +151,71 @@ function Analysis() {
                 <section className="right-panel">
                     <section className="image-display">
                         <h2>MRI Scan</h2>
-                        {previewUrl ? (
-                            <img src={previewUrl} alt="MRI Scan" />
+                        {selectedImage ? (
+                            <img src={selectedImage} alt="MRI Scan" />
                         ) : (
                             <p>No image selected.</p>
                         )}
                     </section>
-                    <section className="analysis-results">
-                        <h2>Analysis Results</h2>
-                        <p>Description: {selectedAnalysis.description}</p>
-                        <p>Confidence: {selectedAnalysis.confidence}</p>
+                    <div className="results-comments-container">
+                        <section className="ai-result">
+                            <h2>AI Result</h2>
+                            <p>Diagnosis: Alzheimer's Disease</p>
+                            <p>Accuracy: 0.963</p>
+                        </section>
+                        <section className="radiologist-comment">
+                            <h2>Radiologist Comment</h2>
+                            <p>Based on the MRI findings and the patient's clinical symptoms, a diagnosis of Alzheimer's disease is strongly suggested. The observed hippocampal and temporal lobe atrophy, ventricular enlargement, and white matter changes are consistent with typical imaging findings of Alzheimer's disease. Therefore, the patient is likely suffering from Alzheimer's disease, and further neuropsychological testing and treatment planning are recommended.</p>
+                        </section>
+                    </div>
+                    <section className="physician-comment">
+                        <h2>Ordering Physician Comment</h2>
+                        <textarea
+                            value={physicianComment}
+                            onChange={(e) => setPhysicianComment(e.target.value)}
+                            placeholder="Please enter comments."
+                            className={!isEditing ? "textarea-disabled" : ""}
+                            disabled={!isEditing}
+                        />
                         <div className="action-buttons">
-                            <button className="save-button" onClick={handleSave}>Save</button>
+                            {isEditing ? (
+                                <button className="save-button" onClick={handleSave}>Save</button>
+                            ) : (
+                                <button className="edit-button" onClick={handleEdit}>Edit</button>
+                            )}
                             <button className="cancel-button" onClick={handleCancel}>Cancel</button>
+                        </div>
+                    </section>
+                </section>
+
+                <section className="ferightpanel">
+                    <section className="calendar-section">
+                        <h2></h2>
+                        <Calendar
+                            onChange={handleDateChange}
+                            value={selectedDateValue}
+                            locale="en-US"
+                        />
+                    </section>
+
+                    <section className="ad-related-test-orders">
+                        <h2>AD related Test Orders</h2>
+                        <div className="ad-orders-content">
+                            <p>PET (Positron Emission Tomography)</p>
+                            <p>SPECT (Single Photon Emission Computed Tomography)</p>
+                            <p>EEG (Electroencephalogram)</p>
+                            <p>fMRI (Functional MRI)</p>
+                            <p>Neuropsychological Testing</p>
+                            <p>&gt; Mini-Mental State Examination (MMSE)</p>
+                            <p>&gt; Montreal Cognitive Assessment (MoCA)</p>
+                            <p>&gt; ADAS-Cog(Alzheimer’s Disease Assessment Scale-Cognitive Subscale)</p>
+                            <p>Blood Tests</p>
+                            <p>&gt; ApoE gene test</p>
+                            <p>&gt; Tau protein, beta amyloid</p>
+                            <p>&gt; Vit B12</p>
+                            <p>&gt; TFTs</p>
+                            <p>&gt; CPR, ESR</p>
+                            <p>Cerebrospinal Fluid Analysis</p>
                         </div>
                     </section>
                 </section>
