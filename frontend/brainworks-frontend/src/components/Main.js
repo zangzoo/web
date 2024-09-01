@@ -90,9 +90,9 @@ function Main() {
                     >
                         <option value="">Please select a patient.</option>
                         <option value="Han IUM">Han, IUM</option>
-                        <option value="Moon Soyeon">Moon Soyeon</option>
-                        <option value="Jang Jiwoo">Jang Jiwoo</option>
-                        <option value="Jo Chaeeun">Jo Chaeeun</option>
+                        <option value="Moon Soyeon">Moon, Soyeon</option>
+                        <option value="Jang Jiwoo">Jang, Jiwoo</option>
+                        <option value="Cho Chaeeun">Cho, Chaeeun</option>
                     </select>
 
                     {[0, 1].map(index => (
