@@ -47,11 +47,11 @@
 
 ## 👥 팀원 및 역할
 
-| <img src="https://github.com/likeeun.png" width="80" height="80"/> | <img src="https://github.com/0gonge.png" width="80" height="80"/> | <img src="https://github.com/dotz0ver.png" width="80" height="80"/> | <img src="https://github.com/zangzoo.png" width="80" height="80"/> |
+| <img src="https://github.com/likeeun.png" width="80" height="80"/> | <img src="https://github.com/dotz0ver.png" width="80" height="80"/> | <img src="https://github.com/0gonge.png" width="80" height="80"/> | <img src="https://github.com/zangzoo.png" width="80" height="80"/> |
 |:--:|:--:|:--:|:--:|
-| **조채은 (likeeun)** | **송여경 (0gonge)** | **문소연 (dotz0ver)** | **장지우 (zangzoo)** |
-| PM / AI | 프론트엔드 / AI | 백엔드 / AI | 백엔드 / AI |
-| [GitHub](https://github.com/likeeun) | [GitHub](https://github.com/0gonge) | [GitHub](https://github.com/dotz0ver) | [GitHub](https://github.com/zangzoo) |
+| **조채은** | **문소연** | **송여경** | **장지우** |
+| PM / AI | 백엔드 / AI | 프론트엔드 / AI | 백엔드 / AI |
+| [GitHub](https://github.com/likeeun) | [GitHub](https://github.com/dotz0ver) | [GitHub](https://github.com/0gonge) | [GitHub](https://github.com/zangzoo) |
 
 ---
 
