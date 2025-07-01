@@ -61,20 +61,6 @@
 
 ---
 
-## 📝 참고 논문 및 연구 연계
-
-본 프로젝트는 다음의 **학술 연구 성과**를 기반으로 개발되었습니다:
-
-- 🧾 **대한의료정보학회 발표 논문 (2024)**  
-  *A Deep Learning Model for Early Diagnosis of Alzheimer's Disease Using Multi-Slice MRI and Metadata Integration*  
-  [PDF 보기](https://drive.google.com/file/d/1dbiCpb2bz-N80J7KH8Wulh0q4p1TyCka/view?usp=drive_link)
-
-- 🥉 **ACK 한국정보처리학회 동상 수상 논문 (2024)**  
-  *Prognosis Prediction of Alzheimer's Disease: Multi-Horizon MMSE Prediction from MRI and Metadata*  
-  [PDF 보기](https://drive.google.com/file/d/1TAbvF0PwFMSDRorrUg6_eCjNLEYiTP4O/view?usp=drive_link)
-
----
-
 ## 🛠️ 설치 및 실행 방법
 
 ### 백엔드 실행
