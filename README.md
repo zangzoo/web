@@ -69,7 +69,7 @@
   *A Deep Learning Model for Early Diagnosis of Alzheimer's Disease Using Multi-Slice MRI and Metadata Integration*  
   [PDF 보기](https://drive.google.com/file/d/1dbiCpb2bz-N80J7KH8Wulh0q4p1TyCka/view?usp=drive_link)
 
-- 🥉 **2024 ACK 한국정보처리학회 동상 수상 논문**  
+- 🥉 **ACK 한국정보처리학회 동상 수상 논문 (2024)**  
   *Prognosis Prediction of Alzheimer's Disease: Multi-Horizon MMSE Prediction from MRI and Metadata*  
   [PDF 보기](https://drive.google.com/file/d/1TAbvF0PwFMSDRorrUg6_eCjNLEYiTP4O/view?usp=drive_link)
 
