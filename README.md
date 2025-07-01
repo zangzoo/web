@@ -65,7 +65,7 @@
 
 본 프로젝트는 다음의 **학술 연구 성과**를 기반으로 개발되었습니다:
 
-- 🧾 **의료정보학회 발표 논문 (2024)**  
+- 🧾 **대한의료정보학회 발표 논문 (2024)**  
   *A Deep Learning Model for Early Diagnosis of Alzheimer's Disease Using Multi-Slice MRI and Metadata Integration*  
   [PDF 보기](https://drive.google.com/file/d/1dbiCpb2bz-N80J7KH8Wulh0q4p1TyCka/view?usp=drive_link)
 
